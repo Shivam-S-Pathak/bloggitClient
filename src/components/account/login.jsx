@@ -142,7 +142,7 @@ const Login = ({ setIsAuthenticated }) => {
 
       <Box className={`${styles.box} ${isClicked ? styles.hide : ""}`}>
         <p className={styles.loginHeader}>Login Here</p>
-        <form action="" className={styles.from} onSubmit={loginSubmitHandler}>
+        <form action="POST" className={styles.from} onSubmit={loginSubmitHandler}>
           {success && (
             <Typography className={styles.successMsg}>{success}</Typography>
           )}
@@ -195,7 +195,7 @@ const Login = ({ setIsAuthenticated }) => {
 
       <Box className={`${styles.box1} ${isClicked ? styles.show : ""}`}>
         <p className={styles.loginHeader}>Sign up Here</p>
-        <form onSubmit={signupUser} className={styles.from}>
+        <form onSubmit={signupUser} className={styles.from} action="POST">
           <TextField
             label="Full name/Username"
             variant="filled"
