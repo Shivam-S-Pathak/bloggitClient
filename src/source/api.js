@@ -1,5 +1,6 @@
 import axios from "axios";
 import { API_MESSAGES, SERVICE_URLS } from "../constants/config.js";
+import signupUser, { loginUser } from "../../../server/controller/user-controller.js";
 const API_URL = "https://bloggit-server.vercel.app";
 // const API_URL = "http://localhost:9000";
 
@@ -73,28 +74,13 @@ const processError = (error) => {
 const API = {};
 
 for (const [key, value] of Object.entries(SERVICE_URLS)) {
-  API[key] = (body, showUploadProgress, showDownloadProgress) =>
+  API[key] = (body) =>
     axiosInstance({
       method: value.method,
       url: value.url,
       data: body,
       responseType: value.responseType,
-      onUploadProgress: function (progressEvent) {
-        if (showUploadProgress) {
-          let percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          showUploadProgress(percentCompleted);
-        }
-      },
-      onDownloadProgress: function (progressEvent) {
-        if (showDownloadProgress) {
-          let percentCompleted = Math.round(
-            (progressEvent.loaded * 100) / progressEvent.total
-          );
-          showDownloadProgress(percentCompleted);
-        }
-      },
+      
     });
 }
 
