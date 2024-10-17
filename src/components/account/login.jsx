@@ -38,7 +38,7 @@ const Login = ({ setIsAuthenticated }) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
   };
 
-  const signupUser = async (e) => {
+  const signupSubmitHandler = async (e) => {
     e.preventDefault();
 
     if (!signUp.username || !signUp.email || !signUp.password) {
@@ -50,7 +50,7 @@ const Login = ({ setIsAuthenticated }) => {
     setSuccess("");
 
     try {
-      let response = await API.usersignup(signUp);
+      let response = await API.signupUser(signUp);
 
       if (response.isSuccess) {
         setError("");
@@ -87,7 +87,7 @@ const Login = ({ setIsAuthenticated }) => {
     }
 
     try {
-      let response = await API.userlogin(login);
+      let response = await API.loginUser(login);
       if (response.isSuccess) {
         setError("");
         sessionStorage.setItem(
@@ -142,7 +142,7 @@ const Login = ({ setIsAuthenticated }) => {
 
       <Box className={`${styles.box} ${isClicked ? styles.hide : ""}`}>
         <p className={styles.loginHeader}>Login Here</p>
-        <form action="POST" className={styles.from} onSubmit={loginSubmitHandler}>
+        <form className={styles.from} onSubmit={loginSubmitHandler}>
           {success && (
             <Typography className={styles.successMsg}>{success}</Typography>
           )}
@@ -195,7 +195,7 @@ const Login = ({ setIsAuthenticated }) => {
 
       <Box className={`${styles.box1} ${isClicked ? styles.show : ""}`}>
         <p className={styles.loginHeader}>Sign up Here</p>
-        <form onSubmit={signupUser} className={styles.from} action="POST">
+        <form onSubmit={signupSubmitHandler} className={styles.from}>
           <TextField
             label="Full name/Username"
             variant="filled"

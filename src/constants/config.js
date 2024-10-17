@@ -26,6 +26,6 @@ export const API_MESSAGES = {
 // API service call
 
 export const SERVICE_URLS = {
-  usersignup: { url: "/signup", method: "POST" },
-  userlogin: {url: "/login" , method:"POST"}
+  loginUser: { method: "POST", url: "/login" }, 
+  signupUser: { method: "POST", url: "/signup" },
 };
