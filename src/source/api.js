@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_MESSAGES, SERVICE_URLS } from "../constants/config.js";
-const API_URL =
-  "https://bloggit-server-57gp5dmkb-shivam-pathaks-projects-3418c177.vercel.app"; // Use http if SSL is not set up
+const API_URL = "https://bloggit-server.vercel.app"; // Use http if SSL is not set up
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
