@@ -177,6 +177,7 @@ const Login = ({ setIsAuthenticated }) => {
           {loading ? (
             <Button
               variant="contained"
+              type="submit"
               sx={{
                 backgroundColor: "rgb(155, 8, 217)",
                 "&:focus": {
@@ -185,11 +186,7 @@ const Login = ({ setIsAuthenticated }) => {
               }}
               disabled
             >
-              {loading ? (
-                <Cliploader color="rgb(155, 8, 217)" size="1.5rem" />
-              ) : (
-                "submit"
-              )}
+              <Cliploader color="rgb(155, 8, 217)" size="1.5rem" />
             </Button>
           ) : (
             <Button
