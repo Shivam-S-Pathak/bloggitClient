@@ -82,11 +82,10 @@ const LandPage = () => {
             Discover a world of knowledge, inspiration, and growth.
           </Typography>
           <Box sx={{ mt: 4 }}>
-            {/* <Link to="/login"> */}
+            <Link to="/login">
               <Button
                 variant="contained"
                 size="large"
-                href="/signup"
                 sx={{
                   mr: 2,
                   backgroundColor: "rgb(155, 8, 217)",
@@ -101,12 +100,11 @@ const LandPage = () => {
               >
                 Sign Up for Exclusive Content
               </Button>
-            {/* </Link> */}
-            {/* <Link to="/login"> */}
+            </Link>
+            <Link to="/login">
               <Button
                 variant="outlined"
                 size="large"
-                href="/login"
                 sx={{
                   color: "rgb(155, 8, 217)",
                   borderColor: "rgb(155, 8, 217)",
@@ -122,7 +120,7 @@ const LandPage = () => {
               >
                 Log In
               </Button>
-            {/* </Link> */}
+            </Link>
           </Box>
         </Container>
 
@@ -330,7 +328,7 @@ const LandPage = () => {
             <Typography variant="h6" paragraph>
               Join our community of curious minds and lifelong learners.
             </Typography>
-            {/* <Link to="/login"> */}
+            <Link to="/login">
               <Button
                 variant="contained"
                 size="large"
@@ -340,11 +338,10 @@ const LandPage = () => {
                   color: "rgb(155, 8, 217)",
                   fontWeight: 550,
                 }}
-                href="/login"
               >
                 Get Started Now
               </Button>
-            {/* </Link> */}
+            </Link>
           </Container>
         </Box>
 

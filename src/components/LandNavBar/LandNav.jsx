@@ -41,14 +41,11 @@ const LandNav = () => {
             />
             BloggIT
           </Typography>
-          {/* <Link to="/login"> */}
-          <Button
-            sx={{ my: 2, color: "white", display: "block" }}
-            href="/login"
-          >
-            Login
-          </Button>
-          {/* </Link> */}
+          <Link to="/login">
+            <Button sx={{ my: 2, color: "white", display: "block" }}>
+              Login
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </Box>
