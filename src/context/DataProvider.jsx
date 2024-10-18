@@ -13,7 +13,7 @@ const DataProvider = ({ children }) => {
   });
 
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken"); // Change to localStorage
+    const accessToken = localStorage.getItem("accessToken");
     if (accessToken) {
       const fetchUserData = async () => {
         try {
@@ -27,7 +27,7 @@ const DataProvider = ({ children }) => {
           }
         } catch (error) {
           console.error("Failed to fetch user data:", error);
-          localStorage.removeItem("accessToken"); // Ensure consistency
+          localStorage.removeItem("accessToken");
         }
       };
 
