@@ -18,8 +18,7 @@ import About from "./components/AboutPage/About.jsx";
 import { useState, useEffect } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
-  const user = localStorage.getItem("user");
-  return isAuthenticated || user ? (
+  return isAuthenticated ? (
     <>
       <NavBar setIsAuthenticated={setIsAuthenticated} />
       <Outlet />
@@ -30,9 +29,11 @@ const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
 };
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(
-    !!localStorage.getItem("user")
-  );
+  const [isAuthenticated, setIsAuthenticated] = useState(() => {
+    const accessToken = localStorage.getItem("accessToken"); // Change to localStorage
+    return !!accessToken; // true if accessToken exists
+  });
+
   useEffect(() => {
     const handleWindowClose = (event) => {
       if (!event.persisted) {
@@ -40,12 +41,12 @@ function App() {
       }
     };
 
-    window.addEventListener("unload", handleWindowClose); // `unload` event for page close
+    window.addEventListener("unload", handleWindowClose);
 
     return () => {
       window.removeEventListener("unload", handleWindowClose);
     };
-  }, []); 
+  }, []);
 
   return (
     <>

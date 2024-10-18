@@ -1,20 +1,42 @@
-import { createContext, useState } from "react";
+import { createContext, useState, useEffect } from "react";
+import { API } from "../source/api.js";
 
 export const DataContext = createContext(null);
 
 const DataProvider = ({ children }) => {
-  const storedUser = JSON.parse(localStorage.getItem("user")) || {
-    username: "",
-    email: "",
-  };
-  const [account, setAccount] = useState(storedUser);
+  const [account, setAccount] = useState(() => {
+    const storedUser = JSON.parse(localStorage.getItem("user"));
+    return storedUser || {
+      username: "",
+      email: "",
+    };
+  });
+
+  useEffect(() => {
+    const accessToken = localStorage.getItem("accessToken"); // Change to localStorage
+    if (accessToken) {
+      const fetchUserData = async () => {
+        try {
+          const response = await API.getUserData(accessToken);
+
+          if (response.isSuccess) {
+            setAccount({
+              username: response.data.username,
+              email: response.data.email,
+            });
+          }
+        } catch (error) {
+          console.error("Failed to fetch user data:", error);
+          localStorage.removeItem("accessToken"); // Ensure consistency
+        }
+      };
+
+      fetchUserData();
+    }
+  }, [setAccount]);
+
   return (
-    <DataContext.Provider
-      value={{
-        account,
-        setAccount,
-      }}
-    >
+    <DataContext.Provider value={{ account, setAccount }}>
       {children}
     </DataContext.Provider>
   );
