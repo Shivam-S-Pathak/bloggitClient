@@ -1,7 +1,6 @@
 import axios from "axios";
-import { API_MESSAGES, SERVICE_URLS } from "../constants/config.js";
-export const API_URL = "https://bloggit-server.vercel.app";
-// const API_URL = "http://localhost:9000";
+import { API_MESSAGES, SERVICE_URLS, API_URL } from "../constants/config.js";
+
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
