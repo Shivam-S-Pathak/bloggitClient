@@ -94,6 +94,12 @@ const Login = ({ setIsAuthenticated }) => {
           "refreshToken",
           `Bearer ${response.data.refreshToken}`
         );
+        console.log("Access Token Stored:", accessToken); // Debug log
+        console.log(
+          "Access Token in localStorage:",
+          localStorage.getItem("accessToken")
+        ); // Debug log
+        console.log("After Login:", localStorage.getItem("accessToken"));
 
         setAccount({
           username: response.data.name,
