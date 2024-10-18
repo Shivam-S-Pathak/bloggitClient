@@ -13,7 +13,7 @@ import React from "react";
 import { DataContext } from "../../context/DataProvider.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import PacmanLoader from "react-spinners/PacmanLoader";
+import Cliploader from "react-spinners/Cliploader";
 
 const signUpVals = {
   username: "",
@@ -111,7 +111,11 @@ const Login = ({ setIsAuthenticated }) => {
         setLoading(false);
       }
     } catch (error) {
-      setLoginError("*Username or password is incorrect.");
+      if (error.code === 401) {
+        setLoginError("*Invalid username or password.");
+      } else {
+        setLoginError("*something went wrong, please try angain later.");
+      }
       setLoading(false);
     }
   };
@@ -170,15 +174,37 @@ const Login = ({ setIsAuthenticated }) => {
           {loginError && (
             <Typography className={styles.errorMsg}>{loginError}</Typography>
           )}
-          <Button
-            variant="contained"
-            type="submit"
-            sx={{
-              backgroundColor: "rgb(155, 8, 217)",
-            }}
-          >
-            {loading?<PacmanLoader />:"submit"}
-          </Button>
+          {loading ? (
+            <Button
+              variant="contained"
+              sx={{
+                backgroundColor: "rgb(155, 8, 217)",
+                "&:focus": {
+                  outline: "none",
+                },
+              }}
+              disabled
+            >
+              {loading ? (
+                <Cliploader color="rgb(155, 8, 217)" size="1.5rem" />
+              ) : (
+                "submit"
+              )}
+            </Button>
+          ) : (
+            <Button
+              variant="contained"
+              type="submit"
+              sx={{
+                backgroundColor: "rgb(155, 8, 217)",
+                "&:focus": {
+                  outline: "none",
+                },
+              }}
+            >
+              submit
+            </Button>
+          )}
         </form>
         <Typography className={styles.text} variant="h5" component="h2">
           OR
