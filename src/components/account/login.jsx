@@ -1,10 +1,4 @@
-import {
-  TextField,
-  Button,
-  Box,
-  Typography,
-  LinearProgress,
-} from "@mui/material";
+import { TextField, Button, Box, Typography } from "@mui/material";
 import styles from "./login.module.css";
 import { useState, useContext } from "react";
 import { API } from "../../source/api.js";
@@ -111,8 +105,10 @@ const Login = ({ setIsAuthenticated }) => {
         setLoading(false);
       }
     } catch (error) {
-      if (error.code === 401) {
+      if (error?.code === 401) {
         setLoginError("*Invalid username or password.");
+      } else if (error?.code === 400) {
+        setLoginError("*Wrong username or password.");
       } else {
         setLoginError("*something went wrong, please try angain later.");
       }
