@@ -1,5 +1,5 @@
 // API messages
-
+const API_URL = "https://bloggit-server.vercel.app";
 export const API_MESSAGES = {
   loading: {
     title: "loading...",
@@ -26,6 +26,6 @@ export const API_MESSAGES = {
 // API service call
 
 export const SERVICE_URLS = {
-  loginUser: { method: "POST", url: "/login" }, 
-  signupUser: { method: "POST", url: "/signup" },
+  loginUser: { method: "POST", url: `${API_URL}/login` }, 
+  signupUser: { method: "POST", url: `${API_URL}/signup` },
 };
