@@ -13,7 +13,7 @@ import React from "react";
 import { DataContext } from "../../context/DataProvider.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
-import Cliploader from "react-spinners/Cliploader";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const signUpVals = {
   username: "",
@@ -186,7 +186,7 @@ const Login = ({ setIsAuthenticated }) => {
               }}
               disabled
             >
-              <Cliploader color="rgb(155, 8, 217)" size="1.5rem" />
+              <ClipLoader color="rgb(155, 8, 217)" size="1.5rem" />
             </Button>
           ) : (
             <Button
