@@ -5,7 +5,7 @@ const API_URL = "https://bloggit-server.vercel.app";
 
 const axiosInstance = axios.create({
   baseURL: API_URL,
-  timeout: 10000,
+  timeout: 50000,
   headers: {
     "content-type": "application/json",
   },

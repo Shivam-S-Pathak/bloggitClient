@@ -13,6 +13,7 @@ import React from "react";
 import { DataContext } from "../../context/DataProvider.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
+import PacmanLoader from "react-spinners/PacmanLoader";
 
 const signUpVals = {
   username: "",
@@ -77,6 +78,7 @@ const Login = ({ setIsAuthenticated }) => {
   const onValueChange = (e) => {
     setLogin({ ...login, [e.target.name]: e.target.value });
   };
+  const [loading, setLoading] = useState(false);
 
   const loginSubmitHandler = async (e) => {
     e.preventDefault();
@@ -85,7 +87,7 @@ const Login = ({ setIsAuthenticated }) => {
       setLoginError("*All fields are required.");
       return;
     }
-
+    setLoading(true);
     try {
       let response = await API.loginUser(login);
       if (response.isSuccess) {
@@ -106,9 +108,11 @@ const Login = ({ setIsAuthenticated }) => {
         localStorage.setItem("user", JSON.stringify(response.data));
         setIsAuthenticated(true);
         navigate("/home");
+        setLoading(false);
       }
     } catch (error) {
       setLoginError("*Username or password is incorrect.");
+      setLoading(false);
     }
   };
 
@@ -173,7 +177,7 @@ const Login = ({ setIsAuthenticated }) => {
               backgroundColor: "rgb(155, 8, 217)",
             }}
           >
-            Submit
+            {loading?<PacmanLoader />:"submit"}
           </Button>
         </form>
         <Typography className={styles.text} variant="h5" component="h2">
