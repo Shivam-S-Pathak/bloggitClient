@@ -27,6 +27,7 @@ export const API_MESSAGES = {
 // API service call
 
 export const SERVICE_URLS = {
-  loginUser: { method: "POST", url: `${API_URL}/login` }, 
+  loginUser: { method: "POST", url: `${API_URL}/login` },
   signupUser: { method: "POST", url: `${API_URL}/signup` },
+  getUserData: { method: "GET", url: `${API_URL}/user` },
 };

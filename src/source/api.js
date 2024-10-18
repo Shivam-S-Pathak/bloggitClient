@@ -1,7 +1,6 @@
 import axios from "axios";
 import { API_MESSAGES, SERVICE_URLS, API_URL } from "../constants/config.js";
 
-
 const axiosInstance = axios.create({
   baseURL: API_URL,
   timeout: 50000,
@@ -96,5 +95,18 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
       },
     });
 }
+
+API.getUserData = async (token) => {
+  try {
+    const response = await axiosInstance.get(SERVICE_URLS.getUserData.url, {
+      headers: {
+        Authorization: token,
+      },
+    });
+    return processResponse(response);
+  } catch (error) {
+    return processError(error);
+  }
+};
 
 export { API };
