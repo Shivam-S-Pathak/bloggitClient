@@ -71,10 +71,14 @@ const processError = (error) => {
 const API = {};
 
 for (const [key, value] of Object.entries(SERVICE_URLS)) {
-  API[key] = (body, showUploadProgress, showDownloadProgress) =>
-    axiosInstance({
+  API[key] = (body, showUploadProgress, showDownloadProgress) => {
+    const token = localStorage.getItem("accessToken"); // Get the token from local storage
+    return axiosInstance({
       method: value.method,
       url: value.url,
+      headers: {
+        Authorization: token ? `Bearer ${token}` : "", // Include the access token
+      },
       data: body,
       responseType: value.responseType,
       onUploadProgress: function (progressEvent) {
@@ -94,7 +98,8 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
         }
       },
     });
-}
+  };
+} 
 
 API.getUserData = async (token) => {
   try {
