@@ -14,11 +14,12 @@ const DataProvider = ({ children }) => {
     );
   });
   useEffect(() => {
-    const accessToken = localStorage.getItem("accessToken");
+    const accessToken = localStorage.getItem("accessToken"); 
     if (accessToken) {
       const fetchUserData = async () => {
         try {
-          const response = await API.getUserData(); // Call the function you defined
+          const response = await API.getUserData(accessToken);
+
           if (response.isSuccess) {
             setAccount({
               username: response.data.username,
