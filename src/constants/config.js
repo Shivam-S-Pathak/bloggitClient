@@ -1,6 +1,6 @@
 // API messages
 export const API_URL = "https://bloggit-server.vercel.app";
-// const API_URL = "http://localhost:9000";
+// export const API_URL = "http://localhost:9000";
 export const API_MESSAGES = {
   loading: {
     title: "loading...",

@@ -86,20 +86,14 @@ const Login = ({ setIsAuthenticated }) => {
       let response = await API.loginUser(login);
       if (response.isSuccess) {
         setError("");
-        localStorage.setItem(
+        sessionStorage.setItem(
           "accessToken",
           `Bearer ${response.data.accessToken}`
         );
-        localStorage.setItem(
+        sessionStorage.setItem(
           "refreshToken",
           `Bearer ${response.data.refreshToken}`
         );
-        console.log("Access Token Stored:", accessToken); // Debug log
-        console.log(
-          "Access Token in localStorage:",
-          localStorage.getItem("accessToken")
-        ); // Debug log
-        console.log("After Login:", localStorage.getItem("accessToken"));
 
         setAccount({
           username: response.data.name,
