@@ -30,9 +30,10 @@ const DataProvider = ({ children }) => {
           localStorage.removeItem("accessToken"); // Ensure consistency
         }
       };
-  
+
       fetchUserData();
     }
+  }, [setAccount]);
 
   return (
     <DataContext.Provider value={{ account, setAccount }}>
