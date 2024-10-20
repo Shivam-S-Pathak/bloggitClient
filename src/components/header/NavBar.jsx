@@ -11,17 +11,36 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import RateReviewIcon from "@mui/icons-material/RateReview";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider.jsx";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Logout } from "@mui/icons-material";
 
 const pages = ["Home", "About", "Contact"];
 const settings = ["Profile", "Account", "Dashboard"];
-const NavBar = ({ setIsAuthenticated }) => {
+const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const { account, setAccount } = useContext(DataContext);
   const [anchorElNav, setAnchorElNav] = React.useState(null);
   const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    if (isAuthenticated) {
+      const user = sessionStorage.getItem("user");
+
+      if (user) {
+        const parsedUser = JSON.parse(user);
+
+        if (parsedUser?.name && parsedUser?.email) {
+          setAccount({
+            username: parsedUser.name,
+            email: parsedUser.email,
+          });
+        }
+      }
+    }
+  }, [isAuthenticated, setAccount]);
 
   const handleOpenNavMenu = (event) => {
     setAnchorElNav(event.currentTarget);
@@ -179,13 +198,18 @@ const NavBar = ({ setIsAuthenticated }) => {
                   </Link>
                 </MenuItem>
               ))}
-              <Link to="/">
-                <MenuItem>
-                  <Typography sx={{ textAlign: "center", color: "black" }}>
-                    Logout
-                  </Typography>
-                </MenuItem>
-              </Link>
+
+              <MenuItem
+                onClick={() => {
+                  localStorage.clear();
+                  sessionStorage.clear();
+                  navigate("/")
+                }}
+              >
+                <Typography sx={{ textAlign: "center", color: "black" }}>
+                  Logout
+                </Typography>
+              </MenuItem>
             </Menu>
           </Box>
         </Toolbar>

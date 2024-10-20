@@ -1,3 +1,50 @@
-.homefont{
-    color: black;
+.blogContainer {
+  display: flex;
+  justify-content: center; 
+  align-items: flex-start; 
+  gap: 2rem; 
+  height: 100vh;
 }
+
+.filterContainer {
+  position: sticky;
+  top: 0;
+  height:auto; 
+  padding-right: 1rem;
+  text-wrap: nowrap;
+  
+}
+
+.contentContainer {
+    padding-top: 1rem;
+  flex-grow: 1;
+  height: 100vh;
+  overflow: scroll;
+  padding-right: 1rem;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-start; 
+  height: 48px;
+}
+
+.contentContainer::-webkit-scrollbar {
+  width: 0;
+}
+
+.contentContainer::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+.contentContainer::-webkit-scrollbar-thumb {
+
+  background-color: #3d2e43;
+  border-radius: 10px;
+}
+
+.contentContainer::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+

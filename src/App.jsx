@@ -20,7 +20,10 @@ import { useState, useEffect } from "react";
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
   return isAuthenticated ? (
     <>
-      <NavBar setIsAuthenticated={setIsAuthenticated} />
+      <NavBar
+        setIsAuthenticated={setIsAuthenticated}
+        isAuthenticated={isAuthenticated}
+      />
       <Outlet />
     </>
   ) : (
@@ -29,24 +32,8 @@ const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
 };
 
 function App() {
-  const [isAuthenticated, setIsAuthenticated] = useState(() => {
-    const accessToken = localStorage.getItem("accessToken"); // Change to localStorage
-    return !!accessToken; // true if accessToken exists
-  });
-
-  useEffect(() => {
-    const handleWindowClose = (event) => {
-      if (!event.persisted) {
-        localStorage.removeItem("user"); // Remove user only when window is actually closing
-      }
-    };
-
-    window.addEventListener("unload", handleWindowClose);
-
-    return () => {
-      window.removeEventListener("unload", handleWindowClose);
-    };
-  }, []);
+  const aT = sessionStorage.getItem("user");
+  const [isAuthenticated, setIsAuthenticated] = useState(aT ? true : false);
 
   return (
     <>
@@ -59,7 +46,7 @@ function App() {
               element={<Login setIsAuthenticated={setIsAuthenticated} />}
             />
             <Route
-              path="/"
+              path=""
               element={
                 <PrivateRoute
                   isAuthenticated={isAuthenticated}

@@ -86,20 +86,12 @@ const Login = ({ setIsAuthenticated }) => {
       let response = await API.loginUser(login);
       if (response.isSuccess) {
         setError("");
-        sessionStorage.setItem(
-          "accessToken",
-          `Bearer ${response.data.accessToken}`
-        );
-        sessionStorage.setItem(
-          "refreshToken",
-          `Bearer ${response.data.refreshToken}`
-        );
 
         setAccount({
           username: response.data.name,
           email: response.data.email,
         });
-        localStorage.setItem("user", JSON.stringify(response.data));
+        sessionStorage.setItem("user", JSON.stringify(response.data));
         setIsAuthenticated(true);
         navigate("/home");
         setLoading(false);
