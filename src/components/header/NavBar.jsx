@@ -1,4 +1,4 @@
-import * as React from "react";
+import React from "react";
 import AppBar from "@mui/material/AppBar";
 import Box from "@mui/material/Box";
 import Toolbar from "@mui/material/Toolbar";
@@ -8,22 +8,32 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-import Tooltip from "@mui/material/Tooltip";
+
 import MenuItem from "@mui/material/MenuItem";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import { Link, useNavigate } from "react-router-dom";
 import { DataContext } from "../../context/DataProvider.jsx";
-import { useContext, useEffect } from "react";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { useContext, useEffect, useState } from "react";
 import { Logout } from "@mui/icons-material";
+import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
+import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 
 const pages = ["Home", "About", "Contact"];
 const settings = ["Profile", "Account", "Dashboard"];
 const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const { account, setAccount } = useContext(DataContext);
-  const [anchorElNav, setAnchorElNav] = React.useState(null);
-  const [anchorElUser, setAnchorElUser] = React.useState(null);
+  const [anchorElNav, setAnchorElNav] = useState(null);
+  const [anchorElUser, setAnchorElUser] = useState(null);
+  const [expanded, setExpanded] = useState(false);
   const navigate = useNavigate();
+  const handleAccordionToggle = () => {
+    setExpanded(!expanded);
+  };
+  const handleLogout = () => {
+    localStorage.clear();
+    sessionStorage.clear();
+    navigate("/");
+  };
 
   useEffect(() => {
     if (isAuthenticated) {
@@ -61,156 +71,174 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
     <AppBar
       sx={{
         backgroundColor: "rgb(155, 8, 217)",
+        transition: "height 0.3s ease",
       }}
     >
       <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <RateReviewIcon sx={{ display: { xs: "none", md: "flex" }, mr: 1 }} />
-          <Link to="/home">
+        <Toolbar
+          disableGutters
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            alignItems: "flex-start",
+            padding: "0",
+          }}
+        >
+          <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+            <RateReviewIcon
+              sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+            />
+            <Link to="/home">
+              <Typography
+                variant="h6"
+                noWrap
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "white",
+                  textDecoration: "none",
+                }}
+              >
+                BloggIT
+              </Typography>
+            </Link>
+
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+              <IconButton
+                size="large"
+                aria-label="account of current user"
+                aria-controls="menu-appbar"
+                aria-haspopup="true"
+                onClick={handleOpenNavMenu}
+                color="inherit"
+              >
+                <MenuIcon />
+              </IconButton>
+              <Menu
+                id="menu-appbar"
+                anchorEl={anchorElNav}
+                anchorOrigin={{
+                  vertical: "bottom",
+                  horizontal: "left",
+                }}
+                keepMounted
+                transformOrigin={{
+                  vertical: "top",
+                  horizontal: "left",
+                }}
+                open={Boolean(anchorElNav)}
+                onClose={handleCloseNavMenu}
+                sx={{ display: { xs: "block", md: "none" } }}
+              >
+                {pages.map((page) => (
+                  <Link to={`/${page.toLowerCase()}`} key={page}>
+                    <Button
+                      onClick={handleCloseNavMenu}
+                      sx={{ my: 2, color: "black", display: "block" }}
+                    >
+                      {page}
+                    </Button>
+                  </Link>
+                ))}
+              </Menu>
+            </Box>
+
             <Typography
-              variant="h6"
+              variant="h5"
               noWrap
               sx={{
                 mr: 2,
-                display: { xs: "none", md: "flex" },
+                display: { xs: "flex", md: "none" },
+                flexGrow: 1,
                 fontFamily: "monospace",
                 fontWeight: 700,
                 letterSpacing: ".3rem",
-                color: "white",
+                color: "inherit",
                 textDecoration: "none",
               }}
             >
-              BloggIT
+              BlogIT
             </Typography>
-          </Link>
 
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{ display: { xs: "block", md: "none" } }}
-            >
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
               {pages.map((page) => (
-                <Link to={`/${page.toLowerCase()}`}>
+                <Link to={`/${page.toLowerCase()}`} key={page}>
                   <Button
-                    key={page}
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "black", display: "block" }}
+                    sx={{ my: 2, color: "white", display: "block" }}
                   >
                     {page}
                   </Button>
                 </Link>
               ))}
-            </Menu>
+            </Box>
           </Box>
 
-          <Typography
-            variant="h5"
-            noWrap
+          <Box
             sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
+              flexGrow: 0,
+              position: "relative",
+              padding: "0.5rem 0 0 0",
+              margin: "0",
             }}
           >
-            BlogIT
-          </Typography>
-
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Link to={`/${page.toLowerCase()}`}>
-                <Button
-                  key={page}
-                  onClick={handleCloseNavMenu}
-                  sx={{ my: 2, color: "white", display: "block" }}
-                >
-                  {page}
-                </Button>
-              </Link>
-            ))}
-          </Box>
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Button
-                  variant="contained"
-                  sx={{
-                    backgroundColor: "white",
-                    color: "rgb(155, 8, 217)",
-                    textTransform: "capitalize",
-                    fontSize: "1.1rem",
-                    borderRadius: "2rem",
-                  }}
+            <Accordion
+              expanded={expanded}
+              onChange={handleAccordionToggle}
+              sx={{
+                borderRadius: "16px",
+                overflow: "hidden",
+                width: "100%",
+                margin: "0",
+                padding: "0",
+              }}
+            >
+              <AccordionSummary
+                expandIcon={
+                  <ExpandMoreIcon
+                    sx={{
+                      color: "rgb(155, 8, 217)",
+                      margin: "0",
+                      padding: "0",
+                    }}
+                  />
+                }
+                aria-controls="panel1a-content"
+                id="panel1a-header"
+                sx={{ padding: "0px 20px", margin: 0 }}
+              >
+                <Typography
+                  variant="h6"
+                  sx={{ color: "rgb(155, 8, 217)", margin: "0" }}
                 >
                   {account.username}
-                  <ExpandMoreIcon />
-                </Button>
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Link to={`/${setting.toLowerCase()}`}>
-                    <Typography sx={{ textAlign: "center", color: "black" }}>
-                      {setting}
-                    </Typography>
-                  </Link>
-                </MenuItem>
-              ))}
-
-              <MenuItem
-                onClick={() => {
-                  localStorage.clear();
-                  sessionStorage.clear();
-                  navigate("/")
-                }}
-              >
-                <Typography sx={{ textAlign: "center", color: "black" }}>
-                  Logout
                 </Typography>
-              </MenuItem>
-            </Menu>
+              </AccordionSummary>
+
+              <AccordionDetails>
+                {settings.map((setting) => (
+                  <MenuItem key={setting} onClick={handleAccordionToggle}>
+                    <Link
+                      to={`/${setting.toLowerCase()}`}
+                      style={{ textDecoration: "none" }}
+                    >
+                      <Typography sx={{ textAlign: "center", color: "black" }}>
+                        {setting}
+                      </Typography>
+                    </Link>
+                  </MenuItem>
+                ))}
+
+                <MenuItem onClick={handleLogout}>
+                  <Typography sx={{ textAlign: "center", color: "black" }}>
+                    Logout
+                  </Typography>
+                </MenuItem>
+              </AccordionDetails>
+            </Accordion>
           </Box>
         </Toolbar>
       </Container>

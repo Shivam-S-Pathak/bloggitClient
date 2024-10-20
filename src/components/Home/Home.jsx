@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import styles from "./Home.module.css";
 import { DataContext } from "../../context/DataProvider.jsx";
 import {
@@ -87,6 +87,25 @@ const categories = ["Technology", "Travel", "Food", "Health", "Entertainment"];
 const Home = () => {
   const { account } = useContext(DataContext);
   const [selectedCategories, setSelectedCategories] = useState([]);
+  const [isMobileView, setIsMobileView] = useState(false);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth <= 750) {
+        setIsMobileView(true);
+      } else {
+        setIsMobileView(false);
+      }
+    };
+
+    handleResize();
+
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
 
   const handleCategoryToggle = (category) => {
     setSelectedCategories((prev) =>
@@ -103,17 +122,24 @@ const Home = () => {
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4, marginTop: "3rem" }}>
-      <Box className={styles.buttonContainer} mb={2}>
-        <Button
-          variant="contained"
-          sx={{ bgcolor: "#AFE3C0", color: "black", width: "11.5rem" }}
-          startIcon={<AddIcon />}
-        >
-          Create Blog
-        </Button>
-      </Box>
-      <div className={styles.blogContainer}>
-        <div className={styles.filterContainer}>
+      <div
+        className={styles.blogContainer}
+        style={{
+          display: "flex",
+          flexDirection: isMobileView ? "column" : "row",
+        }}
+      >
+        <div className={styles.allBtnContainer}>
+          <Box className={styles.buttonContainer} mb={2}>
+            <Button
+              variant="contained"
+              sx={{ bgcolor: "#AFE3C0", color: "black", width: "11.5rem" }}
+              startIcon={<AddIcon />}
+            >
+              Create Blog
+            </Button>
+          </Box>
+          {/* <div className={styles.filterContainer}> */}
           <Grid item xs={12} md={3}>
             <Accordion
               sx={{
@@ -169,6 +195,7 @@ const Home = () => {
               </AccordionDetails>
             </Accordion>
           </Grid>
+          {/* </div> */}
         </div>
 
         <div className={styles.contentContainer}>
@@ -180,12 +207,15 @@ const Home = () => {
                   sx={{
                     mb: 3,
                     borderRadius: "1rem",
+                    bgcolor: "#FEFDFF",
+                    boxShadow: "0px 2px 1px 1px rgb(155, 8, 217)",
+                    cursor: "pointer",
                     transition:
                       "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                     "&:hover": {
                       transform: "translateY(-8px)",
-                      boxShadow: 10,
-                      backgroundColor: "white",
+                      boxShadow: "2px 4px 10px 2.5px rgb(155, 8, 217)",
+                      color: "rgb(155, 8, 217)",
                     },
                   }}
                 >
@@ -193,9 +223,7 @@ const Home = () => {
                     <Typography gutterBottom variant="h5" component="div">
                       {blog.title}
                     </Typography>
-                    <Typography variant="body2" color="text.secondary">
-                      {blog.description}
-                    </Typography>
+                    <Typography variant="body2">{blog.description}</Typography>
                     <Box
                       display="flex"
                       justifyContent="space-between"
@@ -203,21 +231,17 @@ const Home = () => {
                       mt={2}
                     >
                       <Box>
-                        <Typography variant="body2" color="text.secondary">
+                        <Typography variant="body2">
                           By {blog.author}
                         </Typography>
-                        <Typography
-                          variant="caption"
-                          color="text.secondary"
-                          display="block"
-                        >
+                        <Typography variant="caption" display="block">
                           {blog.timestamp} • {blog.readTime}
                         </Typography>
                       </Box>
                       <Chip
                         label={blog.category}
                         size="small"
-                        sx={{ bgcolor: "" }}
+                        sx={{ bgcolor: "rgb(155, 8, 217)", color: "white" }}
                       />
                     </Box>
                   </CardContent>
