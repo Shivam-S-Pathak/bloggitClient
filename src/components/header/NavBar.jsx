@@ -181,8 +181,15 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
             sx={{
               flexGrow: 0,
               position: "relative",
-              padding: "0.5rem 0 0 0",
-              margin: "0",
+              margin: "0.5rem 0 0.5rem 0",
+              bgcolor: "aqua",
+              overflow: "hidden",
+              borderRadius: "1.5rem",
+              width: "200px",
+              transition: "all 0.3s ease-in-out",
+              "&:hover": {
+                borderRadius: "0",
+              },
             }}
           >
             <Accordion
@@ -191,9 +198,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
               sx={{
                 borderRadius: "16px",
                 overflow: "hidden",
-                width: "100%",
-                margin: "0",
-                padding: "0",
+                textWrap: "nowrap",
               }}
             >
               <AccordionSummary
@@ -232,9 +237,26 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                   </MenuItem>
                 ))}
 
-                <MenuItem onClick={handleLogout}>
-                  <Typography sx={{ textAlign: "center", color: "black" }}>
-                    Logout
+                <MenuItem
+                  onClick={handleLogout}
+                  sx={{
+                    bgcolor: "#c918f9",
+                    color: "white",
+                    borderRadius: "0.5rem",
+                    "&:hover": {
+                      bgcolor: "#ff0000",
+                    },
+                  }}
+                >
+                  <Typography
+                    sx={{
+                      textAlign: "center",
+                      display: "flex",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Logout sx={{ margin: "0 0.4rem 0 0" }} />
+                    logout
                   </Typography>
                 </MenuItem>
               </AccordionDetails>

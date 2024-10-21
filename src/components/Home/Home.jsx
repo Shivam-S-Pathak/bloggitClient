@@ -1,5 +1,6 @@
 import React, { useContext, useEffect, useState } from "react";
 import styles from "./Home.module.css";
+import Post from "./Post.jsx";
 import { DataContext } from "../../context/DataProvider.jsx";
 import {
   Button,
@@ -18,6 +19,8 @@ import Grid from "@mui/material/Grid2";
 import { Add as AddIcon } from "@mui/icons-material";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { Link } from "react-router-dom";
+import { API } from "../../source/api.js";
 
 const blogs = [
   {
@@ -115,10 +118,7 @@ const Home = () => {
     );
   };
 
-  const filteredBlogs =
-    selectedCategories.length > 0
-      ? blogs.filter((blog) => selectedCategories.includes(blog.category))
-      : blogs;
+  
 
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4, marginTop: "3rem" }}>
@@ -131,13 +131,15 @@ const Home = () => {
       >
         <div className={styles.allBtnContainer}>
           <Box className={styles.buttonContainer} mb={2}>
-            <Button
-              variant="contained"
-              sx={{ bgcolor: "#AFE3C0", color: "black", width: "11.5rem" }}
-              startIcon={<AddIcon />}
-            >
-              Create Blog
-            </Button>
+            <Link to="/createblog">
+              <Button
+                variant="contained"
+                sx={{ bgcolor: "#AFE3C0", color: "black", width: "11.5rem" }}
+                startIcon={<AddIcon />}
+              >
+                Create Blog
+              </Button>
+            </Link>
           </Box>
           {/* <div className={styles.filterContainer}> */}
           <Grid item xs={12} md={3}>
@@ -199,56 +201,7 @@ const Home = () => {
         </div>
 
         <div className={styles.contentContainer}>
-          <Grid item xs={12} md={9}>
-            <Box>
-              {filteredBlogs.map((blog) => (
-                <Card
-                  key={blog.id}
-                  sx={{
-                    mb: 3,
-                    borderRadius: "1rem",
-                    bgcolor: "#FEFDFF",
-                    boxShadow: "0px 2px 1px 1px rgb(155, 8, 217)",
-                    cursor: "pointer",
-                    transition:
-                      "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
-                    "&:hover": {
-                      transform: "translateY(-8px)",
-                      boxShadow: "2px 4px 10px 2.5px rgb(155, 8, 217)",
-                      color: "rgb(155, 8, 217)",
-                    },
-                  }}
-                >
-                  <CardContent>
-                    <Typography gutterBottom variant="h5" component="div">
-                      {blog.title}
-                    </Typography>
-                    <Typography variant="body2">{blog.description}</Typography>
-                    <Box
-                      display="flex"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      mt={2}
-                    >
-                      <Box>
-                        <Typography variant="body2">
-                          By {blog.author}
-                        </Typography>
-                        <Typography variant="caption" display="block">
-                          {blog.timestamp} • {blog.readTime}
-                        </Typography>
-                      </Box>
-                      <Chip
-                        label={blog.category}
-                        size="small"
-                        sx={{ bgcolor: "rgb(155, 8, 217)", color: "white" }}
-                      />
-                    </Box>
-                  </CardContent>
-                </Card>
-              ))}
-            </Box>
-          </Grid>
+          <Post selectedCategories={selectedCategories}/>
         </div>
       </div>
     </Container>

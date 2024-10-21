@@ -29,4 +29,6 @@ export const API_MESSAGES = {
 export const SERVICE_URLS = {
   loginUser: { method: "POST", url: `${API_URL}/login` },
   signupUser: { method: "POST", url: `${API_URL}/signup` },
+  createBlog: { method: "POST", url: `${API_URL}/createblog` },
+  getAllBlogs: { url: "GET", url: "/posts" },
 };

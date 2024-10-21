@@ -3,9 +3,10 @@
   height: 100vh;
 }
 .contentContainer {
-  padding: 0 1rem 1rem 0;
+  padding: 1rem 1rem 1rem 1rem;
   margin: 1rem 0 0 0;
   overflow-y: scroll;
+  width:60rem;
 
 }
 
@@ -25,7 +26,8 @@
 }
 
 .contentContainer::-webkit-scrollbar-track {
-  background: #f1f1f1;
+  /* background: #f1f1f1; */
+  background: #c918f9;
 }
 
 .contentContainer::-webkit-scrollbar-thumb {

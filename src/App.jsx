@@ -15,6 +15,7 @@ import NavBar from "./components/header/NavBar.jsx";
 import LandPage from "./components/landingPage/LandPage.jsx";
 import Contact from "./components/contactPage/Contact.jsx";
 import About from "./components/AboutPage/About.jsx";
+import CreateBlog from "./components/blog/CreateBlog.jsx";
 import { useState, useEffect } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -57,6 +58,7 @@ function App() {
               <Route path="/home" element={<Home />} />
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
+              <Route path="/createblog" element={<CreateBlog />} />
             </Route>
           </Routes>
         </BrowserRouter>
