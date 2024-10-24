@@ -22,69 +22,6 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Link } from "react-router-dom";
 import { API } from "../../source/api.js";
 
-const blogs = [
-  {
-    id: 1,
-    title: "The Future of Artificial Intelligence",
-    description:
-      "Exploring the potential impacts of AI on various industries and our daily lives. From self-driving cars to advanced medical diagnostics, AI is set to revolutionize the way we live and work.",
-    category: "Technology",
-    author: "Shivam",
-    timestamp: "2 days ago",
-    readTime: "5 min read",
-  },
-  {
-    id: 2,
-    title: "Hidden Gems of Southeast Asia",
-    description:
-      "Discover the lesser-known wonders of Southeast Asia. From secluded beaches in Thailand to ancient temples in Cambodia, this blog post takes you on a journey through the region's best-kept secrets.",
-    category: "Travel",
-    author: "Ujjwal",
-    timestamp: "1 week ago",
-    readTime: "7 min read",
-  },
-  {
-    id: 3,
-    title: "Farm-to-Table: A Culinary Revolution",
-    description:
-      "Explore the growing trend of farm-to-table dining and its impact on local communities and sustainable agriculture. Learn how to incorporate fresh, locally-sourced ingredients into your own cooking.",
-    category: "Food",
-    author: "Nilay",
-    timestamp: "3 days ago",
-    readTime: "6 min read",
-  },
-  {
-    id: 4,
-    title: "Mindfulness and Mental Health",
-    description:
-      "Discover the powerful connection between mindfulness practices and improved mental health. This comprehensive guide offers practical tips for incorporating mindfulness into your daily routine.",
-    category: "Health",
-    author: "Ayush",
-    timestamp: "5 hours ago",
-    readTime: "8 min read",
-  },
-  {
-    id: 5,
-    title: "The Rise of Quantum Computing",
-    description:
-      "Delve into the world of quantum computing and its potential to revolutionize industries from cryptography to drug discovery. Learn about the latest advancements and what they mean for the future of technology.",
-    category: "Technology",
-    author: "Akhilesh",
-    timestamp: "1 day ago",
-    readTime: "10 min read",
-  },
-  {
-    id: 6,
-    title: "The Golden Age of Television",
-    description:
-      "Explore how streaming services and high-quality productions have ushered in a new golden age of television. From epic fantasies to gritty crime dramas, discover the shows that are redefining the medium.",
-    category: "Entertainment",
-    author: "Pratiksha",
-    timestamp: "4 days ago",
-    readTime: "6 min read",
-  },
-];
-
 const categories = ["Technology", "Travel", "Food", "Health", "Entertainment"];
 
 const Home = () => {
@@ -118,8 +55,6 @@ const Home = () => {
     );
   };
 
-  
-
   return (
     <Container maxWidth="lg" sx={{ mt: 4, mb: 4, marginTop: "3rem" }}>
       <div
@@ -134,7 +69,12 @@ const Home = () => {
             <Link to="/createblog">
               <Button
                 variant="contained"
-                sx={{ bgcolor: "#AFE3C0", color: "black", width: "11.5rem", padding:"0.7rem 0 0.7rem 0" }}
+                sx={{
+                  bgcolor: "#AFE3C0",
+                  color: "black",
+                  width: "11.5rem",
+                  padding: "0.7rem 0 0.7rem 0",
+                }}
                 startIcon={<AddIcon />}
               >
                 Create Blog
@@ -201,7 +141,7 @@ const Home = () => {
         </div>
 
         <div className={styles.contentContainer}>
-          <Post selectedCategories={selectedCategories}/>
+          <Post selectedCategories={selectedCategories} />
         </div>
       </div>
     </Container>

@@ -6,10 +6,7 @@
   padding: 1rem 1rem 1rem 1rem;
   margin: 1rem 0 0 0;
   overflow-y: scroll;
-  width:60rem;
-
 }
-
 .buttonContainer {
   display: flex;
   height: 48px;

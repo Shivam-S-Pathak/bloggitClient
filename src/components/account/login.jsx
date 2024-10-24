@@ -174,7 +174,14 @@ const Login = ({ setIsAuthenticated }) => {
               }}
               disabled
             >
-              <ClipLoader color="rgb(155, 8, 217)" size="1.5rem" />
+              <ClipLoader color="rgb(155, 8, 217)" size="1.5rem" />{" "}
+              <Typography
+                color="rgb(155, 8, 217)"
+                margin="0 0 0 1rem"
+                sx={{ textTransform: "capitalize" }}
+              >
+                Authenticating...
+              </Typography>
             </Button>
           ) : (
             <Button

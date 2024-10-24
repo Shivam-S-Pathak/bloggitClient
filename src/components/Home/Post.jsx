@@ -5,9 +5,11 @@ import Grid from "@mui/material/Grid2";
 
 import { Link } from "react-router-dom";
 import { API } from "../../source/api.js";
+import PostSkeleton from "./PostSkeleton.jsx";
 
 const Post = ({ selectedCategories }) => {
   const [post, setPost] = useState([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -15,6 +17,7 @@ const Post = ({ selectedCategories }) => {
       if (response.isSuccess) {
         setPost(response.data);
       }
+      setLoading(false);
     };
 
     fetchData();
@@ -23,6 +26,10 @@ const Post = ({ selectedCategories }) => {
     selectedCategories.length > 0
       ? post.filter((blog) => selectedCategories.includes(blog.Category))
       : post;
+
+  if (loading) {
+    return <PostSkeleton />;
+  }
   return (
     <div>
       {post && post.length > 0 ? (
@@ -33,7 +40,7 @@ const Post = ({ selectedCategories }) => {
                 <Card
                   key={post._id}
                   sx={{
-                    mb: 3,
+                    mb: 5,
                     borderRadius: "1rem",
                     bgcolor: "#FEFDFF",
                     boxShadow: "0px 2px 5px 0px #415A77",

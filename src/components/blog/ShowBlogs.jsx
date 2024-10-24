@@ -26,9 +26,8 @@ const ShowBlogs = () => {
       if (response.isSuccess) {
         setPost(response.data);
       }
-      setTimeout(() => {
-        setLoading(false);
-      }, 1000);
+
+      setLoading(false);
     };
     fetchData();
   }, [id]);
