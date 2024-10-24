@@ -134,7 +134,7 @@ const Home = () => {
             <Link to="/createblog">
               <Button
                 variant="contained"
-                sx={{ bgcolor: "#AFE3C0", color: "black", width: "11.5rem" }}
+                sx={{ bgcolor: "#AFE3C0", color: "black", width: "11.5rem", padding:"0.7rem 0 0.7rem 0" }}
                 startIcon={<AddIcon />}
               >
                 Create Blog
@@ -145,7 +145,7 @@ const Home = () => {
           <Grid item xs={12} md={3}>
             <Accordion
               sx={{
-                bgcolor: "#AFE3C0",
+                bgcolor: "#91C4F2",
                 borderRadius: "8px",
               }}
             >

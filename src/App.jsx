@@ -16,6 +16,7 @@ import LandPage from "./components/landingPage/LandPage.jsx";
 import Contact from "./components/contactPage/Contact.jsx";
 import About from "./components/AboutPage/About.jsx";
 import CreateBlog from "./components/blog/CreateBlog.jsx";
+import ShowBlogs from "./components/blog/ShowBlogs.jsx";
 import { useState, useEffect } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -59,6 +60,61 @@ function App() {
               <Route path="/about" element={<About />} />
               <Route path="/contact" element={<Contact />} />
               <Route path="/createblog" element={<CreateBlog />} />
+            </Route>
+            <Route
+              path="/home"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/home" element={<Home />} />
+            </Route>
+            <Route
+              path="/about"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/about" element={<About />} />
+            </Route>
+            <Route
+              path="/contact"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/contact" element={<Contact />} />
+            </Route>
+            <Route
+              path="/createblog"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/createblog" element={<CreateBlog />} />
+            </Route>
+            <Route
+              path="/home/details/:id"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/home/details/:id" element={<ShowBlogs />} />
             </Route>
           </Routes>
         </BrowserRouter>

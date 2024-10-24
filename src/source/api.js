@@ -70,14 +70,35 @@ const processError = (error) => {
 // API object
 const API = {};
 
+// for (const [key, value] of Object.entries(SERVICE_URLS)) {
+//   API[key] = (body) =>
+//     axiosInstance({
+//       method: value.method,
+//       url: value.url,
+//       data: body,
+//       responseType: value.responseType,
+//     });
+// }
+
 for (const [key, value] of Object.entries(SERVICE_URLS)) {
-  API[key] = (body) =>
-    axiosInstance({
+  API[key] = (paramsOrBody) => {
+    const config = {
       method: value.method,
-      url: value.url,
-      data: body,
+      url:
+        typeof value.url === "function"
+          ? value.url(paramsOrBody.id)
+          : value.url,
       responseType: value.responseType,
-    });
+    };
+
+    if (value.method === "GET") {
+      config.params = paramsOrBody;
+    } else {
+      config.data = paramsOrBody;
+    }
+
+    return axiosInstance(config);
+  };
 }
 
 export { API };
