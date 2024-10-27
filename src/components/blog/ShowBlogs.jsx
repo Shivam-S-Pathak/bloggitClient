@@ -61,7 +61,11 @@ const ShowBlogs = () => {
       >
         <Chip
           icon={<AccessTime />}
-          label={new Date(post.date).toLocaleDateString()}
+          label={new Date(post.date).toLocaleDateString("en-GB", {
+            day: "2-digit",
+            month: "2-digit",
+            year: "numeric",
+          })}
           variant="outlined"
         />
         <Chip icon={<Person />} label={post.author} variant="outlined" />

@@ -140,9 +140,15 @@ const Home = () => {
           {/* </div> */}
         </div>
 
-        <div className={styles.contentContainer}>
+        <Box className={styles.contentContainer} width= {{
+                xs: "25rem", 
+                sm: "20rem", 
+                md: "40rem", 
+                lg: "55rem", 
+                xl: "55rem", 
+              }}>
           <Post selectedCategories={selectedCategories} />
-        </div>
+        </Box>
       </div>
     </Container>
   );

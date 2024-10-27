@@ -74,8 +74,11 @@ const Post = ({ selectedCategories }) => {
                         <Typography variant="body3" sx={{ fontWeight: "bold" }}>
                           Author:- {post.author}
                         </Typography>
-                        <Typography variant="caption" display="block">
-                          {post.date}
+                        <Typography variant="caption" display="block">Posted on:- {new Date(post.date).toLocaleDateString("en-GB", {
+                            day: "2-digit",
+                            month: "2-digit",
+                            year: "numeric",
+                          })}
                         </Typography>
                       </Box>
                       <Chip
