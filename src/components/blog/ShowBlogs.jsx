@@ -7,7 +7,6 @@ import {
   Avatar,
   Divider,
   useMediaQuery,
-  Skeleton,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { AccessTime, Person } from "@mui/icons-material";
@@ -68,7 +67,7 @@ const ShowBlogs = () => {
           })}
           variant="outlined"
         />
-        <Chip icon={<Person />} label={post.author} variant="outlined" />
+        <Chip icon={<Person />} label={post.username} variant="outlined" />
         <Chip label={post.Category} color="primary" />
       </Box>
 
@@ -113,7 +112,7 @@ const ShowBlogs = () => {
         <Avatar>{post.author?.charAt(0).toUpperCase()}</Avatar>
 
         <Box>
-          <Typography variant="subtitle1">{post.author}</Typography>
+          <Typography variant="subtitle1">{post.editor}</Typography>
           <Typography variant="body2" color="text.secondary" textAlign="left">
             Author
           </Typography>

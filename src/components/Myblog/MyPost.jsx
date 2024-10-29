@@ -1,27 +1,31 @@
 import React, { useEffect, useState } from "react";
-import { DataContext } from "../../context/DataProvider.jsx";
+// import { DataContext } from "../../context/DataProvider.jsx";
 import { Card, CardContent, Typography, Chip, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
 
-import { Link } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { API } from "../../source/api.js";
-import PostSkeleton from "./PostSkeleton.jsx";
+import PostSkeleton from "../Home/PostSkeleton.jsx";
 
-const Post = ({ selectedCategories }) => {
-  const [post, setPost] = useState([]);
+const MyPost = ({ selectedCategories }) => {
+  const { username } = useParams();
+  const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
+  // const { account } = useContext(DataContext);
+  // const username = account.username;
 
   useEffect(() => {
     const fetchData = async () => {
-      let response = await API.getAllBlogs();
+      let response = await API.getMyBlogs({ username });
       if (response.isSuccess) {
         setPost(response.data);
       }
+
       setLoading(false);
     };
-
     fetchData();
-  }, []);
+  }, [username]);
+
   const filteredBlogs =
     selectedCategories.length > 0
       ? post.filter((blog) => selectedCategories.includes(blog.Category))
@@ -33,8 +37,6 @@ const Post = ({ selectedCategories }) => {
   return (
     <div>
       {post && post.length > 0 ? (
-
-
         <Grid item xs={12} md={9}>
           <Box>
             {filteredBlogs.map((post) => (
@@ -76,7 +78,9 @@ const Post = ({ selectedCategories }) => {
                         <Typography variant="body3" sx={{ fontWeight: "bold" }}>
                           Author:- {post.editor}
                         </Typography>
-                        <Typography variant="caption" display="block">Posted on:- {new Date(post.date).toLocaleDateString("en-GB", {
+                        <Typography variant="caption" display="block">
+                          Posted on:-{" "}
+                          {new Date(post.date).toLocaleDateString("en-GB", {
                             day: "2-digit",
                             month: "2-digit",
                             year: "numeric",
@@ -102,4 +106,4 @@ const Post = ({ selectedCategories }) => {
   );
 };
 
-export default Post;
+export default MyPost;

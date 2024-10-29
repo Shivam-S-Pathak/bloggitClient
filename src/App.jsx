@@ -17,6 +17,7 @@ import Contact from "./components/contactPage/Contact.jsx";
 import About from "./components/AboutPage/About.jsx";
 import CreateBlog from "./components/blog/CreateBlog.jsx";
 import ShowBlogs from "./components/blog/ShowBlogs.jsx";
+import MyBlogs from "./components/Myblog/MyBlogs.jsx";
 import { useState, useEffect } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -105,6 +106,7 @@ function App() {
             >
               <Route path="/createblog" element={<CreateBlog />} />
             </Route>
+
             <Route
               path="/home/details/:id"
               element={
@@ -115,6 +117,18 @@ function App() {
               }
             >
               <Route path="/home/details/:id" element={<ShowBlogs />} />
+            </Route>
+
+            <Route
+              path="/myblogs/:username"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/myblogs/:username" element={<MyBlogs />} />
             </Route>
           </Routes>
         </BrowserRouter>

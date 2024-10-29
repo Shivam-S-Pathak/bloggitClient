@@ -224,6 +224,24 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
               </AccordionSummary>
 
               <AccordionDetails>
+                <Link to={`/myblogs/${account.username}`}>
+                  <MenuItem
+                    sx={{
+                      color: "black",
+                      borderRadius: "0.5rem",
+                    }}
+                  >
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      My Blogs
+                    </Typography>
+                  </MenuItem>
+                </Link>
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleAccordionToggle}>
                     <Link

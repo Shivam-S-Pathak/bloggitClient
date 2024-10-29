@@ -39,10 +39,11 @@ const CreateBlog = () => {
   const [category, setCategory] = useState("");
   const [discription, setDiscription] = useState("");
   const [title, setTitle] = useState("");
+  const [editor, SetEditor] = useState("");
   const [body, setBody] = useState("");
   // const [coverImage, setCoverImage] = useState(null);
   const [date, setDate] = useState("");
-  const [author, setAuthor] = useState("");
+  const [username, setUsername] = useState("");
 
   const navigate = useNavigate();
 
@@ -51,7 +52,7 @@ const CreateBlog = () => {
     setDate(currentDate);
 
     if (account && account.username) {
-      setAuthor(account.username);
+      setUsername(account.username);
     }
   }, [account]);
 
@@ -68,6 +69,9 @@ const CreateBlog = () => {
   };
   const handleDiscriptionChange = (event) => {
     setDiscription(event.target.value);
+  };
+  const handleEditorChange = (event) => {
+    SetEditor(event.target.value);
   };
   // const handleImageUpload = (event) => {
   //   const file = event.target.files[0];
@@ -88,7 +92,8 @@ const CreateBlog = () => {
     formData.append("body", body);
     // formData.append("coverImage", coverImage[0]);
     formData.append("date", date);
-    formData.append("author", author);
+    formData.append("username", username);
+    formData.append("editor", editor);
 
     let response = await API.createBlog(formData);
     console.log(response.data);
@@ -182,6 +187,14 @@ const CreateBlog = () => {
           variant="outlined"
           value={discription}
           onChange={handleDiscriptionChange}
+          sx={{ flexGrow: 1, mb: 4 }}
+        />
+        <TextField
+          fullWidth
+          label="Author"
+          variant="outlined"
+          value={editor}
+          onChange={handleEditorChange}
           sx={{ flexGrow: 1, mb: 4 }}
         />
 
