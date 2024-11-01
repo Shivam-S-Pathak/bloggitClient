@@ -35,6 +35,7 @@ const ImagePreview = styled("img")({
 
 const categories = ["Technology", "Travel", "Food", "Health", "Entertainment"];
 const EditBlog = () => {
+  const [loading, setLoading] = useState(false);
   const { account } = useContext(DataContext);
   const [post, setPost] = useState({});
   const [category, setCategory] = useState("");
@@ -102,7 +103,7 @@ const EditBlog = () => {
 
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
-
+    setLoading(true);
     const updatedPost = {
       category,
       discription,
@@ -114,9 +115,11 @@ const EditBlog = () => {
 
     let response = await API.updateBlog({ id, ...updatedPost });
     if (response.isSuccess) {
+      setLoading(false);
       navigate(`/myblogs/${username}`);
     } else {
       console.log("here is some problem");
+      setLoading(false);
     }
   };
   return (
@@ -236,7 +239,7 @@ const EditBlog = () => {
             size="large"
             sx={{ minWidth: "200px", bgcolor: "rgb(155, 8, 217)" }}
           >
-            Update Blog
+            {loading ? "Updating..." : "Update Blog"}
           </Button>
         </Box>
       </form>
