@@ -10,6 +10,7 @@ import {
 
 //components
 import Login from "./components/account/login";
+import SignUp from "./components/account/signup.jsx";
 import Home from "./components/Home/Home.jsx";
 import NavBar from "./components/header/NavBar.jsx";
 import LandPage from "./components/landingPage/LandPage.jsx";
@@ -18,6 +19,7 @@ import About from "./components/AboutPage/About.jsx";
 import CreateBlog from "./components/blog/CreateBlog.jsx";
 import ShowBlogs from "./components/blog/ShowBlogs.jsx";
 import MyBlogs from "./components/Myblog/MyBlogs.jsx";
+import EditBlog from "./components/blog/EditBlog.jsx";
 import { useState, useEffect } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -47,6 +49,10 @@ function App() {
             <Route
               path="/login"
               element={<Login setIsAuthenticated={setIsAuthenticated} />}
+            />
+            <Route
+              path="/signup"
+              element={<SignUp setIsAuthenticated={setIsAuthenticated} />}
             />
             <Route
               path=""
@@ -129,6 +135,18 @@ function App() {
               }
             >
               <Route path="/myblogs/:username" element={<MyBlogs />} />
+            </Route>
+
+            <Route
+              path="/update/:id"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/update/:id" element={<EditBlog />} />
             </Route>
           </Routes>
         </BrowserRouter>

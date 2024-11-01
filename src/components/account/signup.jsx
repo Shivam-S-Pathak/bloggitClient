@@ -23,24 +23,19 @@ const signUpVals = {
   password: "",
 };
 
-const Login = ({ setIsAuthenticated }) => {
-  const [isClicked, setIsClicked] = useState(false);
-  const [signUp, setSignUp] = useState(signUpVals);
+const SignUp = ({ setIsAuthenticated }) => {
+  const [signUp, setSignUp] = useState(signUpVals); 
   const [error, setError] = useState("");
   const [loginError, setLoginError] = useState("");
   const [success, setSuccess] = useState("");
   const [isVisible, setIsVisible] = useState(false);
   const navigate = useNavigate();
 
-  const { setAccount } = useContext(DataContext);
-
   const handleTogglePasswordVisibility = () => {
     setIsVisible(!isVisible);
   };
 
-  const handleClick = () => {
-    setIsClicked(!isClicked);
-  };
+  const { setAccount } = useContext(DataContext);
 
   const onChangeHandle = (e) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
@@ -66,7 +61,7 @@ const Login = ({ setIsAuthenticated }) => {
         setSuccess(
           "*Account created successfully😃😃!!! Get inside your account👇👇"
         );
-        setIsClicked(false);
+        navigate("/login");
       } else {
         setError("*Something went wrong, please try again later.");
         setSuccess("");
@@ -76,54 +71,10 @@ const Login = ({ setIsAuthenticated }) => {
       setSuccess("");
     }
   };
-  const loginIntialVals = {
-    username: "",
-    password: "",
-  };
-  const [login, setLogin] = useState(loginIntialVals);
-
-  const onValueChange = (e) => {
-    setLogin({ ...login, [e.target.name]: e.target.value });
-  };
-  const [loading, setLoading] = useState(false);
-
-  const loginSubmitHandler = async (e) => {
-    e.preventDefault();
-    setLoginError("");
-    if (!login.username || !login.password) {
-      setLoginError("*All fields are required.");
-      return;
-    }
-    setLoading(true);
-    try {
-      let response = await API.loginUser(login);
-      if (response.isSuccess) {
-        setError("");
-
-        setAccount({
-          username: response.data.name,
-          email: response.data.email,
-        });
-        sessionStorage.setItem("user", JSON.stringify(response.data));
-        setIsAuthenticated(true);
-        navigate("/home");
-        setLoading(false);
-      }
-    } catch (error) {
-      if (error?.code === 401) {
-        setLoginError("*Invalid username or password.");
-      } else if (error?.code === 400) {
-        setLoginError("*Wrong username or password.");
-      } else {
-        setLoginError("*something went wrong, please try angain later.");
-      }
-      setLoading(false);
-    }
-  };
 
   return (
     <>
-      {/* Login Form */}
+      {/* Sign Up Form */}
       <Link to="/">
         <Button
           className={styles.backBtn}
@@ -148,8 +99,7 @@ const Login = ({ setIsAuthenticated }) => {
           Back
         </Button>
       </Link>
-
-      <Box className={`${styles.box} ${isClicked ? styles.hide : ""}`}>
+      <Box className={`${styles.box1}`}>
         <Typography
           component="h1"
           variant="h4"
@@ -157,37 +107,43 @@ const Login = ({ setIsAuthenticated }) => {
           gutterBottom
           className={styles.loginHeader}
         >
-          Welcome Back
+          Welcome to BloggIT
         </Typography>
         <Typography
           variant="body1"
           align="center"
           sx={{ mb: 3, color: "black" }}
         >
-          Log in to access your personalized blog experience
+          Create an account to share your stories with the world
         </Typography>
-
-        <form className={styles.from} onSubmit={loginSubmitHandler}>
-          {success && (
-            <Typography className={styles.successMsg}>{success}</Typography>
-          )}
+        <form onSubmit={signupSubmitHandler} className={styles.from}>
           <TextField
             label="Username"
             variant="filled"
+            onChange={onChangeHandle}
             autoComplete="off"
             name="username"
-            onChange={(e) => onValueChange(e)}
-            value={login.username}
+            value={signUp.username}
+            sx={{ mb: "1rem" }}
+          />
+          <TextField
+            label="Email"
+            variant="filled"
+            type="email"
+            onChange={onChangeHandle}
+            autoComplete="off"
+            name="email"
+            value={signUp.email}
             sx={{ mb: "1rem" }}
           />
           <TextField
             label="Password"
             variant="filled"
             type={isVisible ? "text" : "password"}
+            onChange={onChangeHandle}
             autoComplete="off"
             name="password"
-            onChange={(e) => onValueChange(e)}
-            value={login.password}
+            value={signUp.password}
             sx={{ mb: "2rem" }}
             InputProps={{
               endAdornment: (
@@ -208,57 +164,33 @@ const Login = ({ setIsAuthenticated }) => {
               ),
             }}
           />
-          {loginError && (
-            <Typography className={styles.errorMsg}>{loginError}</Typography>
+          {error && (
+            <Typography className={styles.errorMsg}>{error}</Typography>
           )}
-          {loading ? (
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{
-                backgroundColor: "rgb(155, 8, 217)",
-                "&:focus": {
-                  outline: "none",
-                },
-              }}
-              disabled
-            >
-              <ClipLoader color="rgb(155, 8, 217)" size="1.5rem" />{" "}
-              <Typography
-                color="rgb(155, 8, 217)"
-                margin="0 0 0 1rem"
-                sx={{ textTransform: "capitalize" }}
-              >
-                Authenticating...
-              </Typography>
-            </Button>
-          ) : (
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{
-                backgroundColor: "rgb(155, 8, 217)",
-                "&:focus": {
-                  outline: "none",
-                },
-              }}
-            >
-              submit
-            </Button>
-          )}
+
+          <Button
+            type="submit"
+            className={styles.submit}
+            variant="contained"
+            sx={{
+              backgroundColor: "rgb(155, 8, 217)",
+            }}
+          >
+            Create account
+          </Button>
         </form>
         <Typography className={styles.text} variant="h5" component="h2">
           OR
         </Typography>
-        <Link to="/signup">
+        <Link to="/login">
           <Button
             variant="outlined"
             sx={{
-              borderColor: "rgb(155, 8, 217)",
               color: "rgb(155, 8, 217)",
+              borderColor: "rgb(155, 8, 217)",
             }}
           >
-            Don't have an account? Register first
+            Already have an account
           </Button>
         </Link>
       </Box>
@@ -266,4 +198,4 @@ const Login = ({ setIsAuthenticated }) => {
   );
 };
 
-export default Login;
+export default SignUp;

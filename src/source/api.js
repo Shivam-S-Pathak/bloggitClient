@@ -42,11 +42,12 @@ const processResponse = (response) => {
 const processError = (error) => {
   if (error.response) {
     // Request was sent and received a response other than 200
-    console.log("ERROR IN RESPONSE", JSON.stringify(error));
+    console.log("ERROR IN RESPONSE", JSON.stringify(error.response.data));
     return {
       isError: true,
       msg: API_MESSAGES.responseFailure,
       code: error.response.status,
+      details: error.response.data,
     };
   } else if (error.request) {
     // Request sent but no response received
@@ -86,17 +87,16 @@ for (const [key, value] of Object.entries(SERVICE_URLS)) {
       method: value.method,
       url:
         typeof value.url === "function"
-          ? value.url(paramsOrBody.id)
+          ? value.url(paramsOrBody.id || paramsOrBody)
           : value.url,
       responseType: value.responseType,
     };
 
     if (value.method === "GET") {
       config.params = paramsOrBody;
-    } else {
+    } else if (value.method !== "DELETE") {
       config.data = paramsOrBody;
     }
-
     return axiosInstance(config);
   };
 }

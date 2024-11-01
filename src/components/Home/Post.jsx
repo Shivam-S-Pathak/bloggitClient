@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import { DataContext } from "../../context/DataProvider.jsx";
 import { Card, CardContent, Typography, Chip, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-
 import { Link } from "react-router-dom";
 import { API } from "../../source/api.js";
 import PostSkeleton from "./PostSkeleton.jsx";
@@ -22,6 +21,8 @@ const Post = ({ selectedCategories }) => {
 
     fetchData();
   }, []);
+
+  // Filter the blogs based on selected categories
   const filteredBlogs =
     selectedCategories.length > 0
       ? post.filter((blog) => selectedCategories.includes(blog.Category))
@@ -30,17 +31,15 @@ const Post = ({ selectedCategories }) => {
   if (loading) {
     return <PostSkeleton />;
   }
+
   return (
     <div>
-      {post && post.length > 0 ? (
-
-
+      {filteredBlogs.length > 0 ? (
         <Grid item xs={12} md={9}>
           <Box>
             {filteredBlogs.map((post) => (
-              <Link to={`details/${post._id}`}>
+              <Link to={`details/${post._id}`} key={post._id}>
                 <Card
-                  key={post._id}
                   sx={{
                     mb: 5,
                     borderRadius: "1rem",
@@ -57,7 +56,7 @@ const Post = ({ selectedCategories }) => {
                 >
                   <CardContent>
                     <Typography
-                      gutterBotto
+                      gutterBottom
                       variant="h5"
                       component="div"
                       sx={{ cursor: "pointer" }}
@@ -76,7 +75,9 @@ const Post = ({ selectedCategories }) => {
                         <Typography variant="body3" sx={{ fontWeight: "bold" }}>
                           Author:- {post.editor}
                         </Typography>
-                        <Typography variant="caption" display="block">Posted on:- {new Date(post.date).toLocaleDateString("en-GB", {
+                        <Typography variant="caption" display="block">
+                          Posted on:-{" "}
+                          {new Date(post.date).toLocaleDateString("en-GB", {
                             day: "2-digit",
                             month: "2-digit",
                             year: "numeric",
@@ -96,7 +97,9 @@ const Post = ({ selectedCategories }) => {
           </Box>
         </Grid>
       ) : (
-        <Typography sx={{ color: "black" }}>no data avialable</Typography>
+        <Typography sx={{ color: "black", textAlign: "center", mt: 4 }}>
+          There is nothing to show for the selected categories.
+        </Typography>
       )}
     </div>
   );

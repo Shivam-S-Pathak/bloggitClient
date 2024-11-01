@@ -34,44 +34,49 @@ const ShowBlogs = () => {
     return <SkeletonBlog />;
   }
   return (
-    <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
-      <Typography
-        variant="h3"
-        component="h1"
-        gutterBottom
-        sx={{
-          color: "black",
-          margin: "4rem 0 1rem 0",
-          fontWeight: "bolder",
-          textAlign: "center",
-        }}
-      >
-        {post.title}
-      </Typography>
+    <>
+      <Box sx={{ height: "100vh" }}>
+        <Container maxWidth="md" sx={{ mt: 4, mb: 4, width: "100vw" }}>
+          <Typography
+            variant="h3"
+            component="h1"
+            gutterBottom
+            sx={{
+              color: "black",
+              margin: "4rem 0 1rem 0",
+              fontWeight: "bolder",
+              textAlign: "center",
+            }}
+          >
+            {post.title}
+          </Typography>
 
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          mb: 2,
-          flexWrap: "wrap",
-          gap: 2,
-        }}
-      >
-        <Chip
-          icon={<AccessTime />}
-          label={new Date(post.date).toLocaleDateString("en-GB", {
-            day: "2-digit",
-            month: "2-digit",
-            year: "numeric",
-          })}
-          variant="outlined"
-        />
-        <Chip icon={<Person />} label={post.username} variant="outlined" />
-        <Chip label={post.Category} color="primary" />
-      </Box>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              mb: 2,
+              flexWrap: "wrap",
+              gap: 2,
+            }}
+          >
+            <Chip
+              icon={<AccessTime />}
+              label={new Date(post.date).toLocaleDateString("en-GB", {
+                day: "2-digit",
+                month: "2-digit",
+                year: "numeric",
+              })}
+              variant="outlined"
+            />
+            <Chip icon={<Person />} label={post.username} variant="outlined" />
+            <Chip
+              label={post.Category}
+              sx={{ bgcolor: "rgb(155, 8, 217)", color: "white" }}
+            />
+          </Box>
 
-      {/* <Box
+          {/* <Box
         component="img"
         sx={{
           width: "100%",
@@ -84,41 +89,47 @@ const ShowBlogs = () => {
         alt={post.title}
       /> */}
 
-      <Divider sx={{ mb: 3 }} />
+          <Divider sx={{ mb: 3 }} />
 
-      <Typography
-        variant="body1"
-        sx={{
-          whiteSpace: "pre-wrap",
-          lineHeight: 1.8,
-          color: "black",
-          textAlign: "left",
-        }}
-      >
-        {post.body}
-      </Typography>
-
-      <Divider sx={{ my: 4 }} />
-
-      <Box
-        sx={{
-          display: "flex",
-          alignItems: "center",
-          gap: 2,
-          color: "black",
-          fontWeight: "bolder",
-        }}
-      >
-        <Avatar>{post.author?.charAt(0).toUpperCase()}</Avatar>
-
-        <Box>
-          <Typography variant="subtitle1">{post.editor}</Typography>
-          <Typography variant="body2" color="text.secondary" textAlign="left">
-            Author
+          <Typography
+            variant="body1"
+            sx={{
+              whiteSpace: "pre-wrap",
+              lineHeight: 1.8,
+              color: "black",
+              textAlign: "left",
+            }}
+          >
+            {post.body}
           </Typography>
-        </Box>
+
+          <Divider sx={{ my: 4 }} />
+
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              gap: 2,
+              color: "black",
+              fontWeight: "bolder",
+            }}
+          >
+            <Avatar>{post.editor?.charAt(0).toUpperCase()}</Avatar>
+
+            <Box>
+              <Typography variant="subtitle1">{post.editor}</Typography>
+              <Typography
+                variant="body2"
+                color="text.secondary"
+                textAlign="left"
+              >
+                Author
+              </Typography>
+            </Box>
+          </Box>
+        </Container>
       </Box>
-    </Container>
+    </>
   );
 };
 

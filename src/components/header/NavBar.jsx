@@ -230,6 +230,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                       color: "black",
                       borderRadius: "0.5rem",
                     }}
+                    onClick={handleAccordionToggle}
                   >
                     <Typography
                       sx={{
@@ -244,14 +245,14 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 </Link>
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleAccordionToggle}>
-                    <Link
+                    {/* <Link
                       to={`/${setting.toLowerCase()}`}
                       style={{ textDecoration: "none" }}
-                    >
-                      <Typography sx={{ textAlign: "center", color: "black" }}>
-                        {setting}
-                      </Typography>
-                    </Link>
+                    > */}
+                    <Typography sx={{ textAlign: "center", color: "black" }}>
+                      {setting}
+                    </Typography>
+                    {/* </Link> */}
                   </MenuItem>
                 ))}
 

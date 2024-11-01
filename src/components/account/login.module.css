@@ -1,24 +1,24 @@
 
 .box {
-  background-color: rgba(224, 224, 224, 0.534);
+  /* background-color: rgba(224, 224, 224, 0.534); */
   display: flex;
   flex-direction: column;
   padding: 1rem;
   gap: 1rem;
   width:400px;
   border-radius: 1.5rem;
-  box-shadow: 10px 10px 2px rgba(154, 8, 217);
+  /* box-shadow: 10px 10px 2px rgba(154, 8, 217); */
   margin-top: 2rem;
 }
 .box1 {
-  background-color: rgba(224, 224, 224, 0.534);
-  display: none;
+  /* background-color: rgba(224, 224, 224, 0.534); */
+  display: flex;
   flex-direction: column;
   padding: 1rem;
   gap: 1rem;
   width: 400px;
   border-radius: 2rem;
-  box-shadow: 10px 10px 2px rgb(155, 8, 217);
+  /* box-shadow: 10px 10px 2px rgb(155, 8, 217); */
   margin-top: 2rem;
 }
 .loginHeader {
@@ -30,12 +30,6 @@
 .text {
   color: black;
   padding: 0;
-}
-.show{
-    display: flex;
-}
-.hide{
-    display: none;
 }
 .errorMsg{
   color: red;

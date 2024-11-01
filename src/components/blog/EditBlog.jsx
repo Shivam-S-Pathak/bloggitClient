@@ -11,7 +11,7 @@ import {
   Box,
   IconButton,
 } from "@mui/material";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import { styled } from "@mui/material/styles";
 import {
   CloudUpload as CloudUploadIcon,
@@ -34,8 +34,9 @@ const ImagePreview = styled("img")({
 });
 
 const categories = ["Technology", "Travel", "Food", "Health", "Entertainment"];
-const CreateBlog = () => {
+const EditBlog = () => {
   const { account } = useContext(DataContext);
+  const [post, setPost] = useState({});
   const [category, setCategory] = useState("");
   const [discription, setDiscription] = useState("");
   const [title, setTitle] = useState("");
@@ -44,6 +45,7 @@ const CreateBlog = () => {
   // const [coverImage, setCoverImage] = useState(null);
   const [date, setDate] = useState("");
   const [username, setUsername] = useState("");
+  const { id } = useParams();
 
   const navigate = useNavigate();
 
@@ -73,6 +75,22 @@ const CreateBlog = () => {
   const handleEditorChange = (event) => {
     setEditor(event.target.value);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      let response = await API.getPostById({ id });
+      if (response.isSuccess) {
+        const data = response.data;
+        setPost(data);
+        setCategory(data.Category || "");
+        setDiscription(data.discription || "");
+        setTitle(data.title || "");
+        setEditor(data.editor || "");
+        setBody(data.body || "");
+      }
+    };
+    fetchData();
+  }, [id]);
   // const handleImageUpload = (event) => {
   //   const file = event.target.files[0];
   //   setCoverImage(URL.createObjectURL(file));
@@ -82,32 +100,27 @@ const CreateBlog = () => {
   //   setCoverImage(null);
   // };
 
-  const handleSubmit = async (event) => {
+  const handleUpdateSubmit = async (event) => {
     event.preventDefault();
 
-    const formData = new FormData();
-    formData.append("category", category);
-    formData.append("discription", discription);
-    formData.append("title", title);
-    formData.append("body", body);
-    // formData.append("coverImage", coverImage[0]);
-    formData.append("date", date);
-    formData.append("username", username);
-    formData.append("editor", editor);
+    const updatedPost = {
+      category,
+      discription,
+      title,
+      body,
+      username,
+      editor,
+    };
 
-    try {
-      let response = await API.createBlog(formData);
-      if (response.isSuccess) {
-        navigate("/home");
-      } else {
-        console.log("here is some problem");
-      }
-    } catch (error) {
-      console.error("Error in API call:", error);
+    let response = await API.updateBlog({ id, ...updatedPost });
+    if (response.isSuccess) {
+      navigate(`/myblogs/${username}`);
+    } else {
+      console.log("here is some problem");
     }
   };
   return (
-    <Container sx={{ mt: 4, mb: 4, width: "100vw" }}>
+    <Container sx={{ mt: 7, mb: 4, width: "100vw" }}>
       <Typography
         variant="h3"
         component="h1"
@@ -116,9 +129,9 @@ const CreateBlog = () => {
         color="black"
         sx={{ mb: 4, color: "rgb(155, 8, 217)", borderRadius: "1rem 0 1rem 0" }}
       >
-        Create Your Blog Post
+        Update Your Blog
       </Typography>
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleUpdateSubmit}>
         <Box sx={{ display: "flex", gap: 2, mb: 4 }}>
           <FormControl fullWidth>
             <InputLabel id="category-label">Category</InputLabel>
@@ -142,6 +155,7 @@ const CreateBlog = () => {
             value={title}
             onChange={handleTitleChange}
             sx={{ flexGrow: 1 }}
+            InputLabelProps={{ shrink: true }}
           />
         </Box>
 
@@ -191,6 +205,7 @@ const CreateBlog = () => {
           value={discription}
           onChange={handleDiscriptionChange}
           sx={{ flexGrow: 1, mb: 4 }}
+          InputLabelProps={{ shrink: true }}
         />
         <TextField
           fullWidth
@@ -199,6 +214,7 @@ const CreateBlog = () => {
           value={editor}
           onChange={handleEditorChange}
           sx={{ flexGrow: 1, mb: 4 }}
+          InputLabelProps={{ shrink: true }}
         />
 
         <TextField
@@ -210,6 +226,7 @@ const CreateBlog = () => {
           value={body}
           onChange={handleBodyChange}
           sx={{ mb: 4 }}
+          InputLabelProps={{ shrink: true }}
         />
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -219,7 +236,7 @@ const CreateBlog = () => {
             size="large"
             sx={{ minWidth: "200px", bgcolor: "rgb(155, 8, 217)" }}
           >
-            Publish Blog Post
+            Update Blog
           </Button>
         </Box>
       </form>
@@ -227,4 +244,4 @@ const CreateBlog = () => {
   );
 };
 
-export default CreateBlog;
+export default EditBlog;

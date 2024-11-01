@@ -82,7 +82,7 @@ const LandPage = () => {
             Discover a world of knowledge, inspiration, and growth.
           </Typography>
           <Box sx={{ mt: 4 }}>
-            <Link to="/login">
+            <Link to="/signup">
               <Button
                 variant="contained"
                 size="large"
