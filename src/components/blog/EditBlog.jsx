@@ -17,9 +17,11 @@ import {
   CloudUpload as CloudUploadIcon,
   Close as CloseIcon,
   Category,
+  LanOutlined,
 } from "@mui/icons-material";
 import { API } from "../../source/api.js";
 import { DataContext } from "../../context/DataProvider.jsx";
+import EditSkeleton from "./EditSkeleton.jsx";
 
 const Input = styled("input")({
   display: "none",
@@ -35,6 +37,7 @@ const ImagePreview = styled("img")({
 
 const categories = ["Technology", "Travel", "Food", "Health", "Entertainment"];
 const EditBlog = () => {
+  const [updating, setUpdating] = useState(false);
   const [loading, setLoading] = useState(false);
   const { account } = useContext(DataContext);
   const [post, setPost] = useState({});
@@ -79,6 +82,7 @@ const EditBlog = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       let response = await API.getPostById({ id });
       if (response.isSuccess) {
         const data = response.data;
@@ -89,6 +93,7 @@ const EditBlog = () => {
         setEditor(data.editor || "");
         setBody(data.body || "");
       }
+      setLoading(false);
     };
     fetchData();
   }, [id]);
@@ -103,7 +108,7 @@ const EditBlog = () => {
 
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
-    setLoading(true);
+    setUpdating(true);
     const updatedPost = {
       category,
       discription,
@@ -115,13 +120,17 @@ const EditBlog = () => {
 
     let response = await API.updateBlog({ id, ...updatedPost });
     if (response.isSuccess) {
-      setLoading(false);
+      setUpdating(false);
       navigate(`/myblogs/${username}`);
     } else {
       console.log("here is some problem");
-      setLoading(false);
+      setUpdating(false);
     }
   };
+
+  if (loading) {
+    return <EditSkeleton />;
+  }
   return (
     <Container sx={{ mt: 7, mb: 4, width: "100vw" }}>
       <Typography
@@ -233,14 +242,26 @@ const EditBlog = () => {
         />
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
-          <Button
-            type="submit"
-            variant="contained"
-            size="large"
-            sx={{ minWidth: "200px", bgcolor: "rgb(155, 8, 217)" }}
-          >
-            {loading ? "Updating..." : "Update Blog"}
-          </Button>
+          {updating ? (
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{ minWidth: "200px", color: "rgb(155, 8, 217)" }}
+              disabled
+            >
+              Updating...
+            </Button>
+          ) : (
+            <Button
+              type="submit"
+              variant="contained"
+              size="large"
+              sx={{ minWidth: "200px", bgcolor: "rgb(155, 8, 217)" }}
+            >
+              Update Blog
+            </Button>
+          )}
         </Box>
       </form>
     </Container>

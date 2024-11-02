@@ -52,7 +52,7 @@ const MyPost = ({ selectedCategories }) => {
   }
   return (
     <div>
-      {post && post.length > 0 ? (
+      {filteredBlogs.length > 0 ? (
         <Grid item xs={12} md={9}>
           <Box>
             {filteredBlogs.map((post) => (
@@ -121,21 +121,21 @@ const MyPost = ({ selectedCategories }) => {
                   }}
                 >
                   <Link to={`/update/${post._id}`}>
-                    <Button variant="contained" sx={{ bgcolor: "#47682C" }}>
+                    <Button variant="contained" sx={{ bgcolor: "#028090" }}>
                       <EditNoteIcon sx={{ margin: "0 0.2rem 0 0" }} /> Edit
                     </Button>
                   </Link>
                   <Button
                     variant="outlined"
                     sx={{
-                      color: "red",
+                      color: "#B3001B",
                       // color: "white",
                       margin: "0 0.5rem 0 0",
-                      borderColor: "red",
+                      borderColor: "#B3001B",
                       "&:hover": {
-                        bgcolor: "red",
+                        bgcolor: "#B3001B",
                         color: "white",
-                        borderColor: "red",
+                        borderColor: "#B3001B",
                       },
                     }}
                     onClick={() => handleDelete(post._id)}
@@ -148,7 +148,10 @@ const MyPost = ({ selectedCategories }) => {
           </Box>
         </Grid>
       ) : (
-        <Typography sx={{ color: "black" }}>no data avialable</Typography>
+        <Typography sx={{ color: "black" }}>
+          {" "}
+          There is nothing to show for the selected categories.
+        </Typography>
       )}
     </div>
   );
