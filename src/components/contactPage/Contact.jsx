@@ -107,220 +107,224 @@ export default function Contact() {
           </Typography>
         </Box>
       </Fade>
-
-      <Grid container spacing={5} alignItems="stretch">
-        <Grid item xs={12} md={7}>
-          <Grow in={true} timeout={1000}>
-            <Card elevation={3} sx={{ height: "100%", borderRadius: 4 }}>
-              <CardContent sx={{ p: 4 }}>
-                <form onSubmit={handleSubmit}>
-                  <Grid
-                    container
-                    spacing={3}
-                    sx={{
-                      display: "flex",
-                      flexDirection: "column",
-                      minWidth: isMobile ? "20rem" : "35rem",
-                    }}
-                  >
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Full name"
-                        name="fullName"
-                        value={formData.fullName}
-                        onChange={handleChange}
-                        required
-                        variant="outlined"
-                        autoComplete="off"
-                      />
-                    </Grid>
-                    <Grid item xs={12} sm={6}>
-                      <TextField
-                        fullWidth
-                        label="Email"
-                        name="email"
-                        type="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        variant="outlined"
-                        autoComplete="off"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        label="Contact number"
-                        name="contactNumber"
-                        value={formData.contactNumber}
-                        onChange={handleChange}
-                        required
-                        variant="outlined"
-                        autoComplete="off"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <TextField
-                        fullWidth
-                        label="Message"
-                        name="reason"
-                        multiline
-                        rows={4}
-                        value={formData.reason}
-                        onChange={handleChange}
-                        required
-                        variant="outlined"
-                        autoComplete="off"
-                      />
-                    </Grid>
-                    <Grid item xs={12}>
-                      <Button
-                        type="submit"
-                        variant="contained"
-                        color="primary"
-                        size="large"
-                        fullWidth
-                        startIcon={<Send />}
-                        sx={{
-                          py: 1.5,
-                          textTransform: "none",
-                          fontSize: "1.1rem",
-                          borderRadius: 2,
-                          bgcolor: "rgb(155, 8, 217)",
-                        }}
-                      >
-                        Send Message
-                      </Button>
-                    </Grid>
-                  </Grid>
-                </form>
-              </CardContent>
-            </Card>
-          </Grow>
-        </Grid>
-        <Grid item xs={12} md={5}>
-          <Grow in={true} timeout={1000} style={{ transitionDelay: "500ms" }}>
-            <Card
-              elevation={3}
-              sx={{
-                height: "100%",
-                borderRadius: 4,
-                bgcolor: "rgb(155, 8, 217)",
-                color: "primary.contrastText",
-                minWidth: isMobile ? "20rem" : "30rem",
-              }}
-            >
-              <CardContent sx={{ p: 4 }}>
-                <Typography variant="h4" gutterBottom fontWeight="bold">
-                  Socials
-                </Typography>
-                <Box display="flex" flexDirection="column" gap={4} mt={4}>
-                  <Box display="flex" alignItems="center">
-                    <LinkedInIcon sx={{ fontSize: 40, mr: 2 }} />
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        sx={{ textAlign: "left" }}
-                      >
-                        LinkedIn
-                      </Typography>
-                      <Typography variant="body2" color="white">
-                        <a
-                          href="https://www.linkedin.com/in/shivam-s-pathak/"
-                          style={{ color: "white" }}
+      <Grid container spacing={5} alignItems="stretch" sx={{ display: "flex" }}>
+        <Box sx={{ width: "100%" }}>
+          <Grid item xs={12} md={7}>
+            <Grow in={true} timeout={1000}>
+              <Card elevation={3} sx={{ height: "100%", borderRadius: 4 }}>
+                <CardContent sx={{ p: 4 }}>
+                  <form onSubmit={handleSubmit}>
+                    <Grid
+                      container
+                      spacing={3}
+                      sx={{
+                        display: "flex",
+                        flexDirection: "column",
+                        minWidth: isMobile ? "20rem" : "35rem",
+                      }}
+                    >
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          fullWidth
+                          label="Full name"
+                          name="fullName"
+                          value={formData.fullName}
+                          onChange={handleChange}
+                          required
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12} sm={6}>
+                        <TextField
+                          fullWidth
+                          label="Email"
+                          name="email"
+                          type="email"
+                          value={formData.email}
+                          onChange={handleChange}
+                          required
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          label="Contact number"
+                          name="contactNumber"
+                          type="number"
+                          value={formData.contactNumber}
+                          onChange={handleChange}
+                          required
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <TextField
+                          fullWidth
+                          label="Message"
+                          name="reason"
+                          multiline
+                          rows={4}
+                          value={formData.reason}
+                          onChange={handleChange}
+                          required
+                          variant="outlined"
+                          autoComplete="off"
+                        />
+                      </Grid>
+                      <Grid item xs={12}>
+                        <Button
+                          type="submit"
+                          variant="contained"
+                          color="primary"
+                          size="large"
+                          fullWidth
+                          startIcon={<Send />}
+                          sx={{
+                            py: 1.5,
+                            textTransform: "none",
+                            fontSize: "1.1rem",
+                            borderRadius: 2,
+                            bgcolor: "rgb(155, 8, 217)",
+                          }}
                         >
-                          linkedin.com/in/shivam-s-pathak/
-                        </a>
-                      </Typography>
+                          {isSubmitting ? "Sending..." : "send Message"}
+                        </Button>
+                      </Grid>
+                    </Grid>
+                  </form>
+                </CardContent>
+              </Card>
+            </Grow>
+          </Grid>
+        </Box>
+        <Box sx={{ width: "100%" }}>
+          <Grid item xs={12} md={5}>
+            <Grow in={true} timeout={1000} style={{ transitionDelay: "500ms" }}>
+              <Card
+                elevation={3}
+                sx={{
+                  height: "100%",
+                  borderRadius: 4,
+                  bgcolor: "rgb(155, 8, 217)",
+                  color: "primary.contrastText",
+                  minWidth: isMobile ? "20rem" : "30rem",
+                }}
+              >
+                <CardContent sx={{ p: 4 }}>
+                  <Typography variant="h4" gutterBottom fontWeight="bold">
+                    Socials
+                  </Typography>
+                  <Box display="flex" flexDirection="column" gap={4} mt={4}>
+                    <Box display="flex" alignItems="center">
+                      <LinkedInIcon sx={{ fontSize: 40, mr: 2 }} />
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          fontWeight="bold"
+                          sx={{ textAlign: "left" }}
+                        >
+                          LinkedIn
+                        </Typography>
+                        <Typography variant="body2" color="white">
+                          <a
+                            href="https://www.linkedin.com/in/shivam-s-pathak/"
+                            style={{ color: "white" }}
+                          >
+                            linkedin.com/in/shivam-s-pathak/
+                          </a>
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box display="flex" alignItems="center">
+                      <XIcon sx={{ fontSize: 40, mr: 2 }} />
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          fontWeight="bold"
+                          sx={{ textAlign: "left" }}
+                        >
+                          X (twitter)
+                        </Typography>
+                        <Typography variant="body2">
+                          <a
+                            href="https://x.com/shivam_S_pathak"
+                            style={{ color: "white" }}
+                          >
+                            x.com/shivam_S_pathak
+                          </a>
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box display="flex" alignItems="center">
+                      <YouTubeIcon sx={{ fontSize: 40, mr: 2 }} />
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          fontWeight="bold"
+                          sx={{ textAlign: "left" }}
+                        >
+                          Youtube
+                        </Typography>
+                        <Typography variant="body2">
+                          <a
+                            href="https://www.youtube.com/@shivamspathak"
+                            style={{ color: "white" }}
+                          >
+                            www.youtube.com/@shivamspathak
+                          </a>
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box display="flex" alignItems="center">
+                      <GitHubIcon sx={{ fontSize: 40, mr: 2 }} />
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          fontWeight="bold"
+                          sx={{ textAlign: "left" }}
+                        >
+                          GitHub
+                        </Typography>
+                        <Typography variant="body2">
+                          <a
+                            href="https://github.com/Shivam-S-Pathak"
+                            style={{ color: "white" }}
+                          >
+                            github.com/Shivam-S-Pathak
+                          </a>
+                        </Typography>
+                      </Box>
+                    </Box>
+                    <Box display="flex" alignItems="center">
+                      <EmailIcon sx={{ fontSize: 40, mr: 2 }} />
+                      <Box>
+                        <Typography
+                          variant="body1"
+                          fontWeight="bold"
+                          sx={{ textAlign: "left" }}
+                        >
+                          Email
+                        </Typography>
+                        <Typography variant="body2">
+                          <a
+                            href="mailto:shivampathak5042@gmail.com"
+                            style={{ color: "white" }}
+                          >
+                            shivampathak5042@gmail.com
+                          </a>
+                        </Typography>
+                      </Box>
                     </Box>
                   </Box>
-                  <Box display="flex" alignItems="center">
-                    <XIcon sx={{ fontSize: 40, mr: 2 }} />
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        sx={{ textAlign: "left" }}
-                      >
-                        X (twitter)
-                      </Typography>
-                      <Typography variant="body2">
-                        <a
-                          href="https://x.com/shivam_S_pathak"
-                          style={{ color: "white" }}
-                        >
-                          x.com/shivam_S_pathak
-                        </a>
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box display="flex" alignItems="center">
-                    <YouTubeIcon sx={{ fontSize: 40, mr: 2 }} />
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        sx={{ textAlign: "left" }}
-                      >
-                        Youtube
-                      </Typography>
-                      <Typography variant="body2">
-                        <a
-                          href="https://www.youtube.com/@shivamspathak"
-                          style={{ color: "white" }}
-                        >
-                          www.youtube.com/@shivamspathak
-                        </a>
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box display="flex" alignItems="center">
-                    <GitHubIcon sx={{ fontSize: 40, mr: 2 }} />
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        sx={{ textAlign: "left" }}
-                      >
-                        GitHub
-                      </Typography>
-                      <Typography variant="body2">
-                        <a
-                          href="https://github.com/Shivam-S-Pathak"
-                          style={{ color: "white" }}
-                        >
-                          github.com/Shivam-S-Pathak
-                        </a>
-                      </Typography>
-                    </Box>
-                  </Box>
-                  <Box display="flex" alignItems="center">
-                    <EmailIcon sx={{ fontSize: 40, mr: 2 }} />
-                    <Box>
-                      <Typography
-                        variant="body1"
-                        fontWeight="bold"
-                        sx={{ textAlign: "left" }}
-                      >
-                        Email
-                      </Typography>
-                      <Typography variant="body2">
-                        <a
-                          href="mailto:shivampathak5042@gmail.com"
-                          style={{ color: "white" }}
-                        >
-                          shivampathak5042@gmail.com
-                        </a>
-                      </Typography>
-                    </Box>
-                  </Box>
-                </Box>
-              </CardContent>
-            </Card>
-          </Grow>
-        </Grid>
+                </CardContent>
+              </Card>
+            </Grow>
+          </Grid>
+        </Box>
       </Grid>
 
       <Snackbar

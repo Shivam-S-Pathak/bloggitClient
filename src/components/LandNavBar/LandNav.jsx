@@ -6,12 +6,33 @@ import Button from "@mui/material/Button";
 import IconButton from "@mui/material/IconButton";
 import MenuIcon from "@mui/icons-material/Menu";
 import Typography from "@mui/material/Typography";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 const LandNav = () => {
+  const [showNav, setShowNav] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setShowNav(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
+
   return (
-    <Box sx={{ flexGrow: 1 }}>
-      <AppBar sx={{ backgroundColor: "rgb(155, 8, 217)" }}>
+  
+      <AppBar position="sticky"
+      sx={{
+        backgroundColor: "rgb(155, 8, 217)",
+        top: showNav ? 0 : "-80px",
+        transition: "top 0.3s ease",
+        zIndex:"1000"
+      }}>
         <Toolbar>
           <IconButton
             size="large"
@@ -48,7 +69,7 @@ const LandNav = () => {
           </Link>
         </Toolbar>
       </AppBar>
-    </Box>
+  
   );
 };
 
