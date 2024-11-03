@@ -21,6 +21,20 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 const pages = ["Home", "About", "Contact"];
 const settings = ["Profile", "Account", "Dashboard"];
 const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
+  const [showNav, setShowNav] = useState(true);
+  const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollPos = window.scrollY;
+      setShowNav(prevScrollPos > currentScrollPos || currentScrollPos < 10);
+      setPrevScrollPos(currentScrollPos);
+    };
+
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [prevScrollPos]);
+
   const { account, setAccount } = useContext(DataContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
@@ -69,9 +83,11 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
 
   return (
     <AppBar
+    position="sticky"
       sx={{
         backgroundColor: "rgb(155, 8, 217)",
-        transition: "height 0.3s ease",
+        top: showNav ? 0 : "-80px",
+        transition: "top 0.3s ease",
       }}
     >
       <Container maxWidth="xl">
@@ -131,7 +147,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
-                sx={{ display: { xs: "block", md: "none" } }}
+                sx={{ display: { xs: "flex", md: "none" } }}
               >
                 {pages.map((page) => (
                   <Link to={`/${page.toLowerCase()}`} key={page}>
@@ -160,7 +176,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 textDecoration: "none",
               }}
             >
-              BlogIT
+              BloggIT
             </Typography>
 
             <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>

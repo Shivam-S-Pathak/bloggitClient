@@ -78,12 +78,12 @@ const MyPost = ({ selectedCategories }) => {
                       gutterBotto
                       variant="h5"
                       component="div"
-                      sx={{ cursor: "pointer" }}
+                      sx={{ cursor: "pointer"  , color:"black"}}
                     >
                       {post.title}
                     </Typography>
 
-                    <Typography variant="body2">{post.discription}</Typography>
+                    <Typography variant="body2" color="black">{post.discription}</Typography>
                     <Box
                       display="flex"
                       justifyContent="space-between"
@@ -92,16 +92,10 @@ const MyPost = ({ selectedCategories }) => {
                     >
                       <Box>
                         <Typography variant="body3" sx={{ fontWeight: "bold" }}>
-                          Author:- {post.editor}
+                        <Chip label={`${"Author : "}${post.editor}`} variant="filled" sx={{margin:" 0 1rem 0 0"}}/> 
+                        <Chip label={`${new Date(post.date).toDateString()}`} />
                         </Typography>
-                        <Typography variant="caption" display="block">
-                          Posted on:-{" "}
-                          {new Date(post.date).toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                            month: "2-digit",
-                            year: "numeric",
-                          })}
-                        </Typography>
+                        
                       </Box>
                       <Chip
                         label={post.Category}
@@ -121,7 +115,7 @@ const MyPost = ({ selectedCategories }) => {
                   }}
                 >
                   <Link to={`/update/${post._id}`}>
-                    <Button variant="contained" sx={{ bgcolor: "#028090" }}>
+                    <Button variant="contained" sx={{ bgcolor: "rgb(155, 8, 217)" }}>
                       <EditNoteIcon sx={{ margin: "0 0.2rem 0 0" }} /> Edit
                     </Button>
                   </Link>

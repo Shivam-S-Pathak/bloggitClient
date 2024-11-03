@@ -45,6 +45,7 @@ const Post = ({ selectedCategories }) => {
                     borderRadius: "1rem",
                     bgcolor: "#FEFDFF",
                     boxShadow: "0px 2px 5px 0px #415A77",
+
                     transition:
                       "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                     "&:hover": {
@@ -59,7 +60,7 @@ const Post = ({ selectedCategories }) => {
                       gutterBottom
                       variant="h5"
                       component="div"
-                      sx={{ cursor: "pointer" }}
+                      sx={{ cursor: "pointer" , textAlign:"center"}}
                     >
                       {post.title}
                     </Typography>
@@ -72,17 +73,11 @@ const Post = ({ selectedCategories }) => {
                       mt={2}
                     >
                       <Box>
-                        <Typography variant="body3" sx={{ fontWeight: "bold" }}>
-                          Author:- {post.editor}
+                        <Typography variant="body3" sx={{fontFamily:""}}>
+                        <Chip label={`${"Author : "}${post.editor}`} variant="filled" sx={{margin:" 0 1rem 0 0"}}/> 
+                        <Chip label={`${new Date(post.date).toDateString()}`} />
                         </Typography>
-                        <Typography variant="caption" display="block">
-                          Posted on:-{" "}
-                          {new Date(post.date).toLocaleDateString("en-GB", {
-                            day: "2-digit",
-                            month: "2-digit",
-                            year: "numeric",
-                          })}
-                        </Typography>
+                        
                       </Box>
                       <Chip
                         label={post.Category}

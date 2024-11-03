@@ -1,4 +1,5 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
+import emailjs from "@emailjs/browser";
 import {
   Container,
   Typography,
@@ -29,36 +30,56 @@ import XIcon from "@mui/icons-material/X";
 export default function Contact() {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
-
-  const [formData, setFormData] = useState({
-    name: "",
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const initialFormState = {
+    fullName: "",
     email: "",
-    subject: "",
-    message: "",
-  });
+    contactNumber: "",
+    reason: "",
+    site: "bloggIT",
+  };
+  const [formData, setFormData] = useState(initialFormState);
+
   const [snackbar, setSnackbar] = useState({
     open: false,
     message: "",
     severity: "success",
   });
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prevData) => ({
-      ...prevData,
-      [name]: value,
-    }));
+  const handleChange = (event) => {
+    setFormData({ ...formData, [event.target.name]: event.target.value });
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
     console.log(formData);
-    setSnackbar({
-      open: true,
-      message: "Message sent successfully!",
-      severity: "success",
-    });
-    setFormData({ name: "", email: "", subject: "", message: "" });
+    setIsSubmitting(true);
+
+    emailjs
+      .send("service_qguhlgq", "template_gzq53za", formData, {
+        publicKey: "b3sJrCBk7wDHXZMPT",
+      })
+      .then(
+        () => {
+          setIsSubmitting(false);
+          setSnackbar({
+            open: true,
+            message: "Message sent successfully!",
+            severity: "success",
+          });
+          setFormData(initialFormState);
+        },
+        (error) => {
+          setIsSubmitting(false);
+          setSnackbar({
+            open: true,
+            message: "There is some problem , please try again later! ",
+            severity: "error",
+          });
+          setFormData(initialFormState);
+        }
+      );
+    setFormData(initialFormState);
   };
 
   const handleCloseSnackbar = (event, reason) => {
@@ -105,12 +126,13 @@ export default function Contact() {
                     <Grid item xs={12} sm={6}>
                       <TextField
                         fullWidth
-                        label="Name"
-                        name="name"
-                        value={formData.name}
+                        label="Full name"
+                        name="fullName"
+                        value={formData.fullName}
                         onChange={handleChange}
                         required
                         variant="outlined"
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12} sm={6}>
@@ -123,37 +145,39 @@ export default function Contact() {
                         onChange={handleChange}
                         required
                         variant="outlined"
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
                         fullWidth
-                        label="Subject"
-                        name="subject"
-                        value={formData.subject}
+                        label="Contact number"
+                        name="contactNumber"
+                        value={formData.contactNumber}
                         onChange={handleChange}
                         required
                         variant="outlined"
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <TextField
                         fullWidth
                         label="Message"
-                        name="message"
+                        name="reason"
                         multiline
                         rows={4}
-                        value={formData.message}
+                        value={formData.reason}
                         onChange={handleChange}
                         required
                         variant="outlined"
+                        autoComplete="off"
                       />
                     </Grid>
                     <Grid item xs={12}>
                       <Button
                         type="submit"
                         variant="contained"
-                       
                         color="primary"
                         size="large"
                         fullWidth
@@ -163,7 +187,7 @@ export default function Contact() {
                           textTransform: "none",
                           fontSize: "1.1rem",
                           borderRadius: 2,
-                          bgcolor:"rgb(155, 8, 217)"
+                          bgcolor: "rgb(155, 8, 217)",
                         }}
                       >
                         Send Message

@@ -56,12 +56,13 @@ const Home = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4, marginTop: "3rem" }}>
-      <div
+    <Container maxWidth="lg">
+      <Box
         className={styles.blogContainer}
-        style={{
+        sx={{
           display: "flex",
           flexDirection: isMobileView ? "column" : "row",
+         
         }}
       >
         <div className={styles.allBtnContainer}>
@@ -140,16 +141,19 @@ const Home = () => {
           {/* </div> */}
         </div>
 
-        <Box className={styles.contentContainer} width= {{
-                xs: "25rem", 
-                sm: "20rem", 
-                md: "40rem", 
-                lg: "55rem", 
-                xl: "55rem", 
-              }}>
+        <Box
+          className={styles.contentContainer}
+          // width={{
+          //   xs: "25rem",
+          //   sm: "25rem",
+          //   md: "40rem",
+          //   lg: "55rem",
+          //   xl: "55rem",
+          // }}
+        >
           <Post selectedCategories={selectedCategories} />
         </Box>
-      </div>
+      </Box>
     </Container>
   );
 };

@@ -56,7 +56,7 @@ const MyBlogs = () => {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4, marginTop: "3rem" }}>
+    <Container maxWidth="lg">
       <div
         className={styles.blogContainer}
         style={{
@@ -139,16 +139,29 @@ const MyBlogs = () => {
           </Grid>
           {/* </div> */}
         </div>
-
+        <Typography
+          sx={{
+            fontSize: "2rem",
+            bgcolor: "#28262C",
+            color: "white",
+            padding: "0.1rem",
+            textAlign: "center",
+            // Toggle vertical or horizontal based on isMobileView
+            writingMode: isMobileView ? "horizontal-tb" : "vertical-rl",
+            textOrientation: isMobileView ? "initial" : "mixed",
+          }}
+        >
+          Your Blogs
+        </Typography>
         <Box
           className={styles.contentContainer}
-          width={{
-            xs: "25rem",
-            sm: "20rem",
-            md: "40rem",
-            lg: "55rem",
-            xl: "55rem",
-          }}
+          // width={{
+          //   xs: "25rem",
+          //   sm: "20rem",
+          //   md: "40rem",
+          //   lg: "55rem",
+          //   xl: "55rem",
+          // }}
         >
           <MyPost selectedCategories={selectedCategories} />
         </Box>
