@@ -1,4 +1,4 @@
-/* :root {
+:root {
   font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
   line-height: 1.5;
   font-weight: 400;
@@ -13,12 +13,11 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
-
-
 body {
   margin: 0;
   display: flex;
-  place-items: center;
+  /* place-items: center; */
+  justify-content: center;
   min-width: 320px;
   min-height: 100vh;
 }
@@ -27,7 +26,7 @@ h1 {
   font-size: 3.2em;
   line-height: 1.1;
 }
-
+/*
 button {
   border-radius: 8px;
   border: 1px solid transparent;
@@ -45,7 +44,7 @@ button:hover {
 button:focus,
 button:focus-visible {
   outline: 4px auto -webkit-focus-ring-color;
-} */
+}
 
 @media (prefers-color-scheme: light) {
   :root {
@@ -59,7 +58,7 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
+*/
 * {
   margin: 0;
   padding: 0;
