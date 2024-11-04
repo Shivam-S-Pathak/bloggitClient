@@ -51,7 +51,7 @@ const MyPost = ({ selectedCategories }) => {
     return <PostSkeleton />;
   }
   return (
-    <div>
+    <Box sx={{ width: "100%" }}>
       {filteredBlogs.length > 0 ? (
         <Grid item xs={12} md={9}>
           <Box>
@@ -78,12 +78,14 @@ const MyPost = ({ selectedCategories }) => {
                       gutterBotto
                       variant="h5"
                       component="div"
-                      sx={{ cursor: "pointer"  , color:"black"}}
+                      sx={{ cursor: "pointer", color: "black" }}
                     >
                       {post.title}
                     </Typography>
 
-                    <Typography variant="body2" color="black">{post.discription}</Typography>
+                    <Typography variant="body2" color="black">
+                      {post.discription}
+                    </Typography>
                     <Box
                       display="flex"
                       justifyContent="space-between"
@@ -91,11 +93,16 @@ const MyPost = ({ selectedCategories }) => {
                       mt={2}
                     >
                       <Box>
-                        <Typography variant="body3" sx={{ fontWeight: "bold" }}>
-                        <Chip label={`${"Author : "}${post.editor}`} variant="filled" sx={{margin:" 0 1rem 0 0"}}/> 
-                        <Chip label={`${new Date(post.date).toDateString()}`} />
+                        <Typography variant="body3">
+                          <Chip
+                            label={`${"Author : "}${post.editor}`}
+                            variant="filled"
+                            sx={{ margin: "0.5rem" }}
+                          />
+                          <Chip
+                            label={`${new Date(post.date).toDateString()}`}
+                          />
                         </Typography>
-                        
                       </Box>
                       <Chip
                         label={post.Category}
@@ -115,7 +122,10 @@ const MyPost = ({ selectedCategories }) => {
                   }}
                 >
                   <Link to={`/update/${post._id}`}>
-                    <Button variant="contained" sx={{ bgcolor: "rgb(155, 8, 217)" }}>
+                    <Button
+                      variant="contained"
+                      sx={{ bgcolor: "rgb(155, 8, 217)" }}
+                    >
                       <EditNoteIcon sx={{ margin: "0 0.2rem 0 0" }} /> Edit
                     </Button>
                   </Link>
@@ -147,7 +157,7 @@ const MyPost = ({ selectedCategories }) => {
           There is nothing to show for the selected categories.
         </Typography>
       )}
-    </div>
+    </Box>
   );
 };
 

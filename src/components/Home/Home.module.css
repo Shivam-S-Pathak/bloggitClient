@@ -3,9 +3,11 @@
 height:100vh;
 }
 .contentContainer {
-  padding: 1rem 1rem 1rem 1rem;
-  margin: 1rem 0 0 0;
+  margin: 1.5rem 0 0 0;
+  padding: 10px;
   overflow-y: scroll;
+  width: 100%;
+  /* background-color: red; */
 }
 .buttonContainer {
   display: flex;

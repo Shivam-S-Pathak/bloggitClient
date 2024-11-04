@@ -56,7 +56,7 @@ const Home = () => {
   };
 
   return (
-    <Container maxWidth="lg">
+    <Container maxWidth="lg" >
       <Box
         className={styles.blogContainer}
         sx={{

@@ -20,6 +20,7 @@ import CreateBlog from "./components/blog/CreateBlog.jsx";
 import ShowBlogs from "./components/blog/ShowBlogs.jsx";
 import MyBlogs from "./components/Myblog/MyBlogs.jsx";
 import EditBlog from "./components/blog/EditBlog.jsx";
+import Footer from "./components/footer/Footer.jsx";
 import { useState, useEffect } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -148,7 +149,9 @@ function App() {
             >
               <Route path="/update/:id" element={<EditBlog />} />
             </Route>
+
           </Routes>
+          <Footer />
         </BrowserRouter>
       </DataProvider>
     </>

@@ -14,13 +14,13 @@ const PostSkeleton = () => {
               borderRadius: "1rem",
               bgcolor: "rgb(255, 255, 255)",
               boxShadow: "0px 2px 5px 0px #415A77",
-              width: {
-                xs: "25rem",
-                sm: "20rem",
-                md: "40rem",
-                lg: "55rem",
-                xl: "55rem",
-              },
+              // width: {
+              //   xs: "25rem",
+              //   sm: "20rem",
+              //   md: "40rem",
+              //   lg: "55rem",
+              //   xl: "55rem",
+              // },
               margin: "0 0 2rem 0",
             }}
           >

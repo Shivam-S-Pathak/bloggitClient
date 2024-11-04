@@ -8,7 +8,7 @@ import Menu from "@mui/material/Menu";
 import MenuIcon from "@mui/icons-material/Menu";
 import Container from "@mui/material/Container";
 import Button from "@mui/material/Button";
-
+import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import { Link, useNavigate } from "react-router-dom";
@@ -88,9 +88,8 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
         backgroundColor: "rgb(155, 8, 217)",
         top: showNav ? 0 : "-80px",
         transition: "top 0.3s ease",
-        zIndex:"1000"
+        zIndex: "1000",
       }}
-      
     >
       <Container>
         <Toolbar
@@ -102,7 +101,14 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
             padding: "0",
           }}
         >
-          <Box sx={{ display: "flex", alignItems: "center", width: "100%" }}>
+          <Box
+            sx={{
+              display: "flex",
+              alignItems: "center",
+              width: "100%",
+            
+            }}
+          >
             <RateReviewIcon
               sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
             />
@@ -123,8 +129,19 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 BloggIT
               </Typography>
             </Link>
-
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}}> {/* this is pages box*/ }
+              {pages.map((page) => (
+                <Link to={`/${page.toLowerCase()}`} key={page}>
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "white", display: "block" }}
+                  >
+                    {page}
+                  </Button>
+                </Link>
+              ))}
+            </Box>
+            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }}}> {/* menuicon box */}
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -163,47 +180,44 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 ))}
               </Menu>
             </Box>
-
-            <Typography
-              variant="h5"
-              noWrap
+            <Box
               sx={{
-                mr: 2,
-                display: { xs: "flex", md: "none" },
-                flexGrow: 1,
-                fontFamily: "monospace",
-                fontWeight: 700,
-                letterSpacing: ".3rem",
-                color: "inherit",
-                textDecoration: "none",
+                display: "flex",
+                alignItems: "center",
+                width: "100%",
+               
+                justifyContent: "center",
               }}
-            >
-              BloggIT
-            </Typography>
-
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-              {pages.map((page) => (
-                <Link to={`/${page.toLowerCase()}`} key={page}>
-                  <Button
-                    onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
-                  >
-                    {page}
-                  </Button>
-                </Link>
-              ))}
+            >  {/* this is mobile view bloggit box */}
+              <RateReviewIcon sx={{ display: { xs: "flex", md: "none" } }} />
+              <Link to="/home">
+                <Typography
+                  variant="h6"
+                  noWrap
+                  sx={{
+                    mr: 2,
+                    display: { xs: "flex", md: "none" },
+                    fontFamily: "monospace",
+                    fontWeight: 700,
+                    letterSpacing: ".3rem",
+                    color: "white",
+                    textDecoration: "none",
+                  }}
+                >
+                  BloggIT
+                </Typography>
+              </Link>
             </Box>
+
+          
           </Box>
 
           <Box
             sx={{
-              flexGrow: 0,
+              flexGrow: 1,
               position: "relative",
               margin: "0.5rem 0 0.5rem 0",
-              bgcolor: "aqua",
-              overflow: "hidden",
-              borderRadius: "1.5rem",
-              width: "200px",
+              maxWidth: "200px",
               transition: "all 0.3s ease-in-out",
               "&:hover": {
                 borderRadius: "0",
@@ -214,34 +228,34 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
               expanded={expanded}
               onChange={handleAccordionToggle}
               sx={{
-                borderRadius: "16px",
-                overflow: "hidden",
                 textWrap: "nowrap",
+                bgcolor:"transparent",
+                border: "1px solid white"
               }}
             >
               <AccordionSummary
                 expandIcon={
                   <ExpandMoreIcon
                     sx={{
-                      color: "rgb(155, 8, 217)",
-                      margin: "0",
-                      padding: "0",
+                     
+                      color:"white",
                     }}
                   />
+                  
                 }
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                sx={{ padding: "0px 20px", margin: 0 }}
+                sx={{ margin: -1, padding:"0 30px 0 30px"}}
               >
                 <Typography
                   variant="h6"
-                  sx={{ color: "rgb(155, 8, 217)", margin: "0" }}
+                  sx={{ margin: "0" , color:"white"}}
                 >
                   {account.username}
                 </Typography>
               </AccordionSummary>
 
-              <AccordionDetails>
+              <AccordionDetails sx={{bgcolor:"white"}}>
                 <Link to={`/myblogs/${account.username}`}>
                   <MenuItem
                     sx={{

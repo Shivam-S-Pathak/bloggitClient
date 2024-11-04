@@ -33,7 +33,7 @@ const Post = ({ selectedCategories }) => {
   }
 
   return (
-    <div>
+    <Box sx={{width:"100%"}}>
       {filteredBlogs.length > 0 ? (
         <Grid item xs={12} md={9}>
           <Box>
@@ -74,7 +74,7 @@ const Post = ({ selectedCategories }) => {
                     >
                       <Box>
                         <Typography variant="body3" sx={{fontFamily:""}}>
-                        <Chip label={`${"Author : "}${post.editor}`} variant="filled" sx={{margin:" 0 1rem 0 0"}}/> 
+                        <Chip label={`${"Author : "}${post.editor}`} variant="filled" sx={{margin:"0.5rem"}}/> 
                         <Chip label={`${new Date(post.date).toDateString()}`} />
                         </Typography>
                         
@@ -96,7 +96,7 @@ const Post = ({ selectedCategories }) => {
           There is nothing to show for the selected categories.
         </Typography>
       )}
-    </div>
+    </Box>
   );
 };
 
