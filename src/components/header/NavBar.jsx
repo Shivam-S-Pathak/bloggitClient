@@ -275,6 +275,26 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                     </Typography>
                   </MenuItem>
                 </Link>
+
+                <Link to={`/myJournal/${account.username}`}>
+                  <MenuItem
+                    sx={{
+                      color: "black",
+                      borderRadius: "0.5rem",
+                    }}
+                    onClick={handleAccordionToggle}
+                  >
+                    <Typography
+                      sx={{
+                        textAlign: "center",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      My Journals
+                    </Typography>
+                  </MenuItem>
+                </Link>
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleAccordionToggle}>
                     {/* <Link

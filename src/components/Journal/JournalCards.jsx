@@ -17,11 +17,12 @@ import { Link, useParams, useNavigate, resolvePath } from "react-router-dom";
 import { API } from "../../source/api.js";
 import PostSkeleton from "../Home/PostSkeleton.jsx";
 
-const MyPost = ({ selectedCategories }) => {
+const JournalCards = ({ selectedCategories }) => {
   const { username } = useParams();
   const [open, setOpen] = useState(false);
   const handleOpen = () => setOpen(true);
   const handleClose = () => setOpen(false);
+
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
   // const { account } = useContext(DataContext);
@@ -29,7 +30,7 @@ const MyPost = ({ selectedCategories }) => {
   const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
-      let response = await API.getMyBlogs({ username });
+      let response = await API.getMyJournals({ username });
       if (response.isSuccess) {
         setPost(response.data);
       }
@@ -45,7 +46,7 @@ const MyPost = ({ selectedCategories }) => {
       : post;
 
   const handleDelete = async (postId) => {
-    let response = await API.deleteBlog(postId);
+    let response = await API.deleteJournal(postId);
     if (response.isSuccess) {
       setPost((prevPosts) => prevPosts.filter((post) => post._id !== postId));
     } else {
@@ -76,7 +77,7 @@ const MyPost = ({ selectedCategories }) => {
                   },
                 }}
               >
-                <Link to={`/home/details/${post._id}`}>
+                <Link to={`/JournalDetails/${post._id}`}>
                   <CardContent>
                     <Typography
                       gutterBotto
@@ -87,9 +88,6 @@ const MyPost = ({ selectedCategories }) => {
                       {post.title}
                     </Typography>
 
-                    <Typography variant="body2" color="black">
-                      {post.discription}
-                    </Typography>
                     <Box
                       display="flex"
                       justifyContent="space-between"
@@ -97,22 +95,30 @@ const MyPost = ({ selectedCategories }) => {
                       mt={2}
                     >
                       <Box>
-                        <Typography variant="body3">
-                          <Chip
-                            label={`${"Author : "}${post.editor}`}
-                            variant="filled"
-                            sx={{ margin: "0.5rem" }}
-                          />
-                          <Chip
-                            label={`${new Date(post.date).toDateString()}`}
-                          />
-                        </Typography>
+                        <Chip
+                          label={`${new Date(post.date).toDateString()}`}
+                          sx={{
+                            margin: "0.3rem",
+                          }}
+                        />
+
+                        <Chip
+                          label={post.mood}
+                          sx={{
+                            bgcolor: "rgb(155, 8, 217)",
+                            color: "white",
+                            margin: "0.3rem",
+                          }}
+                        />
+                        <Chip
+                          label={post.tag}
+                          sx={{
+                            bgcolor: "rgb(155, 8, 217)",
+                            color: "white",
+                            margin: "0.3rem",
+                          }}
+                        />
                       </Box>
-                      <Chip
-                        label={post.Category}
-                        size="small"
-                        sx={{ bgcolor: "rgb(155, 8, 217)", color: "white" }}
-                      />
                     </Box>
                   </CardContent>
                 </Link>
@@ -129,15 +135,15 @@ const MyPost = ({ selectedCategories }) => {
                       left: "50%",
                       transform: "translate(-50%, -50%)",
                       width: 400,
-                      height: 110,
+                      height:110,
                       bgcolor: "rgb(155, 8, 217)",
                       boxShadow: 24,
                       p: 4,
-                      display: "flex",
-                      justifyContent: "center",
-                      alignItems: "center",
-                      flexDirection: "column",
-                      gap: 6,
+                      display:"flex",
+                      justifyContent:"center",
+                      alignItems:"center",
+                      flexDirection:"column",
+                      gap:6
                     }}
                   >
                     <Typography
@@ -146,16 +152,9 @@ const MyPost = ({ selectedCategories }) => {
                       component="h2"
                       color="white"
                     >
-                      Do you want to delete this blog?
+                      Do you want to delete this journal?
                     </Typography>
-                    <Box
-                      sx={{
-                        display: "flex",
-                        flexDirection: "row",
-                        gap: 6,
-                        justifyContent: "center",
-                      }}
-                    >
+                    <Box sx={{display:"flex" , flexDirection:"row" , gap:6, justifyContent:"center"}}>
                       <Button
                         variant="contained"
                         color="error"
@@ -182,7 +181,7 @@ const MyPost = ({ selectedCategories }) => {
                     padding: "0.5rem 0 0.5rem 0",
                   }}
                 >
-                  <Link to={`/update/${post._id}`}>
+                  <Link to={`/updateJournal/${post._id}`}>
                     <Button
                       variant="contained"
                       sx={{ bgcolor: "rgb(155, 8, 217)" }}
@@ -222,4 +221,4 @@ const MyPost = ({ selectedCategories }) => {
   );
 };
 
-export default MyPost;
+export default JournalCards;

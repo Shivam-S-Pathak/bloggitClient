@@ -107,7 +107,7 @@ const CreateBlog = () => {
     }
   };
   return (
-    <Container sx={{ mt: 4, mb: 4, width: "100vw" }}>
+    <Container sx={{ mt: 4, mb: 4, width: "100vw", height: "100%" }}>
       <Typography
         variant="h3"
         component="h1"

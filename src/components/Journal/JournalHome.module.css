@@ -1,0 +1,29 @@
+
+.postContainer{
+    height:100vh;
+    }
+    .contentContainer {
+      margin: 1.5rem 0 0 0;
+      padding: 10px;
+      overflow-y: scroll;
+      width: 100%;
+      /* background-color: red; */
+    }
+    .buttonContainer {
+      display: flex;
+      height: 48px;
+    }
+    .allBtnContainer{
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      padding: 1rem;
+    
+    }
+    .contentContainer::-webkit-scrollbar {
+      width: 0;
+    }
+    
+    
+    
+    

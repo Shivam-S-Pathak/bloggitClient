@@ -9,6 +9,7 @@ const Footer = () => {
         display: "flex",
         justifyContent: "flex-end",
         padding: "1rem",
+        bottom:"0"
       }}
     >
       <div className={Styles.copyrightNote}>

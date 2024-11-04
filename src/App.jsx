@@ -21,6 +21,10 @@ import ShowBlogs from "./components/blog/ShowBlogs.jsx";
 import MyBlogs from "./components/Myblog/MyBlogs.jsx";
 import EditBlog from "./components/blog/EditBlog.jsx";
 import Footer from "./components/footer/Footer.jsx";
+import CreateJournal from "./components/Journal/createJournal.jsx";
+import JournalHome from "./components/Journal/JournalHome.jsx";
+import ShowJournals from "./components/Journal/showJournal.jsx";
+import EditJournal from "./components/Journal/EditJournal.jsx";
 import { useState, useEffect } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
@@ -150,6 +154,53 @@ function App() {
               <Route path="/update/:id" element={<EditBlog />} />
             </Route>
 
+            <Route
+              path="/journal"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/journal" element={<CreateJournal />} />
+            </Route>
+
+            <Route
+              path="/myJournal/:username"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/myJournal/:username" element={<JournalHome />} />
+            </Route>
+
+            <Route
+              path="/JournalDetails/:id"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/JournalDetails/:id" element={<ShowJournals />} />
+            </Route>
+
+            <Route
+              path="/updateJournal/:id"
+              element={
+                <PrivateRoute
+                  isAuthenticated={isAuthenticated}
+                  setIsAuthenticated={setIsAuthenticated}
+                />
+              }
+            >
+              <Route path="/updateJournal/:id" element={<EditJournal />} />
+            </Route>
           </Routes>
           <Footer />
         </BrowserRouter>

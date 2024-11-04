@@ -47,4 +47,23 @@ export const SERVICE_URLS = {
     method: "DELETE",
   },
   updateBlog: { url: (id) => `${API_URL}/update/${id}`, method: "PUT" },
+  writeJournal: {
+    url: `${API_URL}/createJournal`,
+    method: "POST",
+    responseType: "json",
+  },
+  getMyJournals: {
+    url: (username) => `/myJournal/${username}`,
+    method: "GET",
+    query: true,
+  },
+  getJournalById: { url: (id) => `${API_URL}/journal/${id}`, method: "GET" },
+  updateJournal: {
+    url: (id) => `${API_URL}/updateJournal/${id}`,
+    method: "PUT",
+  },
+  deleteJournal: {
+    url: (id) => `/deleteJournal/${id}`,
+    method: "DELETE",
+  },
 };

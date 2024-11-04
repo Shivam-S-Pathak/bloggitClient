@@ -82,6 +82,24 @@ const Home = () => {
               </Button>
             </Link>
           </Box>
+
+          <Box className={styles.buttonContainer} mb={2}>
+            <Link to="/journal">
+              <Button
+                variant="contained"
+                sx={{
+                  bgcolor: "#A5CCD1",
+                  color: "black",
+                  width: "11.5rem",
+                  padding: "0.7rem 0 0.7rem 0",
+                }}
+                startIcon={<AddIcon />}
+              >
+                Write Journal
+              </Button>
+            </Link>
+          </Box>
+          
           {/* <div className={styles.filterContainer}> */}
           <Grid item xs={12} md={3}>
             <Accordion
