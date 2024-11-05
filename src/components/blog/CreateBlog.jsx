@@ -98,7 +98,7 @@ const CreateBlog = () => {
     try {
       let response = await API.createBlog(formData);
       if (response.isSuccess) {
-        navigate("/home");
+        navigate(`/myblogs/${account.username}`);
       } else {
         console.log("here is some problem");
       }

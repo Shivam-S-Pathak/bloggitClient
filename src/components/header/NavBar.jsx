@@ -12,11 +12,11 @@ import Avatar from "@mui/material/Avatar";
 import MenuItem from "@mui/material/MenuItem";
 import RateReviewIcon from "@mui/icons-material/RateReview";
 import { Link, useNavigate } from "react-router-dom";
-import { DataContext } from "../../context/DataProvider.jsx";
 import { useContext, useEffect, useState } from "react";
 import { Logout } from "@mui/icons-material";
 import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
+import { DataContext } from "../../context/DataProvider.jsx";
 
 const pages = ["Home", "About", "Contact"];
 const settings = ["Profile", "Account", "Dashboard"];
@@ -106,7 +106,6 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
               display: "flex",
               alignItems: "center",
               width: "100%",
-            
             }}
           >
             <RateReviewIcon
@@ -129,7 +128,14 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 BloggIT
               </Typography>
             </Link>
-            <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" }}}> {/* this is pages box*/ }
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "none", md: "flex" },
+              }}
+            >
+              {" "}
+              {/* this is pages box*/}
               {pages.map((page) => (
                 <Link to={`/${page.toLowerCase()}`} key={page}>
                   <Button
@@ -140,8 +146,39 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                   </Button>
                 </Link>
               ))}
+              <Link to={`/myblogs/${account.username}`}>
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    textWrap: "nowrap",
+                  }}
+                >
+                  My Blogs
+                </Button>
+              </Link>
+              <Link to={`/myJournal/${account.username}`}>
+                <Button
+                  sx={{
+                    my: 2,
+                    color: "white",
+                    display: "block",
+                    textWrap: "nowrap",
+                  }}
+                >
+                  My Journals
+                </Button>
+              </Link>
             </Box>
-            <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" }}}> {/* menuicon box */}
+            <Box
+              sx={{
+                flexGrow: 1,
+                display: { xs: "flex", md: "none" },
+              }}
+            >
+              {" "}
+              {/* menuicon box */}
               <IconButton
                 size="large"
                 aria-label="account of current user"
@@ -149,6 +186,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 aria-haspopup="true"
                 onClick={handleOpenNavMenu}
                 color="inherit"
+                sx={{ padding: "0.8rem 0 0 0" }}
               >
                 <MenuIcon />
               </IconButton>
@@ -178,6 +216,22 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                     </Button>
                   </Link>
                 ))}
+                <Link to={`/myblogs/${account.username}`} key="my Blogs">
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "black", display: "block" }}
+                  >
+                    My Blogs
+                  </Button>
+                </Link>
+                <Link to={`/myJournal/${account.username}`} key="my Journals">
+                  <Button
+                    onClick={handleCloseNavMenu}
+                    sx={{ my: 2, color: "black", display: "block" }}
+                  >
+                    My Journals
+                  </Button>
+                </Link>
               </Menu>
             </Box>
             <Box
@@ -185,17 +239,20 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 display: "flex",
                 alignItems: "center",
                 width: "100%",
-               
+                mt: 2,
                 justifyContent: "center",
               }}
-            >  {/* this is mobile view bloggit box */}
-              <RateReviewIcon sx={{ display: { xs: "flex", md: "none" } }} />
+            >
+              {" "}
+              {/* this is mobile view bloggit box */}
+              <RateReviewIcon
+                sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+              />
               <Link to="/home">
                 <Typography
                   variant="h6"
                   noWrap
                   sx={{
-                    mr: 2,
                     display: { xs: "flex", md: "none" },
                     fontFamily: "monospace",
                     fontWeight: 700,
@@ -208,8 +265,6 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 </Typography>
               </Link>
             </Box>
-
-          
           </Box>
 
           <Box
@@ -229,54 +284,29 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
               onChange={handleAccordionToggle}
               sx={{
                 textWrap: "nowrap",
-                bgcolor:"transparent",
-                border: "1px solid white"
+                bgcolor: "transparent",
+                border: "1px solid white",
               }}
             >
               <AccordionSummary
                 expandIcon={
                   <ExpandMoreIcon
                     sx={{
-                     
-                      color:"white",
+                      color: "white",
                     }}
                   />
-                  
                 }
                 aria-controls="panel1a-content"
                 id="panel1a-header"
-                sx={{ margin: -1, padding:"0 30px 0 30px"}}
+                sx={{ margin: -1, padding: "0 30px 0 30px" }}
               >
-                <Typography
-                  variant="h6"
-                  sx={{ margin: "0" , color:"white"}}
-                >
+                <Typography variant="h6" sx={{ margin: "0", color: "white" }}>
                   {account.username}
                 </Typography>
               </AccordionSummary>
 
-              <AccordionDetails sx={{bgcolor:"white"}}>
-                <Link to={`/myblogs/${account.username}`}>
-                  <MenuItem
-                    sx={{
-                      color: "black",
-                      borderRadius: "0.5rem",
-                    }}
-                    onClick={handleAccordionToggle}
-                  >
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      My Blogs
-                    </Typography>
-                  </MenuItem>
-                </Link>
-
-                <Link to={`/myJournal/${account.username}`}>
+              <AccordionDetails sx={{ bgcolor: "white" }}>
+                {/* <Link to={`/myJournal/${account.username}`}>
                   <MenuItem
                     sx={{
                       color: "black",
@@ -294,7 +324,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                       My Journals
                     </Typography>
                   </MenuItem>
-                </Link>
+                </Link> */}
                 {settings.map((setting) => (
                   <MenuItem key={setting} onClick={handleAccordionToggle}>
                     {/* <Link
