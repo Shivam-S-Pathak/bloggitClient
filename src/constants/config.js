@@ -1,7 +1,9 @@
 // API messages
 
-export const API_URL = "https://bloggit-server.vercel.app";
-// export const API_URL = "http://localhost:9000";
+import { AddComment } from "@mui/icons-material";
+
+// export const API_URL = "https://bloggit-server.vercel.app";
+export const API_URL = "http://localhost:9000";
 export const API_MESSAGES = {
   loading: {
     title: "loading...",
@@ -66,4 +68,15 @@ export const SERVICE_URLS = {
     url: (id) => `/deleteJournal/${id}`,
     method: "DELETE",
   },
+  addComments: {
+    url: `${API_URL}/newComment`,
+    method: "POST",
+    responseType: "json",
+  },
+  getAllComments: {
+    url: (id) => `getComment/${id}`,
+    method: "GET",
+    query: true,
+  },
+  deleteComment: { url: (id) => `deleteComment/${id}`, method: "DELETE" },
 };

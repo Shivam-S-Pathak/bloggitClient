@@ -186,7 +186,7 @@ const EditJournal = () => {
     return <EditSkeleton />;
   }
   return (
-    <Container sx={{ mt: 7, mb: 4, width: "100vw" }}>
+    <Container sx={{ mt: 7, mb: 4,  height:"100vh"}}>
       <Typography
         variant="h3"
         component="h1"

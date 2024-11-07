@@ -12,7 +12,11 @@ import { useTheme } from "@mui/material/styles";
 import { AccessTime, Person } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import { API } from "../../source/api.js";
+
+//components
 import SkeletonBlog from "./skeletonBlog.jsx";
+import Comment from "../comments/Comment.jsx";
+
 const ShowBlogs = () => {
   const theme = useTheme();
   const [post, setPost] = useState({});
@@ -35,8 +39,8 @@ const ShowBlogs = () => {
   }
   return (
     <>
-      <Box sx={{ height: "100vh" }}>
-        <Container maxWidth="md" sx={{ mt: 4, mb: 4, width: "100vw" }}>
+      <Box sx={{ minHeight: "100vh"}}>
+        <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
           <Typography
             variant="h3"
             component="h1"
@@ -127,6 +131,7 @@ const ShowBlogs = () => {
               </Typography>
             </Box>
           </Box>
+          <Comment id={post._id} />
         </Container>
       </Box>
     </>

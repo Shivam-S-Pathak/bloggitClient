@@ -5,14 +5,14 @@
     flex-direction: row;
     justify-content: center;
     align-items: center;
-    gap: 1vmin;
-    font-size: 1vmin;
+    gap: 0.5rem;
+    font-size: 0.7rem;
   }
   .nameHighlight {
     background-color: #000000;
     color: white;
     font-family: "Caveat", cursive;
-    padding: 0.5vmin;
-    font-size: 2vmin;
+    padding: 0.3rem;
+    font-size: 1rem;
   }
   

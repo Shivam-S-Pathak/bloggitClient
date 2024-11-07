@@ -35,6 +35,7 @@ const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
         isAuthenticated={isAuthenticated}
       />
       <Outlet />
+      <Footer />
     </>
   ) : (
     <Navigate replace to="/" />
@@ -202,7 +203,6 @@ function App() {
               <Route path="/updateJournal/:id" element={<EditJournal />} />
             </Route>
           </Routes>
-          <Footer />
         </BrowserRouter>
       </DataProvider>
     </>

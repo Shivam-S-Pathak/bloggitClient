@@ -56,13 +56,13 @@ const Home = () => {
   };
 
   return (
-    <Container maxWidth="lg" >
+    <Container maxWidth="lg">
       <Box
         className={styles.blogContainer}
         sx={{
           display: "flex",
           flexDirection: isMobileView ? "column" : "row",
-         
+        
         }}
       >
         <div className={styles.allBtnContainer}>
@@ -99,7 +99,7 @@ const Home = () => {
               </Button>
             </Link>
           </Box>
-          
+
           {/* <div className={styles.filterContainer}> */}
           <Grid item xs={12} md={3}>
             <Accordion

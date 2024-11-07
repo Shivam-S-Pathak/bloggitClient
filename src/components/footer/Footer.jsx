@@ -12,10 +12,10 @@ const Footer = () => {
         bottom:"0"
       }}
     >
-      <div className={Styles.copyrightNote}>
+      <Box className={Styles.copyrightNote}>
         <span>&copy; All copyright reserved, managed and Developed by</span>
         <p className={Styles.nameHighlight}>Shivam Pathak</p>
-      </div>
+      </Box>
     </Box>
   );
 };

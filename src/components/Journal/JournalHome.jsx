@@ -2,27 +2,9 @@ import React, { useContext, useEffect, useState } from "react";
 import styles from "./JournalHome.module.css";
 import JournalCards from "./JournalCards.jsx";
 import { DataContext } from "../../context/DataProvider.jsx";
-import {
-  Button,
-  Container,
-  Card,
-  CardContent,
-  Typography,
-  Chip,
-  List,
-  ListItem,
-  ListItemText,
-  Checkbox,
-  Box,
-} from "@mui/material";
-import Grid from "@mui/material/Grid2";
+import { Button, Container, Typography, Box } from "@mui/material";
 import { Add as AddIcon } from "@mui/icons-material";
-import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
-import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { Link } from "react-router-dom";
-import { API } from "../../source/api.js";
-
-const categories = ["Technology", "Travel", "Food", "Health", "Entertainment"];
 
 const JournalHome = () => {
   const { account } = useContext(DataContext);
@@ -47,16 +29,8 @@ const JournalHome = () => {
     };
   }, []);
 
-  const handleCategoryToggle = (category) => {
-    setSelectedCategories((prev) =>
-      prev.includes(category)
-        ? prev.filter((c) => c !== category)
-        : [...prev, category]
-    );
-  };
-
   return (
-    <Container maxWidth="lg">
+    <Container>
       <div
         className={styles.postContainer}
         style={{
@@ -98,13 +72,7 @@ const JournalHome = () => {
         </Typography>
         <Box
           className={styles.contentContainer}
-          // width={{
-          //   xs: "25rem",
-          //   sm: "20rem",
-          //   md: "40rem",
-          //   lg: "55rem",
-          //   xl: "55rem",
-          // }}
+       
         >
           <JournalCards selectedCategories={selectedCategories} />
         </Box>

@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import Footer from "../footer/Footer.jsx";
 import LandNav from "../LandNavBar/LandNav.jsx";
 import {
   AppBar,
@@ -68,7 +69,7 @@ const LandPage = () => {
       <LandNav></LandNav>
       <Box>
         {/* Welcome Message */}
-        <Container maxWidth="md" sx={{ textAlign: "center", py: 8 }}>
+        <Container  sx={{ textAlign: "center", py: 8 }}>
           <Typography
             variant="h2"
             component="h1"
@@ -128,10 +129,14 @@ const LandPage = () => {
         <Box sx={{ bgcolor: "background.paper", py: 8 }}>
           <Container maxWidth="lg">
             <Typography
-              
               align="center"
               gutterBottom
-              sx={{ color: "black" , font:"revert" , fontSize:"2.5rem" , fontWeight:"500"}}
+              sx={{
+                color: "black",
+                font: "revert",
+                fontSize: "2.5rem",
+                fontWeight: "500",
+              }}
             >
               Explore Our Topics
             </Typography>
@@ -215,10 +220,14 @@ const LandPage = () => {
         {/* Benefits of Membership Section */}
         <Container sx={{ py: 8 }}>
           <Typography
-            
             align="center"
             gutterBottom
-            sx={{ color: "black" , font:"revert" , fontSize:"2.5rem" , fontWeight:"500"}}
+            sx={{
+              color: "black",
+              font: "revert",
+              fontSize: "2.5rem",
+              fontWeight: "500",
+            }}
           >
             Benefits of Joining
           </Typography>
@@ -265,10 +274,14 @@ const LandPage = () => {
         <Box sx={{ bgcolor: "background.paper", py: 8 }}>
           <Container maxWidth="md">
             <Typography
-              
               align="center"
               gutterBottom
-              sx={{ color: "black" , font:"revert" , fontSize:"2.5rem" , fontWeight:"500"}}
+              sx={{
+                color: "black",
+                font: "revert",
+                fontSize: "2.5rem",
+                fontWeight: "500",
+              }}
             >
               What Our Readers Say
             </Typography>
@@ -277,7 +290,11 @@ const LandPage = () => {
                 <Typography variant="body1">
                   "{testimonials[currentTestimonial].text}"
                 </Typography>
-                <Typography variant="subtitle1" align="right" sx={{margin:"1rem"}}>
+                <Typography
+                  variant="subtitle1"
+                  align="right"
+                  sx={{ margin: "1rem" }}
+                >
                   - {testimonials[currentTestimonial].name}
                 </Typography>
                 <IconButton
@@ -287,9 +304,9 @@ const LandPage = () => {
                     left: 8,
                     top: "50%",
                     transform: "translateY(-50%)",
-                    '&:focus':{
-                      outline:"none"
-                    }
+                    "&:focus": {
+                      outline: "none",
+                    },
                   }}
                 >
                   <ChevronLeft />
@@ -301,8 +318,8 @@ const LandPage = () => {
                     right: 8,
                     top: "50%",
                     transform: "translateY(-50%)",
-                    '&:focus':{
-                      outline:"none"
+                    "&:focus": {
+                      outline: "none",
                     },
                   }}
                 >
@@ -322,7 +339,15 @@ const LandPage = () => {
           }}
         >
           <Container maxWidth="md" sx={{ textAlign: "center" }}>
-            <Typography  gutterBottom sx={{ color: "white" , font:"revert" , fontSize:"3rem" , fontWeight:"500"}}>
+            <Typography
+              gutterBottom
+              sx={{
+                color: "white",
+                font: "revert",
+                fontSize: "3rem",
+                fontWeight: "500",
+              }}
+            >
               Ready to Start Your Journey?
             </Typography>
             <Typography variant="h6" paragraph>
@@ -349,7 +374,16 @@ const LandPage = () => {
         <Container maxWidth="sm" sx={{ py: 8 }}>
           <Card elevation={2}>
             <CardContent sx={{ p: 4 }}>
-              <Typography sx={{ color: "black" , font:"revert" , fontSize:"2rem" , fontWeight:"500"}} align="center" gutterBottom>
+              <Typography
+                sx={{
+                  color: "black",
+                  font: "revert",
+                  fontSize: "2rem",
+                  fontWeight: "500",
+                }}
+                align="center"
+                gutterBottom
+              >
                 Stay Updated with Our Newsletter
               </Typography>
               <Typography variant="body1" align="center" paragraph>
@@ -387,6 +421,7 @@ const LandPage = () => {
           </Card>
         </Container>
       </Box>
+        <Footer />
     </>
   );
 };
