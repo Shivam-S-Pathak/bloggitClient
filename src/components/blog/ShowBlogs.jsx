@@ -39,7 +39,7 @@ const ShowBlogs = () => {
   }
   return (
     <>
-      <Box sx={{ minHeight: "100vh"}}>
+      <Box sx={{ minHeight: "100vh" }}>
         <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
           <Typography
             variant="h3"
@@ -50,6 +50,8 @@ const ShowBlogs = () => {
               margin: "4rem 0 1rem 0",
               fontWeight: "bolder",
               textAlign: "center",
+              wordWrap: "break-word", 
+              overflowWrap: "break-word",
             }}
           >
             {post.title}
@@ -102,6 +104,8 @@ const ShowBlogs = () => {
               lineHeight: 1.8,
               color: "black",
               textAlign: "left",
+              wordWrap: "break-word", 
+              overflowWrap: "break-word",
             }}
           >
             {post.body}

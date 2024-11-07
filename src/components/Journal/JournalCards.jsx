@@ -49,6 +49,7 @@ const JournalCards = ({ selectedCategories }) => {
     let response = await API.deleteJournal(postId);
     if (response.isSuccess) {
       setPost((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+      handleClose();
     } else {
     }
   };
@@ -83,7 +84,8 @@ const JournalCards = ({ selectedCategories }) => {
                       gutterBotto
                       variant="h5"
                       component="div"
-                      sx={{ cursor: "pointer", color: "black" }}
+                      sx={{ cursor: "pointer", color: "black",wordWrap: "break-word",
+                        overflowWrap: "break-word", }}
                     >
                       {post.title}
                     </Typography>

@@ -33,7 +33,7 @@ const Post = ({ selectedCategories }) => {
   }
 
   return (
-    <Box sx={{width:"100%"}}>
+    <Box sx={{ width: "100%" }}>
       {filteredBlogs.length > 0 ? (
         <Grid item xs={12} md={9}>
           <Box>
@@ -60,7 +60,12 @@ const Post = ({ selectedCategories }) => {
                       gutterBottom
                       variant="h5"
                       component="div"
-                      sx={{ cursor: "pointer" , textAlign:"center"}}
+                      sx={{
+                        cursor: "pointer",
+                        textAlign: "center",
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
+                      }}
                     >
                       {post.title}
                     </Typography>
@@ -73,11 +78,16 @@ const Post = ({ selectedCategories }) => {
                       mt={2}
                     >
                       <Box>
-                        <Typography variant="body3" sx={{fontFamily:""}}>
-                        <Chip label={`${"Author : "}${post.editor}`} variant="filled" sx={{margin:"0.5rem"}}/> 
-                        <Chip label={`${new Date(post.date).toDateString()}`} />
+                        <Typography variant="body3" sx={{ fontFamily: "" }}>
+                          <Chip
+                            label={`${"Author : "}${post.editor}`}
+                            variant="filled"
+                            sx={{ margin: "0.5rem" }}
+                          />
+                          <Chip
+                            label={`${new Date(post.date).toDateString()}`}
+                          />
                         </Typography>
-                        
                       </Box>
                       <Chip
                         label={post.Category}

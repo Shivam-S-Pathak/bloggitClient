@@ -68,8 +68,13 @@ const LandNav = () => {
           BloggIT
         </Typography>
         <Link to="/login">
-          <Button sx={{ my: 2, color: "white", display: "block" }}>
+          <Button variant="outlined" sx={{ my: 2, color: "white", display: "block",borderColor:"white", textTransform:"capitalize",mr:1 }}>
             Login
+          </Button>
+        </Link>
+        <Link to="/signup">
+          <Button variant="contained" sx={{ my: 2, color: "rgb(155, 8, 217)", display: "block",borderColor:"white" , bgcolor:"white", ml:1 , textTransform:"capitalize" }}>
+            Sign Up
           </Button>
         </Link>
       </Toolbar>

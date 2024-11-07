@@ -82,7 +82,12 @@ const MyPost = ({ selectedCategories }) => {
                       gutterBotto
                       variant="h5"
                       component="div"
-                      sx={{ cursor: "pointer", color: "black" }}
+                      sx={{
+                        cursor: "pointer",
+                        color: "black",
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
+                      }}
                     >
                       {post.title}
                     </Typography>

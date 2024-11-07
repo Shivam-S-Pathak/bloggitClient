@@ -141,7 +141,7 @@ const CreateJournal = () => {
     }
   };
   return (
-    <Container sx={{ mt: 4, mb: 4, height: "100vh" }}>
+    <Container sx={{ mt: 4, mb: 4, minHeighteight: "100vh" }}>
       <Typography
         variant="h3"
         component="h1"

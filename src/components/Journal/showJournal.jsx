@@ -35,8 +35,8 @@ const ShowJournals = () => {
   }
   return (
     <>
-      <Box sx={{ height: "100vh" }}>
-        <Container maxWidth="md" sx={{ mt: 4, mb: 4, width: "100vw" }}>
+      <Box sx={{ minHeight: "100vh" }}>
+        <Container maxWidth="md" sx={{ mt: 4, mb: 4 }}>
           <Typography
             variant="h3"
             component="h1"
@@ -46,6 +46,8 @@ const ShowJournals = () => {
               margin: "4rem 0 1rem 0",
               fontWeight: "bolder",
               textAlign: "center",
+              wordWrap: "break-word", 
+              overflowWrap: "break-word",
             }}
           >
             {post.title}
@@ -69,7 +71,7 @@ const ShowJournals = () => {
               })}
               variant="outlined"
             />
-            
+
             <Chip
               label={post.mood}
               sx={{ bgcolor: "rgb(155, 8, 217)", color: "white" }}
@@ -80,7 +82,6 @@ const ShowJournals = () => {
             />
           </Box>
 
-
           <Divider sx={{ mb: 3 }} />
 
           <Typography
@@ -90,6 +91,9 @@ const ShowJournals = () => {
               lineHeight: 1.8,
               color: "black",
               textAlign: "left",
+
+              wordWrap: "break-word", 
+              overflowWrap: "break-word",
             }}
           >
             {post.body}
