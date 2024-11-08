@@ -2,8 +2,8 @@
 
 import { AddComment } from "@mui/icons-material";
 
-export const API_URL = "https://bloggit-server.vercel.app";
-// export const API_URL = "http://localhost:9000";
+// export const API_URL = "https://bloggit-server.vercel.app"; 
+export const API_URL = "http://localhost:9000";
 export const API_MESSAGES = {
   loading: {
     title: "loading...",
