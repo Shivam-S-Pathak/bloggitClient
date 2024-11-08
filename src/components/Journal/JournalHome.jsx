@@ -30,7 +30,7 @@ const JournalHome = () => {
   }, []);
 
   return (
-    <Container>
+    <Container minHeight="100vh">
       <div
         className={styles.postContainer}
         style={{
@@ -74,6 +74,7 @@ const JournalHome = () => {
           className={styles.contentContainer}
        
         >
+          <Typography sx={{color:"red" , mb:2 , textAlign:"left"}}>*Note: All journals which you create are only visible to you</Typography>
           <JournalCards selectedCategories={selectedCategories} />
         </Box>
       </div>

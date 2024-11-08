@@ -132,7 +132,7 @@ const EditBlog = () => {
     return <EditSkeleton />;
   }
   return (
-    <Container sx={{ mt: 7, mb: 4, height:"100%"}}>
+    <Container sx={{ mt: 7, mb: 4, minHeight: "100vh" }}>
       <Typography
         variant="h3"
         component="h1"

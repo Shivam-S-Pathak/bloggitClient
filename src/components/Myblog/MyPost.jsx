@@ -48,6 +48,7 @@ const MyPost = ({ selectedCategories }) => {
     let response = await API.deleteBlog(postId);
     if (response.isSuccess) {
       setPost((prevPosts) => prevPosts.filter((post) => post._id !== postId));
+      handleClose();
     } else {
     }
   };

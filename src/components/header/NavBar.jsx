@@ -86,7 +86,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
       position="sticky"
       sx={{
         backgroundColor: "rgb(155, 8, 217)",
-        top: showNav ? 0 : "-80px",
+        top: showNav ? 0 : "-250px",
         transition: "top 0.3s ease",
         zIndex: "1000",
       }}

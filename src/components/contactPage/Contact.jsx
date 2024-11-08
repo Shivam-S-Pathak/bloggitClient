@@ -90,7 +90,7 @@ export default function Contact() {
   };
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 8, mb: 8 }}>
+    <Container maxWidth="lg" sx={{ mt: 8, mb: 8 , minHeight:"100vh"}}>
       <Fade in={true} timeout={1000}>
         <Box textAlign="center" mb={6}>
           <Typography

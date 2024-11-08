@@ -40,7 +40,7 @@ const About = () => {
     <>
       <Container
         maxWidth="lg"
-        sx={{ mt: 4, mb: 4, color: "black", mt: "3rem" }}
+        sx={{ mt: 4, mb: 4, color: "black" , minHeight:"100vh" }}
       >
         <Box textAlign="center" mb={6}>
           <Typography
