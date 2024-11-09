@@ -88,6 +88,7 @@ const MyPost = ({ selectedCategories }) => {
                         color: "black",
                         wordWrap: "break-word",
                         overflowWrap: "break-word",
+                        fontWeight: "600",
                       }}
                     >
                       {post.title}

@@ -197,7 +197,7 @@ const CreateJournal = () => {
 
         <TextField
           fullWidth
-          label="So how are doing..."
+          label="So how are you doing..."
           variant="outlined"
           multiline
           minRows={15}

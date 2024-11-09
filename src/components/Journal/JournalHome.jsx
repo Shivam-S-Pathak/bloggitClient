@@ -74,7 +74,7 @@ const JournalHome = () => {
           className={styles.contentContainer}
        
         >
-          <Typography sx={{color:"red" , mb:2 , textAlign:"left"}}>*Note: All journals which you create are only visible to you</Typography>
+          <Typography sx={{color:"#00916E" , mb:2 , textAlign:"left"}}>*Note: All journals which you create are only visible to you</Typography>
           <JournalCards selectedCategories={selectedCategories} />
         </Box>
       </div>

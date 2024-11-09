@@ -84,8 +84,13 @@ const JournalCards = ({ selectedCategories }) => {
                       gutterBotto
                       variant="h5"
                       component="div"
-                      sx={{ cursor: "pointer", color: "black",wordWrap: "break-word",
-                        overflowWrap: "break-word", }}
+                      sx={{
+                        cursor: "pointer",
+                        color: "black",
+                        wordWrap: "break-word",
+                        overflowWrap: "break-word",
+                        fontWeight: "600",
+                      }}
                     >
                       {post.title}
                     </Typography>
@@ -137,15 +142,15 @@ const JournalCards = ({ selectedCategories }) => {
                       left: "50%",
                       transform: "translate(-50%, -50%)",
                       width: 400,
-                      height:110,
+                      height: 110,
                       bgcolor: "rgb(155, 8, 217)",
                       boxShadow: 24,
                       p: 4,
-                      display:"flex",
-                      justifyContent:"center",
-                      alignItems:"center",
-                      flexDirection:"column",
-                      gap:6
+                      display: "flex",
+                      justifyContent: "center",
+                      alignItems: "center",
+                      flexDirection: "column",
+                      gap: 6,
                     }}
                   >
                     <Typography
@@ -156,7 +161,14 @@ const JournalCards = ({ selectedCategories }) => {
                     >
                       Do you want to delete this journal?
                     </Typography>
-                    <Box sx={{display:"flex" , flexDirection:"row" , gap:6, justifyContent:"center"}}>
+                    <Box
+                      sx={{
+                        display: "flex",
+                        flexDirection: "row",
+                        gap: 6,
+                        justifyContent: "center",
+                      }}
+                    >
                       <Button
                         variant="contained"
                         color="error"

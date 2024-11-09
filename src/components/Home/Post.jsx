@@ -33,7 +33,7 @@ const Post = ({ selectedCategories }) => {
   }
 
   return (
-    <Box sx={{ width: "100%" }}>
+    <Box sx={{ width: "100%"  }}>
       {filteredBlogs.length > 0 ? (
         <Grid item xs={12} md={9}>
           <Box>
@@ -41,11 +41,12 @@ const Post = ({ selectedCategories }) => {
               <Link to={`details/${post._id}`} key={post._id}>
                 <Card
                   sx={{
-                    mb: 5,
+                    mb: 2,
                     borderRadius: "1rem",
-                    bgcolor: "#FEFDFF",
+                    // bgcolor: "#FEFDFF",
                     boxShadow: "0px 2px 5px 0px #415A77",
-
+                    border:"none",
+                     outline:"none",
                     transition:
                       "transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out",
                     "&:hover": {
@@ -65,6 +66,7 @@ const Post = ({ selectedCategories }) => {
                         textAlign: "center",
                         wordWrap: "break-word",
                         overflowWrap: "break-word",
+                        fontWeight: "600",
                       }}
                     >
                       {post.title}

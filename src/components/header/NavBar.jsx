@@ -271,8 +271,9 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
             sx={{
               flexGrow: 1,
               position: "relative",
-              margin: "0.5rem 0 0.5rem 0",
-              maxWidth: "200px",
+            //  bgcolor:"blue",
+             padding:"0.8rem 0 0.8rem 0",
+              // maxWidth: "200px",
               transition: "all 0.3s ease-in-out",
               "&:hover": {
                 borderRadius: "0",
@@ -300,7 +301,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 id="panel1a-header"
                 sx={{ margin: -1, padding: "0 30px 0 30px" }}
               >
-                <Typography variant="h6" sx={{ margin: "0", color: "white" }}>
+                <Typography variant="h6" sx={{color: "white" }}>
                   {account.username}
                 </Typography>
               </AccordionSummary>
