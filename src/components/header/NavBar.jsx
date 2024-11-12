@@ -25,15 +25,18 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
 
   useEffect(() => {
+    console.log("Setting up scroll event listener"); // This should print once when the component mounts
+
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
+      console.log("Scroll detected:", currentScrollPos, prevScrollPos); // This should print on every scroll
       setShowNav(prevScrollPos > currentScrollPos || currentScrollPos < 10);
       setPrevScrollPos(currentScrollPos);
     };
 
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
-  }, [prevScrollPos]);
+  }, [prevScrollPos, showNav]);
 
   const { account, setAccount } = useContext(DataContext);
   const [anchorElNav, setAnchorElNav] = useState(null);
@@ -272,8 +275,8 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
             sx={{
               flexGrow: 1,
               position: "relative",
-            //  bgcolor:"blue",
-             padding:"0.8rem 0 0.8rem 0",
+              //  bgcolor:"blue",
+              padding: "0.8rem 0 0.8rem 0",
               // maxWidth: "200px",
               transition: "all 0.3s ease-in-out",
               "&:hover": {
@@ -302,7 +305,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 id="panel1a-header"
                 sx={{ margin: -1, padding: "0 30px 0 30px" }}
               >
-                <Typography variant="h6" sx={{color: "white" }}>
+                <Typography variant="h6" sx={{ color: "white" }}>
                   {account.username}
                 </Typography>
               </AccordionSummary>
