@@ -46,6 +46,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const handleLogout = () => {
     localStorage.clear();
     sessionStorage.clear();
+    setIsAuthenticated(false);
     navigate("/");
   };
 

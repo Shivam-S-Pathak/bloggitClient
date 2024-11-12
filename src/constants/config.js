@@ -1,7 +1,5 @@
 // API messages
 
-import { AddComment } from "@mui/icons-material";
-
 export const API_URL = "https://bloggit-server.vercel.app";
 // export const API_URL = "http://localhost:9000";
 export const API_MESSAGES = {
@@ -79,4 +77,8 @@ export const SERVICE_URLS = {
     query: true,
   },
   deleteComment: { url: (id) => `deleteComment/${id}`, method: "DELETE" },
+  toggleLike: {
+    url: (postId, userId, like) => `toggleLike`,
+    method: "POST",
+  },
 };

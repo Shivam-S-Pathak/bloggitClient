@@ -26,7 +26,7 @@ const initialComments = {
   date: new Date(),
 };
 
-const Comment = ({ id }) => {
+const Comment = ({ id , setIsCommentOpen , isCommentOpen }) => {
   const [comments, setComments] = useState(initialComments);
   const [newComment, setNewComment] = useState([]);
   const [toggleState, setToggleState] = useState(false);
@@ -66,7 +66,7 @@ const Comment = ({ id }) => {
   };
   return (
     <>
-      <Box sx={{ mt: 6, mb: 4 ,borderRadius: 2, border: "1px solid lightgrey" , p:3}}>
+      <Box sx={{ mt: 6, mb: 4 ,borderRadius: 2, border: "1px solid lightgrey" , p:3 , display:isCommentOpen?"block":"none"}}>
         <Typography
           variant="h5"
           gutterBottom

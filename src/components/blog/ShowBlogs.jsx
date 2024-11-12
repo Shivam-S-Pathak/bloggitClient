@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Container,
   Typography,
@@ -7,33 +7,69 @@ import {
   Avatar,
   Divider,
   useMediaQuery,
+  Button,
 } from "@mui/material";
 import { useTheme } from "@mui/material/styles";
 import { AccessTime, Person } from "@mui/icons-material";
 import { useParams } from "react-router-dom";
 import { API } from "../../source/api.js";
+import { DataContext } from "../../context/DataProvider.jsx";
 
 //components
 import SkeletonBlog from "./skeletonBlog.jsx";
 import Comment from "../comments/Comment.jsx";
+import CommentIcon from "@mui/icons-material/Comment";
+import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const ShowBlogs = () => {
   const theme = useTheme();
   const [post, setPost] = useState({});
   const [loading, setLoading] = useState(true);
+  const [isCommentOpen, setIsCommentOpen] = useState(false);
+
+  const { account } = useContext(DataContext);
+  const [isLike, setIsLike] = useState(false);
+  const [likeCount, setLikeCount] = useState(0);
   const { id } = useParams();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
+
   useEffect(() => {
     const fetchData = async () => {
       let response = await API.getPostById({ id });
       if (response.isSuccess) {
         setPost(response.data);
+        // setIsLike(response.data.isLiked);
+        // setLikeCount(response.data.likeCount);
       }
 
       setLoading(false);
     };
     fetchData();
   }, [id]);
+
+  const handleLike = async () => {
+    const newLikeStatus = !isLike;
+    setIsLike(newLikeStatus);
+    setLikeCount((prevCount) => prevCount + (newLikeStatus ? 1 : -1));
+
+    const response = await API.toggleLike({
+      postId: id,
+      like: newLikeStatus,
+      userId: account.username,
+    });
+
+    if (!response.isSuccess) {
+      setIsLike(isLike);
+      setLikeCount((prevCount) => prevCount - (newLikeStatus ? 1 : -1));
+      alert("Failed to update like status. Please try again.");
+    }
+  };
+
+  const handleCommentClick = () => {
+    setIsCommentOpen(!isCommentOpen);
+  };
+
   if (loading) {
     return <SkeletonBlog />;
   }
@@ -50,7 +86,7 @@ const ShowBlogs = () => {
               margin: "4rem 0 1rem 0",
               fontWeight: "bolder",
               textAlign: "center",
-              wordWrap: "break-word", 
+              wordWrap: "break-word",
               overflowWrap: "break-word",
             }}
           >
@@ -104,7 +140,7 @@ const ShowBlogs = () => {
               lineHeight: 1.8,
               color: "black",
               textAlign: "left",
-              wordWrap: "break-word", 
+              wordWrap: "break-word",
               overflowWrap: "break-word",
             }}
           >
@@ -123,9 +159,11 @@ const ShowBlogs = () => {
             }}
           >
             <Avatar>{post.editor?.charAt(0).toUpperCase()}</Avatar>
+            <Box sx={{ width: "100%" }}>
+              <Typography variant="subtitle1" textAlign="left">
+                {post.editor}{" "}
+              </Typography>
 
-            <Box>
-              <Typography variant="subtitle1">{post.editor}</Typography>
               <Typography
                 variant="body2"
                 color="text.secondary"
@@ -134,8 +172,71 @@ const ShowBlogs = () => {
                 Author
               </Typography>
             </Box>
+            <Box
+              sx={{
+                color: "black",
+                display: "flex",
+                justifyContent: "flex-end",
+
+                width: "100%",
+              }}
+            >
+              <Box
+                sx={{
+                  display: "flex",
+                  mr: 5,
+                  fontWeight: 400,
+                  color: "black",
+                  cursor: "pointer",
+                }}
+                onClick={handleCommentClick}
+              >
+                <CommentIcon
+                  sx={{
+                    color: "rgb(155, 8, 217)",
+                    fontSize: "2rem",
+                    mr: 1,
+                  }}
+                />
+                comments
+              </Box>
+              <Box
+                sx={{
+                  display: "flex",
+                  mr: 5,
+                  fontWeight: 400,
+                  color: "black",
+                  cursor: "pointer",
+                }}
+                onClick={handleLike}
+              >
+                {isLike ? (
+                  <FavoriteIcon
+                    sx={{
+                      color: "red",
+                      fontSize: "2rem",
+                      mr: 1,
+                    }}
+                  />
+                ) : (
+                  <FavoriteBorderIcon
+                    sx={{
+                      color: "red",
+                      fontSize: "2rem",
+                      mr: 1,
+                    }}
+                  />
+                )}
+                Likes
+              </Box>
+            </Box>
           </Box>
-          <Comment id={post._id} />
+
+          <Comment
+            id={post._id}
+            isCommentOpen={isCommentOpen}
+            setIsCommentOpen={setIsCommentOpen}
+          />
         </Container>
       </Box>
     </>
