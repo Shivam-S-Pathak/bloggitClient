@@ -29,8 +29,9 @@ const ShowBlogs = () => {
   const [isCommentOpen, setIsCommentOpen] = useState(false);
 
   const { account } = useContext(DataContext);
-  const [isLike, setIsLike] = useState(false);
+  const [isLiked, setIsLiked] = useState(false);
   const [likeCount, setLikeCount] = useState(0);
+  const [commentCount, setCommentCount] = useState(0);
   const { id } = useParams();
   const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
@@ -39,37 +40,30 @@ const ShowBlogs = () => {
       let response = await API.getPostById({ id });
       if (response.isSuccess) {
         setPost(response.data);
-        // setIsLike(response.data.isLiked);
-        // setLikeCount(response.data.likeCount);
+        const likedUsers = response.data.likedBy;
+
+        setIsLiked(likedUsers.includes(account.username));
+        setLikeCount(likedUsers.length);
       }
 
       setLoading(false);
     };
     fetchData();
-  }, [id]);
+  }, [id, account.username]);
 
   const handleLike = async () => {
-    const newLikeStatus = !isLike;
-    setIsLike(newLikeStatus);
-    setLikeCount((prevCount) => prevCount + (newLikeStatus ? 1 : -1));
-
-    const response = await API.toggleLike({
-      postId: id,
-      like: newLikeStatus,
-      userId: account.username,
-    });
-
-    if (!response.isSuccess) {
-      setIsLike(isLike);
-      setLikeCount((prevCount) => prevCount - (newLikeStatus ? 1 : -1));
-      alert("Failed to update like status. Please try again.");
+    setIsLiked(!isLiked);
+    setLikeCount((prevCount) => prevCount + (isLiked ? -1 : 1));
+    if (isLiked) {
+      await API.unlikePost({ id, username: account.username });
+    } else {
+      await API.likePost({ id, username: account.username });
     }
   };
 
   const handleCommentClick = () => {
     setIsCommentOpen(!isCommentOpen);
   };
-
   if (loading) {
     return <SkeletonBlog />;
   }
@@ -198,7 +192,7 @@ const ShowBlogs = () => {
                     mr: 1,
                   }}
                 />
-                comments
+                {commentCount}
               </Box>
               <Box
                 sx={{
@@ -210,7 +204,7 @@ const ShowBlogs = () => {
                 }}
                 onClick={handleLike}
               >
-                {isLike ? (
+                {isLiked ? (
                   <FavoriteIcon
                     sx={{
                       color: "red",
@@ -227,7 +221,7 @@ const ShowBlogs = () => {
                     }}
                   />
                 )}
-                Likes
+                {likeCount}
               </Box>
             </Box>
           </Box>
@@ -236,6 +230,7 @@ const ShowBlogs = () => {
             id={post._id}
             isCommentOpen={isCommentOpen}
             setIsCommentOpen={setIsCommentOpen}
+            setCommentCount={setCommentCount}
           />
         </Container>
       </Box>

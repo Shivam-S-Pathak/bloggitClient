@@ -25,11 +25,9 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
 
   useEffect(() => {
-    console.log("Setting up scroll event listener"); // This should print once when the component mounts
-
     const handleScroll = () => {
       const currentScrollPos = window.scrollY;
-      console.log("Scroll detected:", currentScrollPos, prevScrollPos); // This should print on every scroll
+
       setShowNav(prevScrollPos > currentScrollPos || currentScrollPos < 10);
       setPrevScrollPos(currentScrollPos);
     };

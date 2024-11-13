@@ -26,7 +26,7 @@ const initialComments = {
   date: new Date(),
 };
 
-const Comment = ({ id , setIsCommentOpen , isCommentOpen }) => {
+const Comment = ({ id, setIsCommentOpen, isCommentOpen, setCommentCount }) => {
   const [comments, setComments] = useState(initialComments);
   const [newComment, setNewComment] = useState([]);
   const [toggleState, setToggleState] = useState(false);
@@ -38,6 +38,7 @@ const Comment = ({ id , setIsCommentOpen , isCommentOpen }) => {
         let response = await API.getAllComments({ id });
         if (response.isSuccess) {
           setNewComment(response.data);
+          setCommentCount(response.data.length);
         }
       } catch (error) {
         console.log(error);
@@ -66,7 +67,16 @@ const Comment = ({ id , setIsCommentOpen , isCommentOpen }) => {
   };
   return (
     <>
-      <Box sx={{ mt: 6, mb: 4 ,borderRadius: 2, border: "1px solid lightgrey" , p:3 , display:isCommentOpen?"block":"none"}}>
+      <Box
+        sx={{
+          mt: 6,
+          mb: 4,
+          borderRadius: 2,
+          border: "1px solid lightgrey",
+          p: 3,
+          display: isCommentOpen ? "block" : "none",
+        }}
+      >
         <Typography
           variant="h5"
           gutterBottom
@@ -118,7 +128,11 @@ const Comment = ({ id , setIsCommentOpen , isCommentOpen }) => {
             </Box>
           </Box>
         </form>
-        <CommentCards newComment={newComment} setToggleState={setToggleState}  toggleState={toggleState}   />
+        <CommentCards
+          newComment={newComment}
+          setToggleState={setToggleState}
+          toggleState={toggleState}
+        />
       </Box>
     </>
   );

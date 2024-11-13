@@ -77,8 +77,6 @@ export const SERVICE_URLS = {
     query: true,
   },
   deleteComment: { url: (id) => `deleteComment/${id}`, method: "DELETE" },
-  toggleLike: {
-    url: (postId, userId, like) => `toggleLike`,
-    method: "POST",
-  },
+  likePost: { url: (id) => `like/${id}`, method: "PUT" },
+  unlikePost: { url: (id) => `unlike/${id}`, method: "PUT" },
 };
