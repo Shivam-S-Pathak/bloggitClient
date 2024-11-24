@@ -88,13 +88,14 @@ const LandPage = () => {
                 variant="contained"
                 size="large"
                 sx={{
-                  mr: 2,
+                  m:1,
                   backgroundColor: "rgb(155, 8, 217)",
                   textTransform: "capitalize",
                   fontFamily: "revert",
                   "&:hover": {
                     transform: "scale(1.05)",
                     color: "white",
+                    
                     transition: "all 0.1s ease-in-out",
                   },
                 }}
@@ -109,6 +110,7 @@ const LandPage = () => {
                 sx={{
                   color: "rgb(155, 8, 217)",
                   borderColor: "rgb(155, 8, 217)",
+                  m:1,
                   textTransform: "capitalize",
                   fontFamily: "revert",
                   "&:hover": {

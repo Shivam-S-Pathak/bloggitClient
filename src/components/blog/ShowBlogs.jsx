@@ -18,7 +18,7 @@ import { DataContext } from "../../context/DataProvider.jsx";
 //components
 import SkeletonBlog from "./skeletonBlog.jsx";
 import Comment from "../comments/Comment.jsx";
-import CommentIcon from "@mui/icons-material/Comment";
+import InsertCommentOutlinedIcon from "@mui/icons-material/InsertCommentOutlined";
 import FavoriteBorderIcon from "@mui/icons-material/FavoriteBorder";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 
@@ -185,7 +185,7 @@ const ShowBlogs = () => {
                 }}
                 onClick={handleCommentClick}
               >
-                <CommentIcon
+                <InsertCommentOutlinedIcon
                   sx={{
                     color: "rgb(155, 8, 217)",
                     fontSize: "2rem",
@@ -217,6 +217,7 @@ const ShowBlogs = () => {
                     sx={{
                       color: "red",
                       fontSize: "2rem",
+
                       mr: 1,
                     }}
                   />

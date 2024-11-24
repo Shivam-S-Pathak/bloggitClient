@@ -52,7 +52,7 @@ const LandNav = () => {
         </IconButton>
 
         <Typography
-          variant="h5"
+          // variant="h5"
           component="div"
           sx={{
             flexGrow: 1,
@@ -62,21 +62,14 @@ const LandNav = () => {
             display: "flex",
             alignItems: "center",
             justifyContent: "center",
+            fontSize: "inherit",
           }}
         >
-          <RateReviewIcon sx={{ fontSize: "2rem", padding: "0 0.5rem 0 0" }} />
+          <RateReviewIcon
+            sx={{ fontSize: "inherit", padding: "0 0.5rem 0 0" }}
+          />
           BloggIT
         </Typography>
-        <Link to="/login">
-          <Button variant="outlined" sx={{ my: 2, color: "white", display: "block",borderColor:"white", textTransform:"capitalize",mr:1 }}>
-            Login
-          </Button>
-        </Link>
-        <Link to="/signup">
-          <Button variant="contained" sx={{ my: 2, color: "rgb(155, 8, 217)", display: "block",borderColor:"white" , bgcolor:"white", ml:1 , textTransform:"capitalize" }}>
-            Sign Up
-          </Button>
-        </Link>
       </Toolbar>
     </AppBar>
   );
