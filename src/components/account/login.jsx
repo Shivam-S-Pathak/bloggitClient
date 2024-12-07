@@ -181,7 +181,7 @@ const Login = ({ setIsAuthenticated }) => {
               <Typography className={styles.successMsg}>{success}</Typography>
             )}
             <TextField
-              label="Username"
+              label="Email address or Username"
               variant="filled"
               autoComplete="off"
               name="username"
@@ -197,7 +197,6 @@ const Login = ({ setIsAuthenticated }) => {
               name="password"
               onChange={(e) => onValueChange(e)}
               value={login.password}
-              sx={{ mb: "2rem" }}
               InputProps={{
                 endAdornment: (
                   <InputAdornment position="end">
@@ -217,6 +216,18 @@ const Login = ({ setIsAuthenticated }) => {
                 ),
               }}
             />
+            <Link to="/email-verification">
+              <Typography
+                sx={{
+                  color: "rgb(155, 8, 217)",
+                  textAlign: "right",
+                  textDecoration: "underline",
+                }}
+              >
+                Forgot passsword
+              </Typography>
+            </Link>
+
             {loginError && (
               <Typography className={styles.errorMsg}>{loginError}</Typography>
             )}
@@ -256,20 +267,38 @@ const Login = ({ setIsAuthenticated }) => {
               </Button>
             )}
           </form>
-          <Typography className={styles.text} variant="h5" component="h2">
-            OR
-          </Typography>
-          <Link to="/signup">
-            <Button
-              variant="outlined"
+
+          <hr />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 0.5,
+            }}
+          >
+            <Typography
               sx={{
-                borderColor: "rgb(155, 8, 217)",
-                color: "rgb(155, 8, 217)",
+                color: "black",
               }}
             >
-              Don't have an account? Register first
-            </Button>
-          </Link>
+              {" "}
+              Don't have an account yet?
+            </Typography>
+            <Link to="/signup">
+              <Typography
+                sx={{
+                  color: "rgb(155, 8, 217)",
+                  textDecoration: "underline",
+                  display: "flex",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+              >
+                Register first
+              </Typography>
+            </Link>
+          </Box>
         </Box>
       </Box>
     </>

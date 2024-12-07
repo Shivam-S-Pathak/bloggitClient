@@ -11,6 +11,8 @@ import {
 //components
 import Login from "./components/account/login";
 import SignUp from "./components/account/signup.jsx";
+import EmailVerification from "./components/account/EmailVerification.jsx";
+import ChangePassword from "./components/account/ChangePassword.jsx";
 import Home from "./components/Home/Home.jsx";
 import NavBar from "./components/header/NavBar.jsx";
 import LandPage from "./components/landingPage/LandPage.jsx";
@@ -26,6 +28,7 @@ import JournalHome from "./components/Journal/JournalHome.jsx";
 import ShowJournals from "./components/Journal/showJournal.jsx";
 import EditJournal from "./components/Journal/EditJournal.jsx";
 import { useState, useEffect } from "react";
+import { use } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
   return isAuthenticated ? (
@@ -41,10 +44,23 @@ const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
     <Navigate replace to="/" />
   );
 };
+const PrivateRoute2 = ({ otpValidate, setOtpValidate }) => {
+  return otpValidate ? (
+    <>
+      <ChangePassword
+        otpValidate={otpValidate}
+        setOtpValidate={setOtpValidate}
+      />
+    </>
+  ) : (
+    <Navigate replace to="/login" />
+  );
+};
 
 function App() {
   const aT = sessionStorage.getItem("user");
   const [isAuthenticated, setIsAuthenticated] = useState(aT ? true : false);
+  const [otpValidate, setOtpValidate] = useState(false);
 
   return (
     <>
@@ -60,6 +76,26 @@ function App() {
               path="/signup"
               element={<SignUp setIsAuthenticated={setIsAuthenticated} />}
             />
+            <Route
+              path="/email-verification"
+              element={
+                <EmailVerification
+                  setIsAuthenticated={setIsAuthenticated}
+                  setOtpValidate={setOtpValidate}
+                />
+              }
+            />
+            <Route
+              path="/change-pass"
+              element={
+                <PrivateRoute2
+                  otpValidate={otpValidate}
+                  setOtpValidate={setOtpValidate}
+                />
+              }
+            >
+              <Route path="/change-pass" element={<ChangePassword />} />
+            </Route>
             <Route
               path=""
               element={

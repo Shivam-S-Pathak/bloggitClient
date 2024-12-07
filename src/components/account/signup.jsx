@@ -41,6 +41,11 @@ const SignUp = ({ setIsAuthenticated }) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
   };
 
+  const handleSendOtp = async () => {
+    console.log("this is email from the send otp section ", signUp.email);
+    const signUpData = { email: signUp.email };
+    let response = await API.sendOtp(signUpData);
+  };
   const signupSubmitHandler = async (e) => {
     e.preventDefault();
 
@@ -143,8 +148,19 @@ const SignUp = ({ setIsAuthenticated }) => {
               autoComplete="off"
               name="email"
               value={signUp.email}
-              sx={{ mb: "1rem" }}
             />
+            <Box sx={{ width: "100%", textAlign: "right" }}>
+              {/* <Button
+                onClick={handleSendOtp}
+                sx={{
+                  textDecoration: "underline",
+                  cursor: "pointer",
+                  textTransform: "capitalize",
+                }}
+              >
+                Send oTP
+              </Button> */}
+            </Box>
             <TextField
               label="Password"
               variant="filled"
@@ -188,20 +204,34 @@ const SignUp = ({ setIsAuthenticated }) => {
               Create account
             </Button>
           </form>
-          <Typography className={styles.text} variant="h5" component="h2">
-            OR
-          </Typography>
-          <Link to="/login">
-            <Button
-              variant="outlined"
+          <hr />
+          <Box
+            sx={{
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center",
+              gap: 0.5,
+            }}
+          >
+            <Typography
               sx={{
-                color: "rgb(155, 8, 217)",
-                borderColor: "rgb(155, 8, 217)",
+                color: "black",
               }}
             >
-              Already have an account
-            </Button>
-          </Link>
+              {" "}
+              Already have an account?
+            </Typography>
+            <Link to="/login">
+              <Typography
+                sx={{
+                  color: "rgb(155, 8, 217)",
+                  textDecoration: "underline",
+                }}
+              >
+                Login
+              </Typography>
+            </Link>
+          </Box>
         </Box>
       </Box>
     </>

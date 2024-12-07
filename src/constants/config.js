@@ -1,7 +1,7 @@
 // API messages
 
-export const API_URL = "https://bloggit-server.vercel.app";
-// export const API_URL = "http://localhost:9000";
+// export const API_URL = "https://bloggit-server.vercel.app";
+export const API_URL = "http://localhost:9000";
 export const API_MESSAGES = {
   loading: {
     title: "loading...",
@@ -79,4 +79,9 @@ export const SERVICE_URLS = {
   deleteComment: { url: (id) => `deleteComment/${id}`, method: "DELETE" },
   likePost: { url: (id) => `like/${id}`, method: "PUT" },
   unlikePost: { url: (id) => `unlike/${id}`, method: "PUT" },
+
+  sendOtp: { url: (email) => `/send-otp/${email}`, method: "POST" },
+  isEmailvalid: { url: "/validateEmail", method: "POST" },
+  sendMail: { url: "/send-mail", method: "POST" },
+  setNewPass: { url: "/set-pass", method: "POST" },
 };
