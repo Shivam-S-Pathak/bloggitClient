@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Drawer,
   Box,
@@ -8,13 +8,16 @@ import {
   Divider,
 } from "@mui/material";
 import { ChevronRight } from "@mui/icons-material";
-import { DataContext } from "../../context/DataProvider.jsx";
 
-const ProfileDrawer = ({ open, onClose }) => {
-  const { account } = useContext(DataContext);
+const ProfileDrawer = ({ open, onClose, user, email }) => {
   const [isEditing, setIsEditing] = useState(false);
-  const [newUsername, setNewUsername] = useState(account.username);
-  const [newEmail, setNewEmail] = useState(account.email);
+  const [newUsername, setNewUsername] = useState("");
+  const [newEmail, setNewEmail] = useState("");
+
+  useEffect(() => {
+    setNewUsername(user);
+    setNewEmail(email);
+  }, [user, email]);
 
   const handleEditClick = () => {
     setIsEditing(!isEditing);
@@ -38,6 +41,7 @@ const ProfileDrawer = ({ open, onClose }) => {
           overflowY: "auto",
         }}
       >
+        {/* Profile Avatar */}
         <Box
           sx={{
             width: 100,
@@ -52,7 +56,7 @@ const ProfileDrawer = ({ open, onClose }) => {
           }}
         >
           <Typography variant="h4" color="white">
-            {newUsername[0].toUpperCase()}
+            {newUsername.toUpperCase()[0]}
           </Typography>
         </Box>
 
@@ -104,6 +108,46 @@ const ProfileDrawer = ({ open, onClose }) => {
             {newEmail}
           </Typography>
         </Box>
+
+        {/* Blogs, Followers, and Following Section */}
+        {/* <Box
+          sx={{
+            display: "flex",
+            justifyContent: "space-between",
+            alignItems: "center",
+            width: "100%",
+            padding: "10px 0",
+            marginBottom: 3,
+            borderRadius: "4px",
+            backgroundColor: "#f5f5f5",
+            boxShadow: "0px 2px 5px rgba(0, 0, 0, 0.1)", // Subtle shadow for better visibility
+          }}
+        >
+          <Box sx={{ textAlign: "center", flex: 1 }}>
+            <Typography variant="h6" color="primary">
+              {account.blogsCount || 0}
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
+              Blogs
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: "center", flex: 1 }}>
+            <Typography variant="h6" color="primary">
+              {account.followersCount || 0}
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
+              Followers
+            </Typography>
+          </Box>
+          <Box sx={{ textAlign: "center", flex: 1 }}>
+            <Typography variant="h6" color="primary">
+              {account.followingCount || 0}
+            </Typography>
+            <Typography variant="caption" color="textSecondary">
+              Following
+            </Typography>
+          </Box>
+        </Box> */}
 
         <Box
           sx={{

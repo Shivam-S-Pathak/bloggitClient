@@ -61,7 +61,6 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   useEffect(() => {
     if (isAuthenticated) {
       const user = sessionStorage.getItem("user");
-
       if (user) {
         const parsedUser = JSON.parse(user);
 
@@ -386,8 +385,10 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
       <ProfileDrawer
         open={drawerOpen}
         onClose={handleCloseDrawer}
-        account={account}
+        user={account.username}
+        email={account.email}
       />
+
       <NAmodal
         open={isModalOpen}
         handleClose={handleClose}
