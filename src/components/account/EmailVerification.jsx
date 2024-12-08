@@ -162,14 +162,13 @@ const EmailVerification = ({ setOtpValidate }) => {
             <InfoIcon sx={{ color: "white", mr: 0.3 }} />
             {isSuccess}
             <CloseIcon
-              onClick={handleClose}
-              sx={{
-                color: "white",
-                ml: 2,
-                textAlign: "right",
-                cursor: "pointer",
-              }}
-            />
+                  onClick={handleClose}
+                  sx={{
+                    color: "white",
+                    cursor: "pointer",
+                    ml: "auto",
+                  }}
+                />
           </Typography>
         ) : (
           ""
@@ -187,14 +186,13 @@ const EmailVerification = ({ setOtpValidate }) => {
             <InfoIcon sx={{ color: "white", mr: 0.3 }} />
             {isError}
             <CloseIcon
-              onClick={handleClose}
-              sx={{
-                color: "white",
-                ml: 2,
-                textAlign: "right",
-                cursor: "pointer",
-              }}
-            />
+                  onClick={handleClose}
+                  sx={{
+                    color: "white",
+                    cursor: "pointer",
+                    ml: "auto",
+                  }}
+                />
           </Typography>
         ) : (
           ""

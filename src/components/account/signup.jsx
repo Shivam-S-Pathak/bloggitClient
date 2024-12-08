@@ -9,7 +9,8 @@ import styles from "./login.module.css";
 import { useState, useContext } from "react";
 import { API } from "../../source/api.js";
 import React from "react";
-
+import InfoIcon from "@mui/icons-material/Info";
+import CloseIcon from "@mui/icons-material/Close";
 import { DataContext } from "../../context/DataProvider.jsx";
 import { Link, useNavigate } from "react-router-dom";
 import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
@@ -25,14 +26,20 @@ const signUpVals = {
 
 const SignUp = ({ setIsAuthenticated }) => {
   const [signUp, setSignUp] = useState(signUpVals);
-  const [error, setError] = useState("");
   const [loginError, setLoginError] = useState("");
-  const [success, setSuccess] = useState("");
   const [isVisible, setIsVisible] = useState(false);
+  const [isValidate, setIsValidate] = useState(false);
+  const [isOtp, setOtp] = useState("");
+  const [enteredOpt, setEnteredOtp] = useState("");
+  const [isError, setIsError] = useState("");
+  const [isSuccess, setIsSuccess] = useState("");
   const navigate = useNavigate();
 
   const handleTogglePasswordVisibility = () => {
     setIsVisible(!isVisible);
+  };
+  const onOtpChange = (e) => {
+    setEnteredOtp(e.target.value);
   };
 
   const { setAccount } = useContext(DataContext);
@@ -41,39 +48,57 @@ const SignUp = ({ setIsAuthenticated }) => {
     setSignUp({ ...signUp, [e.target.name]: e.target.value });
   };
 
-  const handleSendOtp = async () => {
-    console.log("this is email from the send otp section ", signUp.email);
-    const signUpData = { email: signUp.email };
-    let response = await API.sendOtp(signUpData);
+  const handleClose = () => {
+    setIsSuccess("");
+    setIsError("");
   };
+
+  const handleSendOtp = async () => {
+    const newOtp = Math.floor(1000 + Math.random() * 9000);
+    setOtp(newOtp);
+
+    const formData = new FormData();
+    formData.append("email", signUp.email);
+    formData.append("otp", newOtp);
+
+    let response = await API.sendOtp(formData);
+    if (response.isSuccess) {
+      setIsValidate(true);
+      setIsSuccess("Check your email for otp");
+    }
+  };
+
   const signupSubmitHandler = async (e) => {
     e.preventDefault();
-
-    if (!signUp.username || !signUp.email || !signUp.password) {
-      setError("*All fields are required.");
-      return;
-    }
-
-    setError("");
-    setSuccess("");
-
-    try {
-      let response = await API.signupUser(signUp);
-
-      if (response.isSuccess) {
-        setError("");
-        setSignUp(signUpVals);
-        setSuccess(
-          "*Account created successfully😃😃!!! Get inside your account👇👇"
-        );
-        navigate("/login");
-      } else {
-        setError("*Something went wrong, please try again later.");
-        setSuccess("");
+    if (parseInt(enteredOpt) === isOtp) {
+      if (!signUp.username || !signUp.email || !signUp.password) {
+        setIsError("All fields are required.");
+        return;
       }
-    } catch (err) {
-      setError("*An error occurred during signup. Please try again.");
-      setSuccess("");
+
+      setIsError("");
+      setIsSuccess("");
+
+      try {
+        let response = await API.signupUser(signUp);
+
+        if (response.isSuccess) {
+          setIsError("");
+          setSignUp(signUpVals);
+          setIsSuccess(
+            "Account created successfully😃😃!!! Get inside your account👇👇"
+          );
+          navigate("/login");
+        } else {
+          setIsError("Something went wrong, please try again later.");
+          setIsSuccess("");
+        }
+      } catch (err) {
+        setIsError("An error occurred during signup. Please try again.");
+        setIsSuccess("");
+      }
+    } else {
+      setIsError("Entered OPT is worng");
     }
   };
 
@@ -131,6 +156,56 @@ const SignUp = ({ setIsAuthenticated }) => {
             Create an account to share your stories with the world
           </Typography>
           <form onSubmit={signupSubmitHandler} className={styles.from}>
+            {isError ? (
+              <Typography
+                sx={{
+                  color: "white",
+                  bgcolor: "red",
+                  borderRadius: "0.2rem",
+                  p: 1.5,
+                  display: "flex",
+                }}
+              >
+                <InfoIcon sx={{ color: "white", mr: 0.3 }} />
+                {isError}
+                <CloseIcon
+                  onClick={handleClose}
+                  sx={{
+                    color: "white",
+                    cursor: "pointer",
+                    ml: "auto",
+                  }}
+                />
+              </Typography>
+            ) : (
+              ""
+            )}
+            {isSuccess ? (
+              <Typography
+                sx={{
+                  color: "white",
+                  bgcolor: "green",
+                  borderRadius: "0.2rem",
+                  p: 1.5,
+                  display: "flex",
+                  flexDirection: "row",
+                  alignItems: "center",
+                }}
+              >
+                <InfoIcon sx={{ color: "white", mr: 1 }} />
+                {isSuccess}
+                <CloseIcon
+                  onClick={handleClose}
+                  sx={{
+                    color: "white",
+                    cursor: "pointer",
+                    ml: "auto",
+                  }}
+                />
+              </Typography>
+            ) : (
+              ""
+            )}
             <TextField
               label="Username"
               variant="filled"
@@ -189,20 +264,45 @@ const SignUp = ({ setIsAuthenticated }) => {
                 ),
               }}
             />
-            {error && (
-              <Typography className={styles.errorMsg}>{error}</Typography>
+            {isValidate ? (
+              <>
+                <TextField
+                  label="Enter OTP"
+                  type="text"
+                  variant="filled"
+                  autoComplete="off"
+                  name="otp"
+                  onKeyDown={(e) => {
+                    if (!/[0-9]/.test(e.key) && e.key !== "Backspace") {
+                      e.preventDefault();
+                    }
+                  }}
+                  onChange={(e) => onOtpChange(e)}
+                  value={enteredOpt}
+                />
+                <Button
+                  type="submit"
+                  className={styles.submit}
+                  variant="contained"
+                  sx={{
+                    backgroundColor: "rgb(155, 8, 217)",
+                  }}
+                >
+                  Create account
+                </Button>
+              </>
+            ) : (
+              <Button
+                className={styles.submit}
+                variant="contained"
+                sx={{
+                  backgroundColor: "rgb(155, 8, 217)",
+                }}
+                onClick={handleSendOtp}
+              >
+                Confirm
+              </Button>
             )}
-
-            <Button
-              type="submit"
-              className={styles.submit}
-              variant="contained"
-              sx={{
-                backgroundColor: "rgb(155, 8, 217)",
-              }}
-            >
-              Create account
-            </Button>
           </form>
           <hr />
           <Box

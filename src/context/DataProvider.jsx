@@ -3,7 +3,7 @@ import { createContext, useState } from "react";
 export const DataContext = createContext(null);
 
 const DataProvider = ({ children }) => {
-  const storedUser = JSON.parse(localStorage.getItem("user")) || {
+  const storedUser = JSON.parse(sessionStorage.getItem("user")) || {
     username: "",
     email: "",
   };

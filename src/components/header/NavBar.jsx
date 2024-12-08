@@ -18,8 +18,11 @@ import { Accordion, AccordionSummary, AccordionDetails } from "@mui/material";
 import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import { DataContext } from "../../context/DataProvider.jsx";
 
+import ProfileDrawer from "../account/profile.jsx";
+import NAmodal from "../account/pageNotAvail.jsx";
+
 const pages = ["Home", "About", "Contact"];
-const settings = ["Profile", "Account", "Dashboard"];
+const settings = ["Account", "Dashboard"];
 const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const [showNav, setShowNav] = useState(true);
   const [prevScrollPos, setPrevScrollPos] = useState(window.scrollY);
@@ -40,6 +43,10 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const [anchorElNav, setAnchorElNav] = useState(null);
   const [anchorElUser, setAnchorElUser] = useState(null);
   const [expanded, setExpanded] = useState(false);
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [selectedSetting, setSelectedSetting] = useState("");
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const navigate = useNavigate();
   const handleAccordionToggle = () => {
     setExpanded(!expanded);
@@ -82,6 +89,20 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const handleCloseUserMenu = () => {
     setAnchorElUser(null);
   };
+
+  const handleProfileClick = () => {
+    setDrawerOpen(true);
+  };
+
+  const handleCloseDrawer = () => {
+    setDrawerOpen(false);
+  };
+
+  const handleOpen = (setting) => {
+    setSelectedSetting(setting);
+    setIsModalOpen(true);
+  };
+  const handleClose = () => setIsModalOpen(false);
 
   return (
     <AppBar
@@ -309,35 +330,29 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
               </AccordionSummary>
 
               <AccordionDetails sx={{ bgcolor: "white" }}>
-                {/* <Link to={`/myJournal/${account.username}`}>
-                  <MenuItem
+                <MenuItem
+                  sx={{
+                    color: "black",
+                    borderRadius: "0.5rem",
+                  }}
+                  onClick={handleProfileClick}
+                >
+                  <Typography
                     sx={{
-                      color: "black",
-                      borderRadius: "0.5rem",
+                      textAlign: "center",
+                      display: "flex",
+                      justifyContent: "center",
                     }}
-                    onClick={handleAccordionToggle}
                   >
-                    <Typography
-                      sx={{
-                        textAlign: "center",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
-                    >
-                      My Journals
-                    </Typography>
-                  </MenuItem>
-                </Link> */}
+                    Profile
+                  </Typography>
+                </MenuItem>
+
                 {settings.map((setting) => (
-                  <MenuItem key={setting} onClick={handleAccordionToggle}>
-                    {/* <Link
-                      to={`/${setting.toLowerCase()}`}
-                      style={{ textDecoration: "none" }}
-                    > */}
+                  <MenuItem key={setting} onClick={() => handleOpen(setting)}>
                     <Typography sx={{ textAlign: "center", color: "black" }}>
                       {setting}
                     </Typography>
-                    {/* </Link> */}
                   </MenuItem>
                 ))}
 
@@ -368,6 +383,16 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
           </Box>
         </Toolbar>
       </Container>
+      <ProfileDrawer
+        open={drawerOpen}
+        onClose={handleCloseDrawer}
+        account={account}
+      />
+      <NAmodal
+        open={isModalOpen}
+        handleClose={handleClose}
+        selectedSetting={selectedSetting}
+      />
     </AppBar>
   );
 };
