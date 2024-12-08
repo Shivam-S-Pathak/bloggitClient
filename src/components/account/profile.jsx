@@ -13,7 +13,7 @@ import { DataContext } from "../../context/DataProvider.jsx";
 const ProfileDrawer = ({ open, onClose }) => {
   const { account } = useContext(DataContext);
   const [isEditing, setIsEditing] = useState(false);
-  const [newUsername, setNewUsername] = useState(account.name);
+  const [newUsername, setNewUsername] = useState(account.username);
   const [newEmail, setNewEmail] = useState(account.email);
 
   const handleEditClick = () => {
@@ -69,12 +69,12 @@ const ProfileDrawer = ({ open, onClose }) => {
           <Typography
             sx={{
               fontSize: "1rem",
-              padding: "14px", 
-              border: "1px solid rgba(0, 0, 0, 0.23)", 
+              padding: "14px",
+              border: "1px solid rgba(0, 0, 0, 0.23)",
               borderRadius: "4px",
-              backgroundColor: "#fafafa", 
-              color: "rgba(0, 0, 0, 0.87)", 
-              display: "block", 
+              backgroundColor: "#fafafa",
+              color: "rgba(0, 0, 0, 0.87)",
+              display: "block",
             }}
           >
             {newUsername}
@@ -93,20 +93,18 @@ const ProfileDrawer = ({ open, onClose }) => {
           <Typography
             sx={{
               fontSize: "1rem",
-              padding: "14px", 
-              border: "1px solid rgba(0, 0, 0, 0.23)", 
+              padding: "14px",
+              border: "1px solid rgba(0, 0, 0, 0.23)",
               borderRadius: "4px",
-              backgroundColor: "#fafafa", 
-              color: "rgba(0, 0, 0, 0.87)", 
-              display: "block", 
+              backgroundColor: "#fafafa",
+              color: "rgba(0, 0, 0, 0.87)",
+              display: "block",
             }}
           >
             {newEmail}
           </Typography>
         </Box>
 
-        
-       
         <Box
           sx={{
             position: "absolute",
