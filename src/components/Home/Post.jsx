@@ -11,6 +11,8 @@ import Grid from "@mui/material/Grid";
 import { Link } from "react-router-dom";
 import { API } from "../../source/api.js";
 import PostSkeleton from "./PostSkeleton.jsx";
+import AccessTimeIcon from "@mui/icons-material/AccessTime";
+import FavoriteIcon from "@mui/icons-material/Favorite";
 
 const Post = ({ selectedCategories }) => {
   const [post, setPost] = useState([]);
@@ -58,7 +60,7 @@ const Post = ({ selectedCategories }) => {
                 <Card
                   sx={{
                     display: "flex",
-                    flexDirection: "row",
+                    flexDirection: { xs: "column", sm: "row" }, // Stack vertically on mobile, horizontally on desktop
                     transition: "transform 0.3s ease-in-out",
                     position: "relative",
                     borderBottom: "2px solid #e0e0e0",
@@ -88,6 +90,7 @@ const Post = ({ selectedCategories }) => {
                           width: 28,
                           height: 28,
                           fontSize: "0.8rem",
+                          bgcolor: "rgb(155, 8, 217)",
                           mr: 1,
                         }}
                       >
@@ -96,13 +99,31 @@ const Post = ({ selectedCategories }) => {
                       <Typography
                         variant="body3"
                         sx={{
-                          color: "#999",
+                          // color: "#999",
                           textDecoration: "underline",
                         }}
                       >
                         {post.editor}
                       </Typography>
                     </Box>
+
+                    {/* Image positioned below username and above title on mobile */}
+                    {post.coverImage && (
+                      <Box
+                        component="img"
+                        src={post.coverImage}
+                        alt={post.title}
+                        sx={{
+                          width: "100%", // Image takes full width on mobile
+                          height: "auto", // Adjust height based on aspect ratio
+                          objectFit: "cover",
+                          borderRadius: "8px",
+                          alignSelf: "center",
+                          m: 2,
+                          display: { xs: "block", sm: "none" }, // Hide on desktop
+                        }}
+                      />
+                    )}
 
                     {/* Title */}
                     <Typography
@@ -151,32 +172,39 @@ const Post = ({ selectedCategories }) => {
                     </Typography>
 
                     {/* Bottom Row: Category and Date */}
-
                     <Box
                       sx={{
                         display: "flex",
-                        justifyContent: "space-between",
+
                         alignItems: "center",
                       }}
                     >
-                      <Box>
-                        <Typography variant="caption" sx={{}}>
-                          {"⏲️"}
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <AccessTimeIcon sx={{ fontSize: 14, mr: 0.5 }} />
+                        <Typography variant="caption">
                           {new Date(post.date).toDateString()}
                         </Typography>
+                      </Box>
 
+                      <Box sx={{ display: "flex", alignItems: "center" }}>
+                        <FavoriteIcon
+                          sx={{
+                            fontSize: 14,
+                            color: "#e91e63",
+                            m: "0 0 0 1rem",
+                          }}
+                        />
                         <Typography
                           variant="caption"
-                          sx={{ fontStyle: "italic", m: 3 }}
+                          sx={{ fontStyle: "italic", color: "#e91e63" }}
                         >
-                          {"❤️"}
                           {post.likedBy.length}
                         </Typography>
                       </Box>
                     </Box>
                   </CardContent>
 
-                  {/* Image on the Right, Centered */}
+                  {/* Image on the Right for Desktop */}
                   {post.coverImage && (
                     <Box
                       component="img"
@@ -187,9 +215,9 @@ const Post = ({ selectedCategories }) => {
                         height: "130px",
                         objectFit: "cover",
                         borderRadius: "8px",
-                        // borderBottomRightRadius: "12px",
                         alignSelf: "center",
                         m: 2,
+                        display: { xs: "none", sm: "block" }, // Show on desktop
                       }}
                     />
                   )}
