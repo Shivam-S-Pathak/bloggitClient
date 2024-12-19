@@ -20,6 +20,7 @@ import { DataContext } from "../../context/DataProvider.jsx";
 
 import ProfileDrawer from "../account/profile.jsx";
 import NAmodal from "../account/pageNotAvail.jsx";
+import FeedbackModal from "../feedback/Feedback.jsx";
 
 const pages = ["Home", "About", "Contact"];
 const settings = ["Account", "Dashboard"];
@@ -46,7 +47,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [selectedSetting, setSelectedSetting] = useState("");
   const [isModalOpen, setIsModalOpen] = useState(false);
-
+  const [open, setOpen] = useState(false);
   const navigate = useNavigate();
   const handleAccordionToggle = () => {
     setExpanded(!expanded);
@@ -162,7 +163,16 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                 <Link to={`/${page.toLowerCase()}`} key={page}>
                   <Button
                     onClick={handleCloseNavMenu}
-                    sx={{ my: 2, color: "white", display: "block" }}
+                    sx={{
+                      my: 2,
+                      color: "white",
+
+                      display: "block",
+                      "&:hover": {
+                        bgcolor: "white",
+                        color: "rgb(155, 8, 217)",
+                      },
+                    }}
                   >
                     {page}
                   </Button>
@@ -175,6 +185,10 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                     color: "white",
                     display: "block",
                     textWrap: "nowrap",
+                    "&:hover": {
+                      bgcolor: "white",
+                      color: "rgb(155, 8, 217)",
+                    },
                   }}
                 >
                   My Blogs
@@ -187,11 +201,30 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                     color: "white",
                     display: "block",
                     textWrap: "nowrap",
+                    "&:hover": {
+                      bgcolor: "white",
+                      color: "rgb(155, 8, 217)",
+                    },
                   }}
                 >
                   My Journals
                 </Button>
               </Link>
+              <Button
+                onClick={() => setOpen(true)}
+                sx={{
+                  my: 2,
+                  color: "white",
+                  display: "block",
+                  textWrap: "nowrap",
+                  "&:hover": {
+                    bgcolor: "white",
+                    color: "rgb(155, 8, 217)",
+                  },
+                }}
+              >
+                Feedback
+              </Button>
             </Box>
             <Box
               sx={{
@@ -254,6 +287,21 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
                     My Journals
                   </Button>
                 </Link>
+                <Button
+                  onClick={() => setOpen(true)}
+                  sx={{
+                    my: 2,
+                    color: "black",
+                    display: "block",
+                    textWrap: "nowrap",
+                    "&:hover": {
+                      bgcolor: "white",
+                      color: "rgb(155, 8, 217)",
+                    },
+                  }}
+                >
+                  Feedback
+                </Button>
               </Menu>
             </Box>
             <Box
@@ -394,6 +442,7 @@ const NavBar = ({ setIsAuthenticated, isAuthenticated }) => {
         handleClose={handleClose}
         selectedSetting={selectedSetting}
       />
+      <FeedbackModal open={open} setOpen={setOpen} />
     </AppBar>
   );
 };

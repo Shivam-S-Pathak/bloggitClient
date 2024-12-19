@@ -28,7 +28,6 @@ import JournalHome from "./components/Journal/JournalHome.jsx";
 import ShowJournals from "./components/Journal/showJournal.jsx";
 import EditJournal from "./components/Journal/EditJournal.jsx";
 import { useState, useEffect } from "react";
-import { use } from "react";
 
 const PrivateRoute = ({ isAuthenticated, setIsAuthenticated }) => {
   return isAuthenticated ? (

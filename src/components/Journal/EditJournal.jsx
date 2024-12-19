@@ -163,6 +163,7 @@ const EditJournal = () => {
 
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
+   
     setUpdating(true);
     const updatedPost = {
       mood,
@@ -186,7 +187,7 @@ const EditJournal = () => {
     return <EditSkeleton />;
   }
   return (
-    <Container sx={{ mt: 7, mb: 4,  minHeight:"100vh"}}>
+    <Container sx={{ mt: 7, mb: 4, minHeight: "100vh" }}>
       <Typography
         variant="h3"
         component="h1"

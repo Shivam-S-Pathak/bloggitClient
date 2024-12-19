@@ -22,6 +22,8 @@ import {
 import { API } from "../../source/api.js";
 import { DataContext } from "../../context/DataProvider.jsx";
 import EditSkeleton from "./EditSkeleton.jsx";
+import { API_URL } from "../../constants/config.js";
+import axios from "axios";
 
 const Input = styled("input")({
   display: "none",
@@ -46,7 +48,9 @@ const EditBlog = () => {
   const [title, setTitle] = useState("");
   const [editor, setEditor] = useState("");
   const [body, setBody] = useState("");
-  // const [coverImage, setCoverImage] = useState(null);
+  const [coverImage, setCoverImage] = useState(null);
+  const [displayImage, setdisplayImage] = useState(null);
+
   const [date, setDate] = useState("");
   const [username, setUsername] = useState("");
   const { id } = useParams();
@@ -92,38 +96,61 @@ const EditBlog = () => {
         setTitle(data.title || "");
         setEditor(data.editor || "");
         setBody(data.body || "");
+        setCoverImage(data.coverImage || null);
+        setdisplayImage(data.coverImage || null);
       }
       setLoading(false);
     };
     fetchData();
   }, [id]);
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   setCoverImage(URL.createObjectURL(file));
-  // };
 
-  // const handleRemoveImage = () => {
-  //   setCoverImage(null);
-  // };
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setdisplayImage(URL.createObjectURL(file));
+    setCoverImage(event.target.files[0]);
+    console.log("this is cover image", file);
+  };
+
+  const handleRemoveImage = () => {
+    setCoverImage(null);
+  };
 
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
-    setUpdating(true);
-    const updatedPost = {
-      category,
-      discription,
-      title,
-      body,
-      username,
-      editor,
-    };
 
-    let response = await API.updateBlog({ id, ...updatedPost });
-    if (response.isSuccess) {
+    if (!coverImage) {
+      alert("Cover image is required");
+      return;
+    }
+
+    try {
+      // Create FormData object
+      const formData = new FormData();
+      formData.append("category", category);
+      formData.append("discription", discription);
+      formData.append("title", title);
+      formData.append("body", body);
+      formData.append("username", username);
+      formData.append("editor", editor);
+      formData.append("coverImage", coverImage);
+
+      setUpdating(true);
+
+      const response = await axios.put(`${API_URL}/update/${id}`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
       setUpdating(false);
-      navigate(`/myblogs/${username}`);
-    } else {
-      console.log("here is some problem");
+      if (response.status === 200) {
+        navigate(`/myblogs/${username}`);
+      } else {
+        console.log("Error: Update failed");
+        setUpdating(false);
+      }
+    } catch (error) {
+      console.error(
+        "An error occurred while updating the blog:",
+        error.message
+      );
       setUpdating(false);
     }
   };
@@ -171,10 +198,10 @@ const EditBlog = () => {
           />
         </Box>
 
-        {/* <Box sx={{ position: "relative", mb: 4 }}>
+        <Box sx={{ position: "relative", mb: 4 }}>
           {coverImage ? (
             <>
-              <ImagePreview src={coverImage} alt="Cover" />
+              <ImagePreview src={displayImage} alt="Cover" />
               <IconButton
                 onClick={handleRemoveImage}
                 sx={{
@@ -192,7 +219,7 @@ const EditBlog = () => {
               <Input
                 id="contained-button-file"
                 type="file"
-                onChange={handleImageUpload}
+                onChange={(e) => handleImageUpload(e)}
               />
               <Button
                 variant="outlined"
@@ -209,7 +236,7 @@ const EditBlog = () => {
               </Button>
             </label>
           )}
-        </Box> */}
+        </Box>
         <TextField
           fullWidth
           label="Discription"

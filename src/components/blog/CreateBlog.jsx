@@ -18,7 +18,8 @@ import {
   Close as CloseIcon,
   Category,
 } from "@mui/icons-material";
-import { API } from "../../source/api.js";
+import { API_URL } from "../../constants/config.js";
+import axios from "axios";
 import { DataContext } from "../../context/DataProvider.jsx";
 
 const Input = styled("input")({
@@ -41,9 +42,11 @@ const CreateBlog = () => {
   const [title, setTitle] = useState("");
   const [editor, setEditor] = useState("");
   const [body, setBody] = useState("");
-  // const [coverImage, setCoverImage] = useState(null);
+  const [coverImage, setCoverImage] = useState(null);
+  const [displayImage, setdisplayImage] = useState(null);
   const [date, setDate] = useState("");
   const [username, setUsername] = useState("");
+  const [loading, setLoading] = useState(false);
 
   const navigate = useNavigate();
 
@@ -73,36 +76,47 @@ const CreateBlog = () => {
   const handleEditorChange = (event) => {
     setEditor(event.target.value);
   };
-  // const handleImageUpload = (event) => {
-  //   const file = event.target.files[0];
-  //   setCoverImage(URL.createObjectURL(file));
-  // };
+  const handleImageUpload = (event) => {
+    const file = event.target.files[0];
+    setdisplayImage(URL.createObjectURL(file));
+    setCoverImage(event.target.files[0]);
+    console.log("this is form the createblog", coverImage);
+  };
 
-  // const handleRemoveImage = () => {
-  //   setCoverImage(null);
-  // };
+  const handleRemoveImage = () => {
+    setCoverImage(null);
+  };
 
   const handleSubmit = async (event) => {
     event.preventDefault();
+    if (!coverImage) {
+      alert("Cover image is required");
+      return;
+    }
 
     const formData = new FormData();
     formData.append("category", category);
     formData.append("discription", discription);
     formData.append("title", title);
     formData.append("body", body);
-    // formData.append("coverImage", coverImage[0]);
+    formData.append("coverImage", coverImage);
     formData.append("date", date);
     formData.append("username", username);
     formData.append("editor", editor);
 
     try {
-      let response = await API.createBlog(formData);
-      if (response.isSuccess) {
+      setLoading(true);
+      const response = await axios.post(`${API_URL}/createblog`, formData, {
+        headers: { "Content-Type": "multipart/form-data" },
+      });
+      setLoading(false);
+      if (response.status === 200) {
         navigate(`/myblogs/${account.username}`);
       } else {
-        console.log("here is some problem");
+        alert("there is some problem , please try again later ");
       }
     } catch (error) {
+      setLoading(false);
       console.error("Error in API call:", error);
     }
   };
@@ -127,6 +141,7 @@ const CreateBlog = () => {
               value={category}
               onChange={handleCategoryChange}
               label="Category"
+              required
             >
               {categories.map((cat) => (
                 <MenuItem key={cat} value={cat}>
@@ -142,13 +157,14 @@ const CreateBlog = () => {
             value={title}
             onChange={handleTitleChange}
             sx={{ flexGrow: 1 }}
+            required
           />
         </Box>
 
-        {/* <Box sx={{ position: "relative", mb: 4 }}>
+        <Box sx={{ position: "relative", mb: 4 }}>
           {coverImage ? (
             <>
-              <ImagePreview src={coverImage} alt="Cover" />
+              <ImagePreview src={displayImage} alt="Cover" />
               <IconButton
                 onClick={handleRemoveImage}
                 sx={{
@@ -162,7 +178,8 @@ const CreateBlog = () => {
               </IconButton>
             </>
           ) : (
-            <label htmlFor="contained-button-file">
+            // <label htmlFor="contained-button-file">
+            <Box>
               <Input
                 id="contained-button-file"
                 type="file"
@@ -181,9 +198,10 @@ const CreateBlog = () => {
               >
                 Upload Cover Image
               </Button>
-            </label>
+            </Box>
+            // </label>
           )}
-        </Box> */}
+        </Box>
         <TextField
           fullWidth
           label="Discription"
@@ -191,6 +209,7 @@ const CreateBlog = () => {
           value={discription}
           onChange={handleDiscriptionChange}
           sx={{ flexGrow: 1, mb: 4 }}
+          required
         />
         <TextField
           fullWidth
@@ -199,6 +218,7 @@ const CreateBlog = () => {
           value={editor}
           onChange={handleEditorChange}
           sx={{ flexGrow: 1, mb: 4 }}
+          required
         />
 
         <TextField
@@ -210,6 +230,7 @@ const CreateBlog = () => {
           value={body}
           onChange={handleBodyChange}
           sx={{ mb: 4 }}
+          required
         />
 
         <Box sx={{ display: "flex", justifyContent: "center" }}>
@@ -219,7 +240,7 @@ const CreateBlog = () => {
             size="large"
             sx={{ minWidth: "200px", bgcolor: "rgb(155, 8, 217)" }}
           >
-            Publish Blog Post
+            {loading ? "Publishing..." : "Publish Blog"}
           </Button>
         </Box>
       </form>

@@ -16,6 +16,8 @@ import ArrowBackOutlinedIcon from "@mui/icons-material/ArrowBackOutlined";
 import ClipLoader from "react-spinners/ClipLoader";
 import VisibilityIcon from "@mui/icons-material/Visibility";
 import VisibilityOffIcon from "@mui/icons-material/VisibilityOff";
+import CloseIcon from "@mui/icons-material/Close";
+import InfoIcon from "@mui/icons-material/Info";
 
 const signUpVals = {
   username: "",
@@ -50,7 +52,7 @@ const Login = ({ setIsAuthenticated }) => {
     e.preventDefault();
 
     if (!signUp.username || !signUp.email || !signUp.password) {
-      setError("*All fields are required.");
+      setError("All fields are required.");
       return;
     }
 
@@ -64,15 +66,15 @@ const Login = ({ setIsAuthenticated }) => {
         setError("");
         setSignUp(signUpVals);
         setSuccess(
-          "*Account created successfully😃😃!!! Get inside your account👇👇"
+          "Account created successfully😃😃!!! Get inside your account👇👇"
         );
         setIsClicked(false);
       } else {
-        setError("*Something went wrong, please try again later.");
+        setError("Something went wrong, please try again later.");
         setSuccess("");
       }
     } catch (err) {
-      setError("*An error occurred during signup. Please try again.");
+      setError("An error occurred during signup. Please try again.");
       setSuccess("");
     }
   };
@@ -177,9 +179,56 @@ const Login = ({ setIsAuthenticated }) => {
           </Typography>
 
           <form className={styles.from} onSubmit={loginSubmitHandler}>
-            {success && (
-              <Typography className={styles.successMsg}>{success}</Typography>
+            {loginError ? (
+              <Typography
+                sx={{
+                  color: "white",
+                  bgcolor: "red",
+                  borderRadius: "0.2rem",
+                  p: 1.5,
+                  display: "flex",
+                }}
+              >
+                <InfoIcon sx={{ color: "white", mr: 0.3 }} />
+                {loginError}
+                <CloseIcon
+                  onClick={() => setLoginError("")}
+                  sx={{
+                    color: "white",
+                    cursor: "pointer",
+                    ml: "auto",
+                  }}
+                />
+              </Typography>
+            ) : (
+              ""
             )}
+
+            {success ? (
+              <Typography
+                sx={{
+                  color: "white",
+                  bgcolor: "green",
+                  borderRadius: "0.2rem",
+                  p: 1.5,
+                  display: "flex",
+                }}
+              >
+                <InfoIcon sx={{ color: "white", mr: 0.3 }} />
+                {success}
+                <CloseIcon
+                  onClick={() => setLoginError("")}
+                  sx={{
+                    color: "white",
+                    cursor: "pointer",
+                    ml: "auto",
+                  }}
+                />
+              </Typography>
+            ) : (
+              ""
+            )}
+
             <TextField
               label="Email address or Username"
               variant="filled"
@@ -227,10 +276,6 @@ const Login = ({ setIsAuthenticated }) => {
                 Forgot passsword
               </Typography>
             </Link>
-
-            {loginError && (
-              <Typography className={styles.errorMsg}>{loginError}</Typography>
-            )}
             {loading ? (
               <Button
                 variant="contained"
