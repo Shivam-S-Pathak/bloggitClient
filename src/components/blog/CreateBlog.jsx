@@ -77,6 +77,7 @@ const CreateBlog = () => {
     setEditor(event.target.value);
   };
   const handleImageUpload = (event) => {
+    console.log("this is handle image ");
     const file = event.target.files[0];
     setdisplayImage(URL.createObjectURL(file));
     setCoverImage(event.target.files[0]);
@@ -178,28 +179,28 @@ const CreateBlog = () => {
               </IconButton>
             </>
           ) : (
-            // <label htmlFor="contained-button-file">
-            <Box>
-              <Input
-                id="contained-button-file"
-                type="file"
-                onChange={handleImageUpload}
-              />
-              <Button
-                variant="outlined"
-                component="span"
-                startIcon={<CloudUploadIcon />}
-                sx={{
-                  width: "100%",
-                  borderStyle: "dashed",
-                  borderColor: "rgb(155, 8, 217)",
-                  color: "rgb(155, 8, 217)",
-                }}
-              >
-                Upload Cover Image
-              </Button>
-            </Box>
-            // </label>
+            <label htmlFor="contained-button-file">
+              <Box>
+                <Input
+                  id="contained-button-file"
+                  type="file"
+                  onChange={handleImageUpload}
+                />
+                <Button
+                  variant="outlined"
+                  component="span"
+                  startIcon={<CloudUploadIcon />}
+                  sx={{
+                    width: "100%",
+                    borderStyle: "dashed",
+                    borderColor: "rgb(155, 8, 217)",
+                    color: "rgb(155, 8, 217)",
+                  }}
+                >
+                  Upload Cover Image
+                </Button>
+              </Box>
+            </label>
           )}
         </Box>
         <TextField

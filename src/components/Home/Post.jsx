@@ -60,7 +60,7 @@ const Post = ({ selectedCategories }) => {
                 <Card
                   sx={{
                     display: "flex",
-                    flexDirection: { xs: "column", sm: "row" }, // Stack vertically on mobile, horizontally on desktop
+                    flexDirection: { xs: "column", sm: "row" },
                     transition: "transform 0.3s ease-in-out",
                     position: "relative",
                     borderBottom: "2px solid #e0e0e0",
@@ -107,20 +107,19 @@ const Post = ({ selectedCategories }) => {
                       </Typography>
                     </Box>
 
-                    {/* Image positioned below username and above title on mobile */}
                     {post.coverImage && (
                       <Box
                         component="img"
                         src={post.coverImage}
                         alt={post.title}
                         sx={{
-                          width: "100%", // Image takes full width on mobile
-                          height: "auto", // Adjust height based on aspect ratio
+                          width: "100%",
+                          height: "auto",
                           objectFit: "cover",
                           borderRadius: "8px",
                           alignSelf: "center",
                           m: 2,
-                          display: { xs: "block", sm: "none" }, // Hide on desktop
+                          display: { xs: "block", sm: "none" },
                         }}
                       />
                     )}
@@ -171,7 +170,7 @@ const Post = ({ selectedCategories }) => {
                       {post.discription}
                     </Typography>
 
-                    {/* Bottom Row: Category and Date */}
+                    {/* Category and Date */}
                     <Box
                       sx={{
                         display: "flex",
@@ -204,7 +203,6 @@ const Post = ({ selectedCategories }) => {
                     </Box>
                   </CardContent>
 
-                  {/* Image on the Right for Desktop */}
                   {post.coverImage && (
                     <Box
                       component="img"
@@ -217,7 +215,7 @@ const Post = ({ selectedCategories }) => {
                         borderRadius: "8px",
                         alignSelf: "center",
                         m: 2,
-                        display: { xs: "none", sm: "block" }, // Show on desktop
+                        display: { xs: "none", sm: "block" },
                       }}
                     />
                   )}
