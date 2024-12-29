@@ -77,11 +77,9 @@ const CreateBlog = () => {
     setEditor(event.target.value);
   };
   const handleImageUpload = (event) => {
-    console.log("this is handle image ");
     const file = event.target.files[0];
     setdisplayImage(URL.createObjectURL(file));
     setCoverImage(event.target.files[0]);
-    console.log("this is form the createblog", coverImage);
   };
 
   const handleRemoveImage = () => {
@@ -107,7 +105,7 @@ const CreateBlog = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post(`${API_URL}/createblog`, formData, {
+      const response = await axios.post("/createblog", formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setLoading(false);
@@ -119,6 +117,9 @@ const CreateBlog = () => {
     } catch (error) {
       setLoading(false);
       console.error("Error in API call:", error);
+      alert(
+        "something went wrong in create your blog , please wait or contact with BloggIT team"
+      );
     }
   };
   return (
