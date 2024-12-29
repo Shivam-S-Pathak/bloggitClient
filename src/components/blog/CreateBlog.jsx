@@ -105,7 +105,7 @@ const CreateBlog = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post("/createblog", formData, {
+      const response = await axios.post(`${API_URL}/createblog`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
       });
       setLoading(false);
