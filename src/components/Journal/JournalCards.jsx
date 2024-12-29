@@ -63,6 +63,65 @@ const JournalCards = ({ selectedCategories }) => {
         <Grid container spacing={3}>
           {filteredBlogs.map((post) => (
             <Grid item xs={12} key={post._id}>
+              
+              <Modal
+                open={open}
+                onClose={handleClose}
+                aria-labelledby="modal-modal-title"
+                aria-describedby="modal-modal-description"
+              >
+                <Box
+                  sx={{
+                    position: "absolute",
+                    top: "50%",
+                    left: "50%",
+                    transform: "translate(-50%, -50%)",
+                    width: 400,
+                    height: 110,
+                    bgcolor: "rgb(155, 8, 217)",
+                    boxShadow: 24,
+                    p: 4,
+                    display: "flex",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    flexDirection: "column",
+                    gap: 6,
+                  }}
+                >
+                  <Typography
+                    id="modal-modal-title"
+                    variant="h6"
+                    component="h2"
+                    color="white"
+                  >
+                    Do you want to delete this journal?
+                  </Typography>
+                  <Box
+                    sx={{
+                      display: "flex",
+                      flexDirection: "row",
+                      gap: 6,
+                      justifyContent: "center",
+                    }}
+                  >
+                    <Button
+                      variant="contained"
+                      color="error"
+                      onClick={() => handleDelete(post._id)}
+                    >
+                      Delete
+                    </Button>
+                    <Button
+                      variant="outlined"
+                      onClick={handleClose}
+                      sx={{ color: "white", border: "1px solid white" }}
+                    >
+                      Cancel
+                    </Button>
+                  </Box>
+                </Box>
+              </Modal>
+
               <Link
                 to={`/JournalDetails/${post._id}`}
                 style={{ textDecoration: "none", color: "inherit" }}
@@ -249,65 +308,6 @@ const JournalCards = ({ selectedCategories }) => {
           There is nothing to show for the selected categories.
         </Typography>
       )}
-
-      {/* Modal for Deletion */}
-      <Modal
-        open={open}
-        onClose={handleClose}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
-      >
-        <Box
-          sx={{
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            width: 400,
-            height: 110,
-            bgcolor: "rgb(155, 8, 217)",
-            boxShadow: 24,
-            p: 4,
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            flexDirection: "column",
-            gap: 6,
-          }}
-        >
-          <Typography
-            id="modal-modal-title"
-            variant="h6"
-            component="h2"
-            color="white"
-          >
-            Do you want to delete this journal?
-          </Typography>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "row",
-              gap: 6,
-              justifyContent: "center",
-            }}
-          >
-            <Button
-              variant="contained"
-              color="error"
-              onClick={() => handleDelete(post._id)}
-            >
-              Delete
-            </Button>
-            <Button
-              variant="outlined"
-              onClick={handleClose}
-              sx={{ color: "white", border: "1px solid white" }}
-            >
-              Cancel
-            </Button>
-          </Box>
-        </Box>
-      </Modal>
     </Box>
   );
 };
