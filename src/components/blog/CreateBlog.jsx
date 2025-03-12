@@ -88,11 +88,6 @@ const CreateBlog = () => {
 
   const handleSubmit = async (event) => {
     event.preventDefault();
-    if (!coverImage) {
-      alert("Cover image is required");
-      return;
-    }
-
     const formData = new FormData();
     formData.append("category", category);
     formData.append("discription", discription);
