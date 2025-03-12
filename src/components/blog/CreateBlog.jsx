@@ -93,7 +93,7 @@ const CreateBlog = () => {
     formData.append("discription", discription);
     formData.append("title", title);
     formData.append("body", body);
-    formData.append("coverImage", coverImage);
+    // formData.append("coverImage", coverImage);
     formData.append("date", date);
     formData.append("username", username);
     formData.append("editor", editor);
