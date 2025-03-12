@@ -164,7 +164,7 @@ const CreateBlog = () => {
           />
         </Box>
 
-        <Box sx={{ position: "relative", mb: 4 }}>
+        {/* <Box sx={{ position: "relative", mb: 4 }}>
           {coverImage ? (
             <>
               <ImagePreview src={displayImage} alt="Cover" />
@@ -204,7 +204,7 @@ const CreateBlog = () => {
               </Box>
             </label>
           )}
-        </Box>
+        </Box> */}
         <TextField
           fullWidth
           label="Discription"
