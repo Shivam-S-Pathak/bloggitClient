@@ -111,21 +111,18 @@ const ShowBlogs = () => {
               sx={{ bgcolor: "rgb(155, 8, 217)", color: "white" }}
             />
           </Box>
-          {coverImage ? (
-            <Box
-              component="img"
-              sx={{
-                height: isMobile ? "200px" : "400px",
-                objectFit: "cover",
-                borderRadius: 2,
-                mb: 3,
-              }}
-              src={post.coverImage}
-              alt={post.title}
-            />
-          ) : (
-            " "
-          )}
+
+          <Box
+            component="img"
+            sx={{
+              height: isMobile ? "200px" : "400px",
+              objectFit: "cover",
+              borderRadius: 2,
+              mb: 3,
+            }}
+            src={post.coverImage}
+            alt={post.title}
+          />
 
           <Divider sx={{ mb: 3 }} />
 
