@@ -21,6 +21,7 @@ import {
 import { API_URL } from "../../constants/config.js";
 import axios from "axios";
 import { DataContext } from "../../context/DataProvider.jsx";
+import { API } from "../../source/api.js";
 
 const Input = styled("input")({
   display: "none",
@@ -100,10 +101,7 @@ const CreateBlog = () => {
 
     try {
       setLoading(true);
-      const response = await axios.post(`${API_URL}/createblog`, formData, {
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true,
-      });
+      const response = await createBlog({formData});
       setLoading(false);
       if (response.status === 200) {
         navigate(`/myblogs/${account.username}`);

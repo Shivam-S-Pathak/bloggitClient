@@ -111,18 +111,21 @@ const ShowBlogs = () => {
               sx={{ bgcolor: "rgb(155, 8, 217)", color: "white" }}
             />
           </Box>
-
-          <Box
-            component="img"
-            sx={{
-              height: isMobile ? "200px" : "400px",
-              objectFit: "cover",
-              borderRadius: 2,
-              mb: 3,
-            }}
-            src={post.coverImage}
-            alt={post.title}
-          />
+          {coverImage ? (
+            <Box
+              component="img"
+              sx={{
+                height: isMobile ? "200px" : "400px",
+                objectFit: "cover",
+                borderRadius: 2,
+                mb: 3,
+              }}
+              src={post.coverImage}
+              alt={post.title}
+            />
+          ) : (
+            " "
+          )}
 
           <Divider sx={{ mb: 3 }} />
 
@@ -216,7 +219,7 @@ const ShowBlogs = () => {
                     sx={{
                       color: "red",
                       fontSize: "2rem",
-                    mr: 1,
+                      mr: 1,
                     }}
                   />
                 )}

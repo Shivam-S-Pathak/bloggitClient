@@ -118,10 +118,10 @@ const EditBlog = () => {
   const handleUpdateSubmit = async (event) => {
     event.preventDefault();
 
-    if (!coverImage) {
-      alert("Cover image is required");
-      return;
-    }
+    // if (!coverImage) {
+    //   alert("Cover image is required");
+    //   return;
+    // }
 
     try {
       // Create FormData object
@@ -132,7 +132,7 @@ const EditBlog = () => {
       formData.append("body", body);
       formData.append("username", username);
       formData.append("editor", editor);
-      formData.append("coverImage", coverImage);
+      // formData.append("coverImage", coverImage);
 
       setUpdating(true);
 
@@ -198,7 +198,7 @@ const EditBlog = () => {
           />
         </Box>
 
-        <Box sx={{ position: "relative", mb: 4 }}>
+        {/* <Box sx={{ position: "relative", mb: 4 }}>
           {coverImage ? (
             <>
               <ImagePreview src={displayImage} alt="Cover" />
@@ -236,7 +236,7 @@ const EditBlog = () => {
               </Button>
             </label>
           )}
-        </Box>
+        </Box> */}
         <TextField
           fullWidth
           label="Discription"

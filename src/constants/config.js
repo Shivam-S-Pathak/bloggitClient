@@ -30,11 +30,11 @@ export const API_MESSAGES = {
 export const SERVICE_URLS = {
   loginUser: { method: "POST", url: `${API_URL}/login` },
   signupUser: { method: "POST", url: `${API_URL}/signup` },
-  // createBlog: {
-  //   method: "POST",
-  //   url: `${API_URL}/createblog`,
-  //   responseType: "json",
-  // },
+  createBlog: {
+    method: "POST",
+    url: `${API_URL}/createblog`,
+    responseType: "json",
+  },
   getAllBlogs: { method: "GET", url: "/posts", params: true },
   getPostById: { url: (id) => `${API_URL}/post/${id}`, method: "GET" },
   getMyBlogs: {
